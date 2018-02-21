@@ -1,0 +1,18 @@
+1. Tasks
+Analysis and Design
+The project should contain the following design and analysis for the WHOLE software systems:
+*A Use case diagram showing use cases for all the requirements.
+* A Use case description for each use case.
+* The Class diagram
+-Include all attributes, operations and associations derived from the above analysis.
+* A Sequence diagram for a use case.
+* State machine diagram for a class. Transitions should be consistent with the related sequence
+diagram.
+* Component diagrams.
+* Deployment diagrams.
+* Any design patterns
+* Discussion on Architecture Style and justify the reason according to ATAM (follow step 4 and 5,
+i.e., identify possible architecture styles and choose one with respect to the identified utility tree,
+you need to explain the reason)
+
+

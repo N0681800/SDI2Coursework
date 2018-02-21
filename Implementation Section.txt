@@ -1,0 +1,18 @@
+You are expected to implement the above software system using C++, in particular, you are
+expected to have:
+• at least one of the data structures (e.g. queues/stacks/graphs/trees) proposed in lectures
+(This should be implemented by yourself rather than based on other libraries);
+• at least one of the sorting or searching algorithms studied during the lectures (This should
+be implemented by yourself rather than based on other libraries);
+• at least one place where error and exceptions handling have been used;
+• at least one class where private member functions for common functionality that should not
+be exposed in the public interface;
+• at least a console interface that allows user to interact with the software system;
+• appropriate testing cases and testing library;
+Data needs to be stored permanently in ASCII (text) files on the local hard drive, hence functions
+for loading data from files and for saving data from memory into a file are required. The files could
+be comma separated values (CSV).
+
+Extension
+Concurrent programming where appropriate;
+GUI for the software system;
