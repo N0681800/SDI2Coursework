@@ -1,0 +1,43 @@
+  From a cold start, existing project and material details must be loaded from a file. When the
+  system is shut-down, the data needs to be stored persistently.
+
+  Project and Material Creation function – this must allow the addition of new projects and
+  materials to the database (file) with the following rules:
+	The system must not allow to add new materials to projects that are “unreleased” or “now
+	playing”.
+	
+	Only for those projects being created with a “now playing” status, the system should allow
+	to add a set of weekly box office figures during creation.
+	
+	The system should allow the creation of more than one project with the same name.
+
+
+The new projects and materials do not to be written directly to the file every time you add a
+new one. They can be inserted into a data structure (where you currently handle your existing
+projects/materials) and just make the save to the file during system shut-down.
+
+  Existing Projects and Materials Update/Removal – the system must allow for any changes in
+  the existing projects and materials following the business rules stated previously. The deletion
+  of an existing project should remove all the material information associated with it.
+
+  Catalogue browsing – must allow bi-directional sequential browsing of all projects; shall
+  allow interactive project and materials search with the following rules:
+	A search by project title will allow the user to see main project detail information as well
+	as summarised information of materials (e.g. “is currently available on DVD and VHS”).
+
+	Provide the user with the option to view the materials details when searching by project
+	title. When displaying double-sided DVDs, the view should show details of the contents
+	per side. The same with combo box sets, the view should display details of every DVD
+	in the combo box (single and double-sided DVDs).
+	
+	A search by actor should return all project titles where that actor was part of the cast. The
+	system may allow more flexible search with multiple fields. For example, search only
+	for all the double-sided DVDs available of a specific project title.
+
+  Maintenance Mode – a number of Utility functions which can either be integrated or run as
+  command line applications, to:
+	Add/remove projects and materials to the database.
+
+	Raise daily reports on (may use Logger class)
+		New projects/materials added
+		Projects with certain amount of total box office earnings

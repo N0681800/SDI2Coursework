@@ -1,0 +1,42 @@
+1/03/2018 Completed BE 1. A cover page (showing the full name and student ID of all members)
+
+1/03/2018 Completed BE 2. A table of contents page
+
+3. A general description of the system
+
+4. A description of the followed Software Development Life-Cycle methodology. Make links to
+the state of the art to back your claims/assumptions/choices;
+
+5. Illustrations of Use Case Diagram, Class Diagram, Sequence Diagram (one diagram), State
+Diagram (one diagram), Component Diagram and Deployment Diagram
+
+6. An explanation of any design pattern used
+
+7. An explanation of the planned architecture and the reason of the choices according to ATAM
+(follow step 4 and 5, i.e., identify possible architecture styles and choose one with respect to
+the identified utility tree, you need to explain the reason)
+
+8. An explanation of any C++ library used.
+
+9. An explanation of the internal data structures used and the reason of the choices.
+
+10. An explanation of the search or sorting algorithm used (and concurrent programming, if any)
+and the reason of the choices. Explain how the algorithm will work in the system with detailed
+steps.
+
+11. An explanation about the software testing process and metrics;
+
+12. Discussion about your results (reflection on testing approach, reflection on performance such
+as computational efficiency, reliability, security, portability, maintainability, scalability, etc.
+analysis of system complexity using e.g. big O- notation);
+
+13. A description of the file format(s) used – e.g., ASCII text files, so that they can be read easily
+by other applications.
+
+14. A user manual and instruction of the software. (regardless if your software is based on GUI or
+console interface)
+
+15. Conclusions (reflection on the adopted methods and alternatives, reflection on Professional,
+Social, Ethical, and Legal aspects, reflection on possible improvements).
+
+16. Appendix (summary of group experience and some of the records on group activities)

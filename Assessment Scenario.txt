@@ -1,0 +1,42 @@
+You are a newly recruited analyst programmer, working for a major IT company. This company
+own information about film projects, such as “E.T.” and the “Fast and the Furious” series.
+Now, you are expect to design and implement a new software system for a client called TrekStar
+Pictures. In a meeting with a TrekStar Pictures representative, a number of requirements have
+been discussed and you have identified the following:
+
+Every time the production of a new film begins, a new project is created. This project has all
+the relevant information regarding the production of the film. Each new project has a title,
+summary, genre, release date, list of filming locations, language, runtime, keywords and a
+weekly ticket sale (theatrical weekly box office).
+
+TrekStar pictures launches a project with a series of its materials for retail. These comprise
+single-sided DVDs, double-sided DVDs, combo box sets (containing two or three DVDs), VHS
+(on old projects) and Blu-rays. All of them contain features such as identification number, title
+(could be different from project/film title), format, audio format (Dolby, Dolby digital, MPEG1,
+PCM or DTS), run time, language, retail price, subtitles, frame aspect (wide screen).
+
+However, each of them has different packaging specifications. A single or double DVD will
+have a plastic box packaging, while a combo box set would have a cardboard box. The Blu-ray
+would also have a plastic box as the DVD, but with a different size. A VHS can come in a
+plastic or cardboard package.
+
+DVDs and Blu-ray can have multiple language tracks and subtitles in different languages,
+compared to VHS that can only have one subtitle and one audio track. In addition, DVDs and
+Blu-rays may contain bonus features (additional material such as short films or director
+comments of the production). For double-sided DVDs, it is important to know what contents
+are in one side, and what in the other (chapters, bonus features and languages).
+
+From a second meeting with a TrekStar Pictures representative, it has been clarified that in
+addition to the project details and associated materials of the original brief, the system should
+handle the following information and business rules:
+- Projects that are currently under production are considered “unreleased” projects (these
+wouldn’t have any associated materials). The system should not allow the user to input any
+theatrical weekly box office information nor the addition of materials. Projects related to films
+that are currently showing on cinemas are identified as “now playing”. The system should allow
+the user to input theatrical weekly box office information but should not allow at this point the
+addition of materials. Projects related to films that are no longer at cinemas are identified as
+“released”. Only these type of projects will allow the addition of material information.
+
+- Each project has a crew. This crew consists of all the people involved in the production of the
+film such as the producer, director, writer, cast (set of actors), editor, production designer, set
+decorator and costume designer.
