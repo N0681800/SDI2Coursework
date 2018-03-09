@@ -13,7 +13,7 @@ struct Date
 
 struct Film 
 { 
-	int ID;
+	string ID;
 	string Title; 
 	string Summary;
 	Date ReleaseDate;

@@ -1,1 +1,2 @@
-0001///Black Panther///Black geez//20180216///America///English///137
+0001|Black Panther|Black geez|20180216|USA|English,French,German|137
+0002|Hot Fuzz|As a former London constable, Nicholas Angel (Simon Pegg) finds it difficult to adapt to his new assignment in the sleepy British village of Sandford. Not only does he miss the excitement of the big city, but he also has a well-meaning oaf (Nick Frost) for a partner. However, when a series of grisly accidents rocks Sandford, Nick smells something rotten in the idyllic village.|20070214|England|English,French,German|121
