@@ -3,33 +3,35 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <map>
 #include "DatabaseClass.h"
 #include "Other.h"
 #include "ProjectClass.h"
-
-
 using namespace std;
 
-/*LOGIN STUFF
-string Username, Password;
-cout << "User name: ";
-cin >> Username;
-cout << "Password: ";
-cin >> Password;
-*/
 
 
 int main()
 {
-
-	Database Database;
-	Database.Setup();
-	cout << Database.Storage.size() << " Films Loaded.";
+	Database Database; Database.Setup(100);
+	
+	string Query;
 
 
 	//Database.PrintResults(Database.Storage);
-	Database.Search();
-	cin;
+	cout << "What film are you looking for? ";
+	cin >> Query;
+
+	try
+	{
+		Database.Search("Tits", Query);
+	}
+	catch(const std::out_of_range& oor)
+	{
+		cout << "That is not a valid field to search" << endl;
+	}
+
+
 	getchar();
 	getchar();
 

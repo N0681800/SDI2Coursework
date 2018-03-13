@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <map>
 #include "ProjectClass.h"
 #include "Other.h"
 using namespace std;
@@ -25,33 +26,29 @@ public:
 
 	}
 
-	void Setup();//Setups Database
+	void Setup(int MAX);//Setups Database,input of #of films to be loaded
 
 	void PrintResults(vector<Project> Input);//Prints out details of a number of films
 
-	void Search();//Searchs field for a value
+	void Search(string SearchField, string Query);//Searchs field for a value
 };
 
-
-
-void Database::Setup()
+void Database::Setup(int MAX)
 {
-	const int MAX = 100; //Number of items to be loaded from Database
 	string Line;
 	ifstream FromFile("Database.txt");
 	if (FromFile.is_open()) cout << "File sucessfully Loaded!" << endl; getchar();
 
-	int i = 0;
-
 	while (getline(FromFile, Line))
 	{
-		Project Film(Line);
-		Film.Setup();
+		Project Film(Line); Film.Setup();
+		
 		Storage.push_back(Film);
-
-		if (i == MAX) break;
-		i++;
+		
+		if (Storage.size() == MAX) break;
 	}
+
+	cout << Storage.size() << " Films Loaded.";
 }
 
 void Database::PrintResults(vector<Project> Input)//Prints out details of a number of films
@@ -64,22 +61,31 @@ void Database::PrintResults(vector<Project> Input)//Prints out details of a numb
 	}
 }
 
-void Database::Search()//Searchs field for a value
+void Database::Search(string SearchField,string Query)//Searchs field for a value
 {
+	map<string, string> SearchFields; 
+	
 	Temp.clear();
-	string Query;
-	cout << "What film are you looking for? ";
-	cin >> Query;
-
+	
 	for (vector<Project>::const_iterator i = Storage.begin(); i != Storage.end(); i++)
 	{
-
 		Project Result = *i;
-		if ((ToLower(Result.Title)).find(ToLower(Query)) != string::npos)
+
+		SearchFields["ID"] = (Result.ID); SearchFields["Title"] = (Result.Title); SearchFields["Status"] = Result.Status;
+		SearchFields["Genres"] = VectorAsString(Result.Genres); SearchFields["ProdComps"] = VectorAsString(Result.ProdComps);
+		SearchFields["Locations"] = VectorAsString(Result.Locations); SearchFields["Languages"] = VectorAsString(Result.Languages);
+		
+		SearchFields["Revenue"] = Result.Revenue; //Special case
+		SearchFields["Date"] = Result.ReleaseDate; //Special case
+		SearchFields["Runtime"] = Result.Runtime; //Special case
+		 
+
+
+		if ((ToLower((SearchFields.find(SearchField)->second))).find(ToLower(Query)) != string::npos)
 		{
 			Temp.push_back(Result);
 		}
 	}
-	cout << "Here are the search results for: " << Query << endl;
+	cout << "Here are the search results for: " << Query << "in"<<SearchField<<endl;
 	PrintResults(Temp);
 }
