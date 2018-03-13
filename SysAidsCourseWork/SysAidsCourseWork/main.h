@@ -1,12 +1,13 @@
 #pragma once
-#include <string>
+#include <string.h>
 #include <iostream>
 #include <vector>
 using namespace std;
 
 //Structs
-struct Date
 
+//Allows easier manipulation of the date, can be used to sort easier
+struct Date
 {
 	int Day;
 	int Month;
@@ -40,7 +41,19 @@ void PrintVector(vector<string> Vector)
 	}
 }
 
+//Gets string input in date format
+Date GetAsDate(string input)//Turns string from Database into DateFormat
+{
+	Date Temp;
+	Temp.Year = stoi(input.substr(6, 4));
+	Temp.Month = stoi(input.substr(3, 2));
+	Temp.Day = stoi(input.substr(0, 2));
+	Temp.Display = input;
+	return Temp;
+}
+
 //Classes
+//Project for each new Film
 class Project
 {
 private:
@@ -52,11 +65,13 @@ public:
 	string Summary;
 	vector<string> ProdComps;
 	vector<string> Locations;
-	string ReleaseDate;
+	Date ReleaseDate;
 	string Revenue;
 	string Runtime;
 	vector<string> Languages;
 	string Status;
+
+
 
 	//Constructor
 	Project(string Input_)
@@ -86,7 +101,7 @@ public:
 		Summary = TempData[3];
 		ProdComps = AddTokens(TempData[4]);
 		Locations = AddTokens(TempData[5]);
-		ReleaseDate = TempData[6];
+		ReleaseDate = GetAsDate(TempData[6]);
 		Revenue = TempData[7];
 		Runtime = TempData[8];
 		Languages = AddTokens(TempData[9]);
@@ -102,7 +117,7 @@ public:
 		cout << "\nSummary:" << Summary;
 		cout << "\nProduction Companies:"; PrintVector(ProdComps);
 		cout << "\nLocations:"; PrintVector(Locations);
-		cout << "\nReleased:" << ReleaseDate;
+		cout << "\nReleased:" << ReleaseDate.Display;
 		cout << "\nRevenue:" << Revenue;
 		cout << "\nRuntime:" << Runtime;
 		cout << "\nLanuages:"; PrintVector(Languages);
@@ -111,9 +126,7 @@ public:
 
 	void Details()//Prints out basic data for database
 	{
-		cout << Title << "\t\t"; PrintVector(Genres); cout << "\t\t" << ReleaseDate << "\t" << Runtime << "\t" << Status << endl;
-
-
+		cout << Title << "\t\t"; PrintVector(Genres); cout << "\t\t" << ReleaseDate.Display << "\t" << Runtime << "\t" << Status << endl;
 	}
 };
 
@@ -127,13 +140,16 @@ public:
 	~Database()
 	{
 		ofstream File;
-		File.open("Testing.txt");
+		File.open("Testing.txt"); //Writing to file
 		//File << Storage[0].ID +"|"+ Storage[0].Genres + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" +
 		File.close();
-
-
 	}
 
+	string WriteToFile()
+	{
+		string Output;
+		return Output;
+	}
 
 	void Setup()
 	{
@@ -164,7 +180,7 @@ public:
 			Temp.Details();
 		}
 	}
-
+	//Searchs Database for user input
 	void Search()
 	{
 		Temp.clear();
@@ -185,61 +201,4 @@ public:
 		PrintResults(Temp);
 	}
 };
-
-/*
-
-//Variables
-//vector<Film> DataBase;
-
-//Functions
-Date GetAsDate(string input)//Turns string from Database into DateFormat
-{
-	Date Temp;
-	Temp.Year = stoi(input.substr(6, 4));
-	Temp.Month = stoi(input.substr(3, 2));
-	Temp.Day = stoi(input.substr(0, 2));
-	Temp.Display = input;
-	return Temp;
-}
-
-void LoadDatabase(ifstream *Stream)//Loads in all the data from the database
-{
-	
-	string Line;
-	while (getline(*Stream, Line))
-	{
-		stringstream LineOfData(Line);
-		string TokenizedData;
-		string TempData[7];
-		Film Temp;
-		int i = 0;
-		while (getline(LineOfData, TokenizedData, '|')) //getting data
-		{
-			TempData[i] = TokenizedData; //Store data in temp array
-			i++;
-		}
-		// Inserting Into Tempory struct
-		Temp.ID = TempData[0];
-		Temp.Title = TempData[1];
-		Temp.Summary = TempData[2];
-		Temp.ReleaseDate = GetAsDate(TempData[3]);
-		Temp.Location = TempData[4];
-		Temp.Language = TempData[5];
-		Temp.RunTime = stoi(TempData[6]);
-
-
-		DataBase.push_back(Temp); //Add struct to Database
-	}
-}
-
-void DisplayDatabase()
-{
-	cout << "ID#\tName\t\tRelease Date\t\tRuntime" << endl;
-	for (int i = 0; i < DataBase.size(); i++)
-	{
-		cout << DataBase[i].ID << "\t" << DataBase[i].Title << "\t" << DataBase[i].ReleaseDate.Display<< "\t\t" << DataBase[i].RunTime << "mins" << endl;
-
-	}
-}
-*/
 
