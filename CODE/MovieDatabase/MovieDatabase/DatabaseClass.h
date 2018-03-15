@@ -1,10 +1,11 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <map>
 #include "ProjectClass.h"
-#include "Other.h"
+#include "Library.h"
 using namespace std;
 
 
@@ -30,7 +31,9 @@ public:
 
 	void PrintResults(vector<Project> Input);//Prints out details of a number of films
 
-	void Search(string SearchField, string Query);//Searchs field for a value
+	vector<Project> Search(string SearchField, string Query);//Searchs field for a value
+
+	string GenerateID();//Generates a unique ID when creating a new project
 };
 
 void Database::Setup(int MAX)
@@ -61,7 +64,7 @@ void Database::PrintResults(vector<Project> Input)//Prints out details of a numb
 	}
 }
 
-void Database::Search(string SearchField,string Query)//Searchs field for a value
+vector<Project> Database::Search(string SearchField,string Query)//Searchs field for a value
 {
 	map<string, string> SearchFields; 
 	
@@ -80,7 +83,6 @@ void Database::Search(string SearchField,string Query)//Searchs field for a valu
 		SearchFields["Runtime"] = Result.Runtime; //Special case
 		 
 
-
 		if ((ToLower((SearchFields.find(SearchField)->second))).find(ToLower(Query)) != string::npos)
 		{
 			Temp.push_back(Result);
@@ -88,4 +90,26 @@ void Database::Search(string SearchField,string Query)//Searchs field for a valu
 	}
 	cout << "Here are the search results for: " << Query << "in"<<SearchField<<endl;
 	PrintResults(Temp);
+
+	return Temp;
+}
+
+string Database::GenerateID()
+{
+	string ID, Line, CurrentID;
+	ifstream File; File.open("Database.txt");
+	bool IDFound = false;
+	int i = 2;
+	while (!IDFound)
+	{
+		ID = to_string(i);
+		while (ID.length() < 6) { ID = "0" + ID; }
+
+		getline(File, Line); stringstream IDToken(Line); getline(IDToken, CurrentID, '|');
+
+		if (CurrentID == ID) i++;
+
+		else IDFound = true;
+	}
+	return ID;
 }

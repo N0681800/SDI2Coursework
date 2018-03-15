@@ -3,9 +3,9 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <sstream>
 #include "DatabaseClass.h"
 #include "ProjectClass.h"
-
 using namespace std;
 
 //Functions

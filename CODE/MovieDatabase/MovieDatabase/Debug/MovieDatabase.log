@@ -1,3 +1,3 @@
-﻿  MovieDatabase.cpp
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\moviedatabase.cpp(31): warning C4101: 'oor': unreferenced local variable
+﻿  Main.cpp
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\main.cpp(24): warning C4101: 'oor': unreferenced local variable
   MovieDatabase.vcxproj -> C:\Users\Josh\Desktop\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe

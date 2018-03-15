@@ -1,14 +1,9 @@
 // ConsoleApplication1.cpp : Defines the entry point for the console application.
 //
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <map>
 #include "DatabaseClass.h"
-#include "Other.h"
+#include "Library.h"
 #include "ProjectClass.h"
 using namespace std;
-
 
 
 int main()
@@ -17,7 +12,7 @@ int main()
 	
 	string Query;
 
-
+	
 	//Database.PrintResults(Database.Storage);
 	cout << "What film are you looking for? ";
 	cin >> Query;
@@ -31,7 +26,7 @@ int main()
 		cout << "That is not a valid field to search" << endl;
 	}
 
-
+	
 	getchar();
 	getchar();
 

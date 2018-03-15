@@ -18,15 +18,15 @@
     <ClInclude Include="DatabaseClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Other.h">
+    <ClInclude Include="ProjectClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ProjectClass.h">
+    <ClInclude Include="Library.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MovieDatabase.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
