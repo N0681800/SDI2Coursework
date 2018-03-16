@@ -5,7 +5,6 @@
 #include "ProjectClass.h"
 using namespace std;
 
-
 int main()
 {
 	Database Database; Database.Setup(100);
@@ -14,25 +13,16 @@ int main()
 
 	
 	//Database.PrintResults(Database.Storage);
-	cout << "What film are you looking for? ";
-	cin >> Query;
+	Database.PrintResults(Database.Storage);
 
-	try
-	{
-		Database.Search("Tits", Query);
-	}
-	catch(const std::out_of_range& oor)
-	{
-		cout << "That is not a valid field to search" << endl;
-	}
-
+	//Database.SaveData();
 	
 	getchar();
 	getchar();
 
 
 	 
-	Database.~Database();
+	//Database.~Database();
 	return 0;
 }
 

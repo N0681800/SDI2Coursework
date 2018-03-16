@@ -8,7 +8,12 @@
 #include "ProjectClass.h"
 using namespace std;
 
-//Functions
+const int MaxTitleLength = 35;
+const int MaxGenreLength = 20;
+
+char Border = 179;
+
+//When tokenized strings contain more CSV this will get each indivudual one
 vector<string> AddTokens(string Line)
 {
 	vector<string> temp;
@@ -49,4 +54,27 @@ string VectorAsString(vector<string> Vector)//Outputs a vector as a string used 
 		if (i != (Vector.end() - 1)) temp += ',';
 	}
 	return temp;
+}
+
+string SetLength(string Input, int Max)
+{
+	string Word;
+	if (Input.length() > (Max-3)) Word = Input.substr(0, Max) + "...";
+
+	else Word = Input;
+
+	return Word;
+}
+
+void PrintTable()
+{
+	char Cross = 197;
+	char Edge = 196;
+	char Last = 180;
+
+	for (int i = 0; i < MaxTitleLength+3; i++) { cout << Edge; } cout << Cross;
+	for (int i = 0; i < MaxGenreLength+6; i++) { cout << Edge; } cout << Cross;
+	for (int i = 0; i < 10; i++) { cout << Edge; } cout << Cross;
+	for (int i = 0; i < 10; i++) { cout << Edge; } cout << Cross;
+	for (int i = 0; i < 12; i++) { cout << Edge; } cout << Last << endl;
 }

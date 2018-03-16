@@ -1,11 +1,11 @@
-#pragma once
+﻿#pragma once
 #include <string>
 #include <vector>
 #include <iostream>
 #include "DatabaseClass.h"
 #include "Library.h"
+#include <iomanip>
 using namespace std;
-
 
 class Project
 {
@@ -73,20 +73,26 @@ void Project::Setup()
 
 void Project::Overview()//Prints out all info of a chosen film
 {
-	cout << "ID:" << ID;
-	cout << "\nTITLE:" << Title;
-	cout << "\nGENRES:"; PrintVector(Genres);
-	cout << "\nSummary:" << Summary;
-	cout << "\nProduction Companies:"; PrintVector(ProdComps);
-	cout << "\nLocations:"; PrintVector(Locations);
-	cout << "\nReleased:" << ReleaseDate;
-	cout << "\nRevenue:" << Revenue;
-	cout << "\nRuntime:" << Runtime;
-	cout << "\nLanuages:"; PrintVector(Languages);
-	cout << "\nStatus:" << Status;
+	cout << "\n\n\n\t\t" << Title << "\n\n\t\tID:" << ID;
+	cout << "\n\nStatus: " << Status << "\n\nReleased: " << ReleaseDate << "\n\nRuntime: " << Runtime <<" mins";
+	cout << "\n\nLanguages avalible in:" << VectorAsString(Languages);
+	cout << "\n\nSummary:\n" << Summary << "\n\nGENRES:" << VectorAsString(Genres);; 
+	cout << "\n\nProduction Companies:"; VectorAsString(ProdComps);
+	cout << "\n\nLocations:"; VectorAsString(Locations);
+	cout << "\n\nRevenue:" << Revenue;
+	
+	
+	
 }
 
 void Project::Details()
 {
-	cout << Title << "\t\t" << VectorAsString(Genres) << "\t\t" << ReleaseDate << "\t" << Runtime << "\t" << Status << endl;
+	
+	cout << setw(MaxTitleLength+3) << left << SetLength(Title, MaxTitleLength)<< Border;
+	cout << setw(MaxGenreLength+6) << left << SetLength(VectorAsString(Genres), MaxGenreLength) << Border;
+	cout  << setw(10) << left << ReleaseDate << Border;
+	cout << setw(5) << left  << Runtime << setw(5) << right << "mins" <<Border;
+	cout << setw(12) << left  << Status<< Border << endl;
+
+	PrintTable();
 }

@@ -1,3 +1,7 @@
 ﻿  Main.cpp
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\main.cpp(24): warning C4101: 'oor': unreferenced local variable
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(14): warning C4309: 'initializing': truncation of constant value
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(62): warning C4018: '>': signed/unsigned mismatch
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(71): warning C4309: 'initializing': truncation of constant value
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(72): warning C4309: 'initializing': truncation of constant value
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(73): warning C4309: 'initializing': truncation of constant value
   MovieDatabase.vcxproj -> C:\Users\Josh\Desktop\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe

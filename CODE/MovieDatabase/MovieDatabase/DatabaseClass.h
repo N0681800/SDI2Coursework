@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -7,7 +7,6 @@
 #include "ProjectClass.h"
 #include "Library.h"
 using namespace std;
-
 
 
 class Database
@@ -19,12 +18,7 @@ public:
 
 	~Database()
 	{
-		ofstream File;
-		File.open("Testing.txt");
-		//File << Storage[0].ID +"|"+ Storage[0].Genres + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" + Storage[0].ID + "|" +
-		File.close();
-
-
+	SaveData();
 	}
 
 	void Setup(int MAX);//Setups Database,input of #of films to be loaded
@@ -34,12 +28,14 @@ public:
 	vector<Project> Search(string SearchField, string Query);//Searchs field for a value
 
 	string GenerateID();//Generates a unique ID when creating a new project
+
+	bool SaveData();//Saves the database
 };
 
 void Database::Setup(int MAX)
 {
 	string Line;
-	ifstream FromFile("Database.txt");
+	ifstream FromFile("CompleteDatabase.txt");
 	if (FromFile.is_open()) cout << "File sucessfully Loaded!" << endl; getchar();
 
 	while (getline(FromFile, Line))
@@ -51,12 +47,20 @@ void Database::Setup(int MAX)
 		if (Storage.size() == MAX) break;
 	}
 
-	cout << Storage.size() << " Films Loaded.";
+	cout << Storage.size() << " Films Loaded."<<endl;
 }
 
 void Database::PrintResults(vector<Project> Input)//Prints out details of a number of films
 {
-	cout << "\n\tTitle \t\t\tGenres \t\tRelease Date \t\tRuntime \t\tStatus" << endl;
+
+	cout << setw(MaxTitleLength+3) << left << "Title" << Border;
+	cout << setw(MaxGenreLength+6) << left << "Genres" << Border;
+	cout  << setw(10) << left << "Released" << Border;
+	cout  << setw(10) << left << "Runtime" << Border;
+	cout  << setw(12) << left << "Status" <<Border<< endl;
+
+	PrintTable();
+
 	for (vector<Project>::const_iterator i = Input.begin(); i != Input.end(); i++)
 	{
 		Project Temp = *i;
@@ -68,6 +72,7 @@ vector<Project> Database::Search(string SearchField,string Query)//Searchs field
 {
 	map<string, string> SearchFields; 
 	
+
 	Temp.clear();
 	
 	for (vector<Project>::const_iterator i = Storage.begin(); i != Storage.end(); i++)
@@ -83,6 +88,7 @@ vector<Project> Database::Search(string SearchField,string Query)//Searchs field
 		SearchFields["Runtime"] = Result.Runtime; //Special case
 		 
 
+		
 		if ((ToLower((SearchFields.find(SearchField)->second))).find(ToLower(Query)) != string::npos)
 		{
 			Temp.push_back(Result);
@@ -112,4 +118,19 @@ string Database::GenerateID()
 		else IDFound = true;
 	}
 	return ID;
+}
+
+bool Database::SaveData()
+{
+	bool Saved = false;
+	ofstream File;
+	File.open("Database.txt");
+	for (vector<Project>::const_iterator i = Storage.begin(); i != Storage.end(); i++)
+	{
+		Project Temp = *i;
+		File << Temp.ID + "|" + Temp.Title + "|" + VectorAsString(Temp.Genres) + "|" + Temp.Summary + "|" + VectorAsString(Temp.ProdComps) + "|" + VectorAsString(Temp.Locations) + "|" + Temp.ReleaseDate + "|" + Temp.Revenue + "|" + Temp.Runtime + "|" + VectorAsString(Temp.Languages) + "|" + Temp.Status << endl;;
+	}
+	Saved = true;
+	File.close();
+	return Saved;
 }
