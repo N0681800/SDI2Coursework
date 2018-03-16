@@ -8,9 +8,9 @@
 #include "ProjectClass.h"
 using namespace std;
 
+//Used for drawing table
 const int MaxTitleLength = 35;
 const int MaxGenreLength = 20;
-
 char Border = 179;
 
 //When tokenized strings contain more CSV this will get each indivudual one

@@ -7,14 +7,11 @@ using namespace std;
 
 int main()
 {
-	Database Database; Database.Setup(100);
+	Database Database("CompleteDatabase.txt",200);
 	
-	string Query;
+	getchar();
 
-	
-	//Database.PrintResults(Database.Storage);
 	Database.PrintResults(Database.Storage);
-
 	//Database.SaveData();
 	
 	getchar();

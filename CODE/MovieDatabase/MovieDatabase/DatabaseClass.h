@@ -14,29 +14,44 @@ class Database
 public:
 	vector<Project> Storage; //Contains all films from database
 
-	vector<Project> Temp; //A temp vector for search results
+	Database(string Path, int Max);
 
-	~Database()
-	{
-	SaveData();
-	}
-
-	void Setup(int MAX);//Setups Database,input of #of films to be loaded
+	~Database();
 
 	void PrintResults(vector<Project> Input);//Prints out details of a number of films
 
 	vector<Project> Search(string SearchField, string Query);//Searchs field for a value
 
-	string GenerateID();//Generates a unique ID when creating a new project
-
 	bool SaveData();//Saves the database
+
+private:
+	string dbPath; //Path to database
+
+	void Setup(int MAX);//Setups Database,input of #of films to be loaded
+
+	vector<Project> Temp; //A temp vector for search results
+
+	string GenerateID();//Generates a unique ID when creating a new project
 };
+
+
+
+Database::Database(string Path_,int Max)
+{
+	dbPath = Path_;
+	Setup(Max);
+}
+
+Database::~Database()
+{
+	SaveData();
+}
 
 void Database::Setup(int MAX)
 {
 	string Line;
-	ifstream FromFile("CompleteDatabase.txt");
-	if (FromFile.is_open()) cout << "File sucessfully Loaded!" << endl; getchar();
+	ifstream FromFile(dbPath);
+	if (FromFile.is_open()) cout << "File sucessfully Loaded!\n" << endl; getchar();
 
 	while (getline(FromFile, Line))
 	{
@@ -47,7 +62,7 @@ void Database::Setup(int MAX)
 		if (Storage.size() == MAX) break;
 	}
 
-	cout << Storage.size() << " Films Loaded."<<endl;
+	cout << Storage.size() << " Films Loaded.\n"<<endl;
 }
 
 void Database::PrintResults(vector<Project> Input)//Prints out details of a number of films

@@ -25,9 +25,9 @@ public:
 	vector<string> Languages;
 	string Status;
 
-	Project(string Input_); //Constructor
+	Project(string Input_);
 	
-	~Project();//Deconstructor
+	~Project();
 	
 	void Setup();//Loads in Data
 
@@ -80,9 +80,7 @@ void Project::Overview()//Prints out all info of a chosen film
 	cout << "\n\nProduction Companies:"; VectorAsString(ProdComps);
 	cout << "\n\nLocations:"; VectorAsString(Locations);
 	cout << "\n\nRevenue:" << Revenue;
-	
-	
-	
+
 }
 
 void Project::Details()
