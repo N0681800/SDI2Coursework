@@ -4,6 +4,7 @@
 #include <iostream>
 #include "DatabaseClass.h"
 #include "Library.h"
+#include "CastCrewClass.h"
 #include <iomanip>
 using namespace std;
 
@@ -24,6 +25,10 @@ public:
 	string Runtime;
 	vector<string> Languages;
 	string Status;
+
+	vector<string> Cast;
+
+	vector<string> Crew;
 
 	Project(string Input_);
 	

@@ -1,11 +1,11 @@
-﻿#pragma once
-#include <string>
+﻿#include <string>
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <map>
 #include "ProjectClass.h"
 #include "Library.h"
+#include "CastCrewClass.h"
 using namespace std;
 
 
@@ -14,7 +14,7 @@ class Database
 public:
 	vector<Project> Storage; //Contains all films from database
 
-	Database(string Path, int Max);
+	Database(string filmPath,string ccPath, int Max);
 
 	~Database();
 
@@ -25,7 +25,9 @@ public:
 	bool SaveData();//Saves the database
 
 private:
-	string dbPath; //Path to database
+	string filmPath; //Path to database
+
+	string ccPath; //Path to cast crew database
 
 	void Setup(int MAX);//Setups Database,input of #of films to be loaded
 
@@ -36,9 +38,10 @@ private:
 
 
 
-Database::Database(string Path_,int Max)
+Database::Database(string filmPath_,string ccPath_,int Max)
 {
-	dbPath = Path_;
+	filmPath = filmPath_;
+	ccPath = ccPath_;
 	Setup(Max);
 }
 
@@ -50,7 +53,7 @@ Database::~Database()
 void Database::Setup(int MAX)
 {
 	string Line;
-	ifstream FromFile(dbPath);
+	ifstream FromFile(filmPath);
 	if (FromFile.is_open()) cout << "File sucessfully Loaded!\n" << endl; getchar();
 
 	while (getline(FromFile, Line))

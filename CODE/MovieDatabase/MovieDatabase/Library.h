@@ -6,6 +6,7 @@
 #include <sstream>
 #include "DatabaseClass.h"
 #include "ProjectClass.h"
+#include "CastCrewClass.h"
 using namespace std;
 
 //Used for drawing table

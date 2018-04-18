@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CastCrewClass.h" />
     <ClInclude Include="DatabaseClass.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="ProjectClass.h" />

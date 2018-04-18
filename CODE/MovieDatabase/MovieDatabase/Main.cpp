@@ -13,7 +13,7 @@ int main()
 
 	Database.PrintResults(Database.Storage);
 	//Database.SaveData();
-	
+	Database.Storage[0].Summary;
 	getchar();
 	getchar();
 
