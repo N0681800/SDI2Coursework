@@ -61,12 +61,14 @@ void Database::PrintResults(string Order)//Prints out details of a number of fil
 	const int MaxGenreLength = 20;
 	char Border = 179;
 
+	cout << setw(6) << left << "ID" << Border;
 	cout << setw(MaxTitleLength + 3) << left << "Title" << Border;
 	cout << setw(MaxGenreLength + 6) << left << "Genres" << Border;
 	cout << setw(10) << left << "Released" << Border;
 	cout << setw(10) << left << "Runtime" << Border;
 	cout << setw(18) << left << "Box Office Sales" << Border;
-	cout << setw(12) << left << "Status" << Border << endl;
+	cout << setw(12) << left << "Status" << Border;
+	cout << setw(18) << left << "Avalible Materials" << Border << endl;
 
 	PrintTable();
 

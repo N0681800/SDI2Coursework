@@ -68,13 +68,14 @@ void Film::Details()
 	const int MaxGenreLength = 20;
 	char Border = 179;
 
-
+	cout << setw(6) << left << ID << Border;
 	cout << setw(MaxTitleLength + 3) << left << SetLength(Title, MaxTitleLength) << Border;
 	cout << setw(MaxGenreLength + 6) << left << SetLength(VectorAsString(Genres), MaxGenreLength) << Border;
 	cout << setw(10) << left << PrintDate(ReleaseDate) << Border;
 	cout << setw(5) << left << Runtime << setw(5) << right << "mins" << Border;
 	cout << setw(2) << left << "$ " << setw(12) << Revenue <<setw(4)<<"/wk"<<  Border;
-	cout << setw(12) << left << getStatus() << Border << endl;
+	cout << setw(12) << left << getStatus() << Border;
+	cout << setw(18) << left << "..." << Border << endl;
 
 	PrintTable();
 }
