@@ -125,3 +125,21 @@ bool InputChecker(string Choice, vector<string> legalChoices)
 
 }
 
+template <typename T>
+bool VectorCheck(vector<T> v)
+{
+	try {
+		if (v.size() == 0)
+		{
+			throw 100;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	catch (int a)
+	{
+		return false;
+	}
+}

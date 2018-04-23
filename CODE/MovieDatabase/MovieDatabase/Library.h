@@ -31,3 +31,6 @@ void PrintTable();
 string GetGender(string number);
 
 bool InputChecker(string Choice, vector<string> legalChoices);
+
+template <typename T>
+bool VectorCheck(vector<T> v);

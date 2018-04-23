@@ -25,7 +25,9 @@ int main()
 
 	getchar();
 
-	Database Database("CompleteDatabase.txt", "CastCrew.txt.", 10);
+	Database Database("CompleteDatabase.txt", "CastCrew.txt.", 500);
+
+
 
 	cout << "\n\nPress Enter to continue." << endl; getchar();
 

@@ -15,7 +15,7 @@ Database::Database(string filmPath_, string ccPath_, int Max)
 	ccPath = ccPath_;
 	FilmSetup(Max);
 	//CastCrewSetup(Max);
-	createNewTree("ID");
+	createNewTree("REVENUE");
 }
 
 Database::~Database()
@@ -39,7 +39,6 @@ void Database::FilmSetup(int MAX)
 	}
 
 	cout << "\n"<< Storage.size() << " Films Loaded.\n" << endl;
-
 }
 
 /*
@@ -142,10 +141,10 @@ bool Database::SaveData()
 {
 	bool Saved = false;
 	
-	ofstream outFile;// ("new.txt");
-	outFile.open("Database.txt", ios::in);
-	ofstream MaterialoutFile;// ("new.txt");
-	MaterialoutFile.open("Materials.txt", ios::in);
+	ofstream outFile("Database.txt", ios::in);// ("new.txt");
+	//outFile.open("Database.txt", ios::in);
+	ofstream MaterialoutFile("Materials.txt");// ("new.txt");
+	//MaterialoutFile.open("Materials.txt", ios::in);
 
 
 	for (vector<Film>::const_iterator i = Storage.begin(); i != Storage.end(); i++)
@@ -154,7 +153,8 @@ bool Database::SaveData()
 	
 		string MaterialOut = i->ID;
 
-		for (vector<Film::Material>::const_iterator j = i->Materials.begin(); j != i->Materials.end(); i++)
+		
+		for (vector<Film::Material>::const_iterator j = i->Materials.begin(); j != i->Materials.end(); j++)
 		{
 			MaterialOut += ("|" + to_string(j->Format) +"/" + j->ID + "/" + j->Title + "/" + j->AudioFormat + "/" + j->Cost + "/" + j->FA + "/" + VectorAsString(j->AudioLanguages));
 
@@ -165,12 +165,16 @@ bool Database::SaveData()
 				MaterialOut += "/" + j->SideOneInfo + "/" + j->SideTwoInfo;
 			}
 		}
-		MaterialoutFile << MaterialOut << endl;
 
+
+		MaterialoutFile << MaterialOut << endl;
+		
 	}
 
 	outFile.flush();
+	MaterialoutFile.flush();
 	Saved = true;
+	MaterialoutFile.close();
 	outFile.close();
 	return Saved;
 }

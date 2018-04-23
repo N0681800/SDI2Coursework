@@ -5,7 +5,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
-
+#include "Library.h"
 
 Film::Film(string Input_)
 {
@@ -20,13 +20,12 @@ Film::~Film()
 
 void Film::Setup()
 {
-	string TokenizedData, TempData[11]; int i = 0;
+	string TokenizedData; int i = 0;
+	vector<string> TempData;
 	stringstream LineOfData(Input);
 	while (getline(LineOfData, TokenizedData, '|')) //getting data
 	{
-		//cout << TokenizedData<<endl;
-		TempData[i] = TokenizedData; //Store data in temp array
-		i++;
+		TempData.push_back(TokenizedData); //Store data in temp array
 	}
 	int a = rand();
 	
@@ -41,8 +40,9 @@ void Film::Setup()
 	if (TempData[7] == "0") { Revenue = 0; }
 	else Revenue = stoi(TempData[7])/22;
 	Runtime = stoi(TempData[8]);
-	Languages = AddTokens(TempData[9]);
-
+	if (TempData[9] == "") Languages.push_back("English"); //Remove in future
+	else Languages = AddTokens(TempData[9]);
+	
 
 	Status = 0;
 	//if (rand() % 3 == 0) Status = 0;
@@ -53,16 +53,107 @@ void Film::Setup()
 	//Set Material Info
 	if (Status == 0)
 	{
-		if (GetDate(ReleaseDate) < "20040101")
+		if (ReleaseDate < "20040101")
 		{
 			//VHS
-			string VHS = "0/VHS" + ID + "/" + Title + "/Mono/9.99/16:9/" + Languages[0];
+			string VHS = "0/VHS" + ID + "/" + Title + "/Mono/9.99/4:3/" + Languages.at(0);
+
+
+			//if (Languages.size() != 0) VHS += Languages[0];
+			//else VHS += " ";
 			Material Temp(VHS);
 			Materials.push_back(Temp);
-		}	
+		}
+
+		string Audio = "Stereo";
+		if ((rand() % 2) == 0) Audio += ",Mono";
+
+		if ((rand() % 2) == 0) Audio += ",Surround Sound";
+
+		string Ratio = "16:9";
+
+		if ((rand() % 2) == 0) Ratio += ",4:3";
+
+		string DVD = "1/DVD" + ID + "/" + Title + "/" + Audio + "/10.99/" + Ratio + "/" + VectorAsString(Languages);
+
+		Material Temp(DVD);
+		Materials.push_back(Temp);
+
+		//BR
+		if (ReleaseDate > "20060101")
+		{
+
+			string Audio = "Stereo";
+			if ((rand() % 2) == 0) Audio += ",Mono";
+
+			if ((rand() % 2) == 0) Audio += ",Surround Sound";
+
+			string Ratio = "16:9";
+
+			if ((rand() % 2) == 0) Ratio += ",4:3";
+
+			string BluRay = "4/BluRay" + ID + "/" + Title + "/" + Audio + "/14.50/" + Ratio + "/" + VectorAsString(Languages);
+
+			Material Temp(BluRay);
+			Materials.push_back(Temp);
+
+		}
+		
+		if (Revenue > 1000000)
+		{
+
+			string Audio = "Stereo";
+			if ((rand() % 2) == 0) Audio += ",Mono";
+
+			if ((rand() % 2) == 0) Audio += ",Surround Sound";
+
+			string Ratio = "16:9";
+
+			if ((rand() % 2) == 0) Ratio += ",4:3";
+
+			string S1I;
+			if ((rand() % 3) == 0) S1I = "Side contains Movie";
+			else  S1I = "Side contains Movie and bonus behind the scenes footage";
+			
+			string S2I;
+			if ((rand() % 3) == 0) S2I = "Side contains b-roll as well as interviews with the cast";
+			else S2I = "Side contains never seen before alternate ending!";
+
+
+
+			string dsDVD = "2/DSDvD" + ID + "/" + Title + "/" + Audio + "/11.99/" + Ratio + "/" + VectorAsString(Languages) + "/" + S1I + "/" + S2I;
+
+			Material Temp(dsDVD);
+			Materials.push_back(Temp);
+		}
+
+		
+		if (Revenue > 1000000)
+		{
+			if ((rand() % 3) == 1)
+			{
+				string Audio = "Stereo";
+				if ((rand() % 2) == 0) Audio += ",Mono";
+
+				if ((rand() % 2) == 0) Audio += ",Surround Sound";
+
+				string Ratio = "16:9";
+
+				if ((rand() % 2) == 0) Ratio += ",4:3";
+
+				string CBS = "3/CBS" + ID + "/" + Title + "/" + Audio + "/20/" + Ratio + "/" + VectorAsString(Languages);
+
+				Material Temp(CBS);
+				Materials.push_back(Temp);
+			}
+		}
+		
+		
+		//if (Languages.size() != 0) VHS += Languages[0];
+		//else VHS += " ";
+		
 	}
-
-
+	
 	cout << "Loaded film ID number:" << ID << endl;
 }
 
@@ -164,6 +255,7 @@ Film::Material::Material(string Info)
 	string TokenizedMaterial; int i = 0;
 	vector<string> TempMaterialData;
 	stringstream LineOfData(Info);
+
 	while (getline(LineOfData, TokenizedMaterial, '/')) //getting data
 	{
 		TempMaterialData.push_back(TokenizedMaterial); //Store data in temp vector
@@ -202,14 +294,13 @@ string Film::printMaterials()
 		{
 			throw 99;
 		}
+		string MaterialList;
 		for (vector<Material>::iterator i = Materials.begin(); i != Materials.end(); i++)
 		{
-			string MaterialList;
 			MaterialList += i->getFormat();
 			if (i != (Materials.end() - 1)) MaterialList += ',';
-
-			return MaterialList;
 		}
+		return MaterialList;
 	}
 	catch (int a)
 	{
