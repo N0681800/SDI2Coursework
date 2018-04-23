@@ -1,0 +1,37 @@
+ ALl multiple languages except vhs, DvD & bluray may contain extra info (short films,director comments)
+- ID no,title,format,audio format,price,frame aspect
+
+ssDVD - Plastic box		
+dsDVD - Plastic box	- Importtant to know what is on each side	
+CBS - Carboard box
+BLURAY - Plastic box diff size
+VHS - Plastic or cardboard
+
+
+Main
+View Film Database   - Sort 
+
+Search Film Database
+
+View Film Info  - Main Details,Material Info
+
+View Actor Database  - 
+
+Search Actor Database
+
+View ActorInfo
+
+Edit Film Details - Main Detials, Material Info
+
+Edit Actor Details
+
+Add Film
+
+Delete Film
+
+Admin Login
+
+Quit
+
+
+
