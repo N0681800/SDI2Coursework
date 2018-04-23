@@ -59,6 +59,7 @@ void Database::PrintResults(string Order)//Prints out details of a number of fil
 {
 	const int MaxTitleLength = 35;
 	const int MaxGenreLength = 20;
+	const int MaxMaterialLength = 15;
 	char Border = 179;
 
 	cout << setw(6) << left << "ID" << Border;
@@ -68,7 +69,7 @@ void Database::PrintResults(string Order)//Prints out details of a number of fil
 	cout << setw(10) << left << "Runtime" << Border;
 	cout << setw(18) << left << "Box Office Sales" << Border;
 	cout << setw(12) << left << "Status" << Border;
-	cout << setw(18) << left << "Avalible Materials" << Border << endl;
+	cout << setw(MaxMaterialLength + 3) << left << "Avalible Materials" << Border << endl;
 
 	PrintTable();
 
@@ -143,11 +144,31 @@ bool Database::SaveData()
 	
 	ofstream outFile;// ("new.txt");
 	outFile.open("Database.txt", ios::in);
+	ofstream MaterialoutFile;// ("new.txt");
+	MaterialoutFile.open("Materials.txt", ios::in);
+
 
 	for (vector<Film>::const_iterator i = Storage.begin(); i != Storage.end(); i++)
 	{
 		outFile << i->ID + "|" + i->Title + "|" + VectorAsString(i->Genres) + "|" + i->Summary + "|" + VectorAsString(i->ProdComps) + "|" + VectorAsString(i->Locations) + "|" + i->ReleaseDate + "|" + to_string(i->Revenue) + "|" + to_string(i->Runtime) + "|" + VectorAsString(i->Languages) + "|" + to_string(i->Status) << endl;
+	
+		string MaterialOut = i->ID;
+
+		for (vector<Film::Material>::const_iterator j = i->Materials.begin(); j != i->Materials.end(); i++)
+		{
+			MaterialOut += ("|" + to_string(j->Format) +"/" + j->ID + "/" + j->Title + "/" + j->AudioFormat + "/" + j->Cost + "/" + j->FA + "/" + VectorAsString(j->AudioLanguages));
+
+			if (j->Format != 0) MaterialOut += "/" + VectorAsString(j->SubtitleLanguages);
+
+			if (j->Format == 2)
+			{
+				MaterialOut += "/" + j->SideOneInfo + "/" + j->SideTwoInfo;
+			}
+		}
+		MaterialoutFile << MaterialOut << endl;
+
 	}
+
 	outFile.flush();
 	Saved = true;
 	outFile.close();
@@ -156,7 +177,7 @@ bool Database::SaveData()
 
 void Database::createNewTree(string SortBy)
 {
-	for (std::vector<Film>::iterator i = Storage.begin(); i != Storage.end(); i++)
+	for (vector<Film>::iterator i = Storage.begin(); i != Storage.end(); i++)
 	{
 		CURRENT_SORT = SortBy;
 		//CURRENT_SORT_TYPE

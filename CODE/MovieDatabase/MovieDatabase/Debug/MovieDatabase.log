@@ -3,13 +3,7 @@ c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedataba
 c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(80): warning C4309: 'initializing': truncation of constant value
 c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(81): warning C4309: 'initializing': truncation of constant value
 c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(82): warning C4309: 'initializing': truncation of constant value
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(85): warning C4309: 'initializing': truncation of constant value
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(119): warning C4101: 'a': unreferenced local variable
-  Film.cpp
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\film.cpp(69): warning C4309: 'initializing': truncation of constant value
-  Database.cpp
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(62): warning C4309: 'initializing': truncation of constant value
-  Generating Code...
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\film.cpp(95): warning C4715: 'Film::getStatus': not all control paths return a value
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(86): warning C4309: 'initializing': truncation of constant value
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(120): warning C4101: 'a': unreferenced local variable
   MovieDatabase.vcxproj -> C:\Users\n0695309\Documents\GitHub\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe
   MovieDatabase.vcxproj -> C:\Users\n0695309\Documents\GitHub\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.pdb (Partial PDB)

@@ -82,6 +82,7 @@ void PrintTable()
 	char Last = 180;
 	const int MaxTitleLength = 35;
 	const int MaxGenreLength = 20;
+	const int MaxMaterialLength = 15;
 	char Border = 179;
 
 	for (int i = 0; i < 6; i++) { cout << Edge; } cout << Cross;
@@ -90,8 +91,8 @@ void PrintTable()
 	for (int i = 0; i < 10; i++) { cout << Edge; } cout << Cross;
 	for (int i = 0; i < 10; i++) { cout << Edge; } cout << Cross;
 	for (int i = 0; i < 18; i++) { cout << Edge; } cout << Cross;
-	for (int i = 0; i < 12; i++) { cout << Edge; } cout << Last;
-	for (int i = 0; i < 18; i++) { cout << Edge; } cout << Last << endl;
+	for (int i = 0; i < 12; i++) { cout << Edge; } cout << Cross;
+	for (int i = 0; i < MaxMaterialLength + 3; i++) { cout << Edge; } cout << Last << endl;
 }
 
 string GetGender(string number)
@@ -123,3 +124,4 @@ bool InputChecker(string Choice, vector<string> legalChoices)
 	}
 
 }
+

@@ -25,7 +25,7 @@ int main()
 
 	getchar();
 
-	Database Database("CompleteDatabase.txt", "CastCrew.txt.", 100);
+	Database Database("CompleteDatabase.txt", "CastCrew.txt.", 10);
 
 	cout << "\n\nPress Enter to continue." << endl; getchar();
 
@@ -44,7 +44,8 @@ int main()
 			cout << "Order : " << Database.CURRENT_SORT_TYPE << endl;
 		}
 	}
-	
+
+
 
 	//Database.createNewTree("TITLE");
 	//ID,TITLE,ReleaseDate,Revenue,Runtime,Status
