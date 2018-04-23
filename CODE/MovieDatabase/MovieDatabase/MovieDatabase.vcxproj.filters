@@ -15,20 +15,29 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DatabaseClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ProjectClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Library.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CastCrewClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Film.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Database.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Film.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Database.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Library.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -1,23 +1,62 @@
-// ConsoleApplication1.cpp : Defines the entry point for the console application.
-//
-#include "DatabaseClass.h"
+#include "Database.h"
 #include "Library.h"
-#include "ProjectClass.h"
+#include "Film.h"
+
+#include <iostream>
+#include <string>
+#include <map>
+#include <vector>
+
+//s#include "CastCrewClass.h"
 using namespace std;
+
+
 
 int main()
 {
-	Database Database("CompleteDatabase.txt",200);
+	string Choice;
+	char Box = 178;
+	cout << "\n\n" << endl;
+	for (int i = 0; i <= 50; i++) { cout << Box; }
+	cout <<"\n\n  Welcome to the TrekStar Pictures Movie Database\n" << endl;
+	for (int i = 0; i <= 50; i++) { cout << Box; }
+
+	cout << "\n\n Please press enter to load the Database." << endl;
+
+	getchar();
+
+	Database Database("CompleteDatabase.txt", "CastCrew.txt.", 100);
+
+	cout << "\n\nPress Enter to continue." << endl; getchar();
+
+	while (Choice != "QUIT")
+	{
+		cout << "What would you like to do?" << endl;
+		cout << "\nView Film Database - 1\n\nSearch Film Database - 2\n\nView Film Details - 3";
+		cout << "\n\nQuit - QUIT\n\nChoice : ";
+		cin >> Choice;
+		
+
+		if (Choice == "1")
+		{
+			Database.PrintResults("ASC");
+			cout << "\nSorted By : " << Database.CURRENT_SORT << endl;
+			cout << "Order : " << Database.CURRENT_SORT_TYPE << endl;
+		}
+	}
+	
+
+	//Database.createNewTree("TITLE");
+	//ID,TITLE,ReleaseDate,Revenue,Runtime,Status
+
+	//getchar();
+	//Database.PrintResults("ASC");
+
+
+	//Database.SaveData();
+	//Database.Search("TITLE","the");
 	
 	getchar();
-
-	Database.PrintResults(Database.Storage);
-	//Database.SaveData();
-	Database.Storage[0].Summary;
-	getchar();
-	getchar();
-
-
 	 
 	//Database.~Database();
 	return 0;
