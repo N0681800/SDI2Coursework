@@ -79,40 +79,78 @@ void Database::PrintResults(string Order)//Prints out details of a number of fil
 }
 
 
+
+
 void Database::Search(string SearchField, string Query)//Searchs field for a value
 {
-	Tree.Delete();
-	createNewTree(SearchField);
-	cout << Tree.getSize()<<endl;
+	//Tree.Delete();
+	//createNewTree(SearchField);
+	//cout << Tree.getSize()<<endl;
 
-	Tree.SearchFilm(SearchField, Query);
-	cout << Tree.Films.size();
-	
-	/*
-	for (vector<Film>::const_iterator i = Storage.begin(); i != Storage.end(); i++)
+	//Tree.SearchFilm(SearchField, Query);
+	//cout << Tree.Films.size();
+
+	if (SearchField == "TITLE" || SearchField == "GENRE" || SearchField == "PRODCOMP" || SearchField == "LANGUAGES" || SearchField == "LOCATIONS")
 	{
-		Film Result = *i;
-
-		SearchFields["ID"] = (Result.ID); SearchFields["Title"] = (Result.Title); SearchFields["Status"] = Result.Status;
-		SearchFields["Genres"] = VectorAsString(Result.Genres); SearchFields["ProdComps"] = VectorAsString(Result.ProdComps);
-		SearchFields["Locations"] = VectorAsString(Result.Locations); SearchFields["Languages"] = VectorAsString(Result.Languages);
-
-		SearchFields["Revenue"] = Result.Revenue; //Special case
-		SearchFields["Date"] = Result.ReleaseDate; //Special case
-		SearchFields["Runtime"] = Result.Runtime; //Special case
-
-
-
-		if ((ToLower((SearchFields.find(SearchField)->second))).find(ToLower(Query)) != string::npos)
+		map<string, string> SearchFields;
+		//vector<Film*> Results;
+		for (vector<Film>::iterator i = Storage.begin(); i != Storage.end(); i++)
 		{
-			Temp.push_back(Result);
-		}
-	}
-	cout << "Here are the search results for: " << Query << "in" << SearchField << endl;
-	PrintResults(Temp);
+			Film temp = *i;
+			string asdas = temp.Title;
 
-	return Temp;
+			SearchFields["TITLE"] = i->Title;
+			SearchFields["GENRE"] = VectorAsString(i->Genres); SearchFields["PRODCOMP"] = VectorAsString(i->ProdComps);
+			SearchFields["LOCATIONS"] = VectorAsString(i->Locations); SearchFields["LANGUAGES"] = VectorAsString(i->Languages);
+
+
+			if ((ToLower(SearchFields[SearchField])).find(ToLower(Query)) != string::npos)
+			{
+				Results.push_back(&*i);
+			}
+
+		}
+		cout << "Here are the search results for: " << Query << "in" << SearchField << endl;
+
+		PrintResultsVector();
+	}
+		//return Temp;
+	else if (Query == "REVENUE" || Query == "RUNTIME" || Query == "RELEASED")
+	{
+
+	}
+	else
+	{
+
+	}
+	/*
+	Search["ID"] = { &Node->FilmInfo->ID };
+	Search["TITLE"] = { &Node->FilmInfo->Title }; //
+	//Search["GENRE"] = { &Node->FilmInfo->Genres }; //
+	//Search["PRODCOMP"] = { &Node->FilmInfo->ProdComps }; //
+	//Search["LANGUAGES"] = { &Node->FilmInfo->Languages }; //
+	//Search["STATUS"] = { &Node->FilmInfo->Status };
+
+	int a = &Node->FilmInfo->ReleaseDate ;
+	&Node->FilmInfo->Revenue ; //int
+	&Node->FilmInfo->Runtime ;//int
+	&Node->FilmInfo->Status // status
+
+
+	//Title, status, genres, ProdComps , Locations , Languages
+
+	//Revenue, Runtime, Date
 	*/
+
+	
+}
+
+void Database::PrintResultsVector()
+{
+	for (vector<Film*>::iterator i = Results.begin(); i != Results.end(); i++)
+	{
+		(*i)->Details();
+	}
 }
 
 

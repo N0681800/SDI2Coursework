@@ -16,7 +16,7 @@ public:
 
 	vector<Film> Storage; //Contains all films from database
 
-	vector<Film> Results; //A temp vector for search results
+	vector<Film*> Results; //A temp vector for search results
 
 	//vector<CastCrew> ccStorage;
 
@@ -34,6 +34,8 @@ public:
 
 	template <class T>
 	T* Find(string ID, vector<T> *Vec);
+
+	void PrintResultsVector();
 
 private:
 

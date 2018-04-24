@@ -1,10 +1,11 @@
 ﻿  Main.cpp
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\main.cpp(20): warning C4309: 'initializing': truncation of constant value
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\main.cpp(56): note: see reference to function template instantiation 'T *Database::Find<Film>(std::string,std::vector<Film,std::allocator<_Ty>> *)' being compiled
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\main.cpp(20): warning C4309: 'initializing': truncation of constant value
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\main.cpp(58): note: see reference to function template instantiation 'T *Database::Find<Film>(std::string,std::vector<Film,std::allocator<_Ty>> *)' being compiled
           with
           [
               T=Film,
               _Ty=Film
           ]
-  MovieDatabase.vcxproj -> C:\Users\Josh\Desktop\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe
+  MovieDatabase.vcxproj -> C:\Users\n0695309\Documents\GitHub\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe
+  MovieDatabase.vcxproj -> C:\Users\n0695309\Documents\GitHub\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.pdb (Partial PDB)

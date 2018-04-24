@@ -29,3 +29,13 @@ T* Database::Find(string ID, vector<T> *Vec)
 	}
 	return NULL;
 }
+/*
+template <class T>
+void Database::Printvector(vector<T> Vec)
+{
+	for (vector<T> iterator i = Vec.begin(); i != Vec.end(); i++)
+	{
+		i->Details();
+	}
+}
+*/

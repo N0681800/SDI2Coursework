@@ -53,7 +53,9 @@ int main()
 
 	*/
 
-	Film* Pointer = (Database.Find("1", &Database.Storage));
+
+
+	Film* Pointer = (Database.Find("12", &Database.Storage));
 
 	if (Pointer) cout << Pointer->ID;
 	else
@@ -69,7 +71,12 @@ int main()
 
 
 	//Database.SaveData();
-	//Database.Search("TITLE","the");
+	//SearchFields["GENRE"] = VectorAsString(i->Genres); SearchFields["PRODCOMP"] = VectorAsString(i->ProdComps);
+	//SearchFields["LOCATIONS"] = VectorAsString(i->Locations); SearchFields["LANGUAGES"] = VectorAsString(i->Languages);
+
+
+
+	Database.Search("PRODCOMP","Paramount");
 	
 	getchar();
 	 
