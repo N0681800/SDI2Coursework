@@ -12,7 +12,7 @@ using namespace std;
 
 
 //When tokenized strings contain more CSV this will get each indivudual one
-vector<string> AddTokens(string Line);
+vector<string> AddTokens(string Line,char Delim);
 
 void PrintVector(vector<string> Vector);
 

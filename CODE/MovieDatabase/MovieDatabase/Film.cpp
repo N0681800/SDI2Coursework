@@ -32,16 +32,16 @@ void Film::Setup()
 
 	ID = TempData[0];
 	Title = TempData[1];
-	Genres = AddTokens(TempData[2]);
+	Genres = AddTokens(TempData[2],',');
 	Summary = TempData[3];
-	ProdComps = AddTokens(TempData[4]);
-	Locations = AddTokens(TempData[5]);
+	ProdComps = AddTokens(TempData[4], ',');
+	Locations = AddTokens(TempData[5], ',');
 	ReleaseDate = GetDate(TempData[6]);
 	if (TempData[7] == "0") { Revenue = 0; }
 	else Revenue = stoi(TempData[7])/22;
 	Runtime = stoi(TempData[8]);
 	if (TempData[9] == "") Languages.push_back("English"); //Remove in future
-	else Languages = AddTokens(TempData[9]);
+	else Languages = AddTokens(TempData[9], ',');
 	
 
 	Status = 0;
@@ -272,11 +272,11 @@ Film::Material::Material(string Info)
 
 	//FA.SetFA(TempMaterialData[4]);
 
-	AudioLanguages = AddTokens(TempMaterialData[6]);
+	AudioLanguages = AddTokens(TempMaterialData[6],',');
 
 	if (Format != 0)
 	{
-		SubtitleLanguages = AddTokens(TempMaterialData[6]);
+		SubtitleLanguages = AddTokens(TempMaterialData[6],',');
 	}
 	if (Format == 2)
 	{
