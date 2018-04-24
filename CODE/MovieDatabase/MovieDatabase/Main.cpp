@@ -1,6 +1,7 @@
 #include "Database.h"
 #include "Library.h"
 #include "Film.h"
+#include "Templates.cpp"
 
 #include <iostream>
 #include <string>
@@ -14,6 +15,7 @@ using namespace std;
 
 int main()
 {
+	
 	string Choice;
 	char Box = 178;
 	cout << "\n\n" << endl;
@@ -25,11 +27,13 @@ int main()
 
 	getchar();
 
-	Database Database("CompleteDatabase.txt", "CastCrew.txt.", 500);
+	Database Database("CompleteDatabase.txt", "CastCrew.txt.", 200);
 
 
 
 	cout << "\n\nPress Enter to continue." << endl; getchar();
+
+	/*
 
 	while (Choice != "QUIT")
 	{
@@ -47,7 +51,15 @@ int main()
 		}
 	}
 
+	*/
 
+	Film* Pointer = (Database.Find("1", &Database.Storage));
+
+	if (Pointer) cout << Pointer->ID;
+	else
+	{
+		cout << "Null";
+	}
 
 	//Database.createNewTree("TITLE");
 	//ID,TITLE,ReleaseDate,Revenue,Runtime,Status

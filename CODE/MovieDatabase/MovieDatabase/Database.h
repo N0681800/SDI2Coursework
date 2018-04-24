@@ -32,7 +32,9 @@ public:
 
 	void createNewTree(string SortBy);
 
-	//string GetFilmTitle(string FilmID);
+	template <class T>
+	T* Find(string ID, vector<T> *Vec);
+
 private:
 
 	string Username = "Admin", Password = "root";
