@@ -12,7 +12,7 @@
 using namespace std;
 
 
-/*
+
 int main()
 {
 	
@@ -53,7 +53,7 @@ int main()
 	}
 
 	
-
+	*/
 
 
 	Film* Pointer = (Find("12", &Database.Storage));
@@ -81,7 +81,7 @@ int main()
 	return 0;
 }
 
-*/
+
 
 template <class T>
 int InsertInOrder(string ID, vector<T> *Vec)
@@ -103,36 +103,8 @@ int InsertInOrder(string ID, vector<T> *Vec)
 	return M;
 }
 
-int InOrder(int ID, vector<int> Vec)
-{
-	int start = 0, end = Vec.size() - 1;
-	int M = 0;
-	while (start <= end)
-	{
-		M = floor(((end + start) / 2));
 
-		int num = Vec[M];
-		cout << ID << " vs " << num << endl;
-		if (num < ID)
-		{
-			cout << "ID greater" << endl;
-			start = M + 1;
-		}
-		else if (num > ID)
-		{
-			cout << "num greater" << endl;
-			end = M - 1;
-		}
-		else
-		{
-			break;
-		}
-	}
-	cout << "M " << M << "\n\n" << endl;
-	return M;
-}
-
-
+/*
 int main()
 {
 	srand(time(NULL));
@@ -170,3 +142,4 @@ int main()
 	getchar();
 	return 0;
 }
+*/

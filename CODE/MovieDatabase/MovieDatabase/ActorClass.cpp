@@ -38,14 +38,15 @@ void Actor::PrintDetails() {
 
 }
 
-string Actor::GetRole(string ID)
+string Actor::GetRole(string filmID)
 {
-	return VectorAsString(FilmRole[ID]);
+	string role = FilmRole.
+	return VectorAsString(FilmRole[filmID]);
 }
 
-string Actor::Save(string ID)
+string Actor::Save(string filmID)
 {
-	return GetRole(ID) + "," + to_string(Gender) + "," + ID + "," + Name;
+	return GetRole(filmID) + "," + to_string(Gender) + "," + ID + "," + Name;
 }
 
 void Actor::AddFilm(string FilmID,string Character) {

@@ -1,4 +1,2 @@
-﻿  Main.cpp
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\main.cpp(114): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\main.cpp(141): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  ActorClass.cpp
   MovieDatabase.vcxproj -> C:\Users\Josh\Desktop\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe

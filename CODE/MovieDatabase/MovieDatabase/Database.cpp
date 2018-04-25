@@ -304,9 +304,11 @@ vector<string> Database::AddActors(string FilmID,string Input)
 				}
 
 				Actor* ActorPointer;
-				if (!(ActorPointer = Find(ActorInfo[2], &ActorStorage))) //Doesn't Exist, Make new
+				if (!(ActorPointer = Find(ActorInfo[2], &ActorStorage))) 
 				{
-					ActorStorage.push_back(Actor(FilmID, ActorInfo));
+					Actor Temp(FilmID, ActorInfo);
+					vector<Actor>::iterator Index = (ActorStorage.begin() + InOrder(Temp, ActorStorage));
+					ActorStorage.insert(Index, Temp);
 					ActorIDs.push_back(ActorInfo[2]);
 				}
 				else
