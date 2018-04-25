@@ -1,2 +1,27 @@
 ﻿  ActorClass.cpp
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\actorclass.cpp(27): warning C4309: 'initializing': truncation of constant value
+  Database.cpp
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(55): warning C4129: 'M': unrecognized character escape sequence
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(78): warning C4101: 'a': unreferenced local variable
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(90): warning C4129: 'C': unrecognized character escape sequence
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(158): warning C4101: 'a': unreferenced local variable
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(173): warning C4309: 'initializing': truncation of constant value
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(289): warning C4018: '>=': signed/unsigned mismatch
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(327): warning C4309: 'initializing': truncation of constant value
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(378): warning C4101: 'a': unreferenced local variable
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(65): note: see reference to function template instantiation 'T *Find<Film>(std::string,std::vector<Film,std::allocator<_Ty>> *)' being compiled
+          with
+          [
+              T=Film,
+              _Ty=Film
+          ]
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(44): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(366): note: see reference to function template instantiation 'int InOrder<Actor>(T,std::vector<Actor,std::allocator<_Ty>>)' being compiled
+          with
+          [
+              T=Actor,
+              _Ty=Actor
+          ]
+  Generating Code...
   MovieDatabase.vcxproj -> C:\Users\Josh\Desktop\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe

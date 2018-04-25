@@ -27,7 +27,7 @@ int main()
 
 	getchar();
 
-	Database Database("DatabaseMain.txt", "CastCrew.txt.","MaterialsMain.txt", 10);
+	Database Database("1.txt", "3.txt.","2.txt", 100);
 
 
 
@@ -55,6 +55,8 @@ int main()
 	
 	*/
 
+	Database.SearchActorFilms(2);
+	//Database.SearchActorName("Mark");
 
 	Film* Pointer = (Find("12", &Database.Storage));
 
@@ -70,10 +72,10 @@ int main()
 
 	//Database.PrintResults("ASC");
 
-	Database.Storage;
-	int a = 1;
+	//Database.Storage;
+	//int a = 1;
 
-	Database.Search("STATUS","100000",'<');
+	//Database.Search("STATUS","100000",'<');
 	
 	getchar();
 	 

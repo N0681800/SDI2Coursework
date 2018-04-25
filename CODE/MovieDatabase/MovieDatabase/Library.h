@@ -24,11 +24,13 @@ string VectorAsString(vector<string> Vector);
 
 string SetLength(string Input, int Max);
 
-void PrintTable();
+void PrintTable(string type);
 
-string GetGender(string number);
+string GetGender(int number);
 
 bool InputChecker(string Choice, vector<string> legalChoices);
+
+void PrintTableHeader(string Type);
 
 template <typename T>
 bool VectorCheck(vector<T> v);

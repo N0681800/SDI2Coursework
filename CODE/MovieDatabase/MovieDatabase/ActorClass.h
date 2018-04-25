@@ -28,6 +28,9 @@ public:
 
 	string GetRole(string ID);
 
+	void Details();
+
+	vector<string> ReturnFilmIDs();
 private:
 
 

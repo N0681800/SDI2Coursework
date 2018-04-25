@@ -20,6 +20,8 @@ public:
 
 	vector<Film*> Results; //A temp vector for search results
 
+	vector<Actor*> ActorResults;
+
 	//vector<CastCrew> ccStorage;
 
 	Database(string filmPath, string ccPath, string matPath, int Max);
@@ -28,13 +30,25 @@ public:
 
 	void PrintResults(string Order);//Prints out details of a number of films
 
+	void PrintActors(string Order);
+
 	void Search(string SearchField, string Query, char Order);//Searchs field for a value
+
+	void SearchActorName(string Find);
+
+	void SearchActorFilms(int Find);
 
 	bool SaveData();//Saves the database
 
 	void createNewTree(string SortBy);
 
 	void PrintResultsVector();
+
+	void PrintActorVector();
+
+	vector<string> GetFilms(string ActorID);
+
+	string GetFilmName(string FilmID);
 
 private:
 
@@ -53,8 +67,6 @@ private:
 
 		void printTree(string Order);
 
-		void SearchFilm(string toSearch, string Find,char Order);
-
 		int getSize();
 
 		void Delete();
@@ -67,9 +79,16 @@ private:
 			TreeNode *Right;
 		};
 
+		struct ActorTreeNode
+		{
+			Actor *ActorInfo;
+			TreeNode *Left;
+			TreeNode *Right;
+		};
+
 		TreeNode * Root; // = new TreeNode;
 
-		void SearchTree(TreeNode* Node, string toSearch, int toFind,char Parameter);
+		//void SearchTree(TreeNode* Node, string toSearch, int toFind,char Parameter);
 
 		void insertInt(TreeNode *Node, Film *toAdd, string toSort);
 

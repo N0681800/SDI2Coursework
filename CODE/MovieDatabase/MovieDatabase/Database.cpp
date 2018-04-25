@@ -95,6 +95,11 @@ void Database::CastCrewSetup(int MAX)
 	
 		vector<string> CastCrewLine = AddTokens(Line, '|');
 
+		while (CastCrewLine[0].length() < 6)
+		{
+			CastCrewLine[0] = "0" + CastCrewLine[0];
+		}
+
 		try {
 			Film* Pointer;
 			if (!(Pointer = (Find(CastCrewLine[0], &Storage))))
@@ -176,11 +181,12 @@ void Database::PrintResults(string Order)//Prints out details of a number of fil
 	cout << setw(12) << left << "Status" << Border;
 	cout << setw(MaxMaterialLength + 3) << left << "Avalible Materials" << Border << endl;
 
-	PrintTable();
+	PrintTable("FILM");
 
 	CURRENT_SORT_TYPE = Order;
 	Tree.printTree(Order);
 }
+
 
 void Database::Search(string SearchField, string Query,char Order)//Searchs field for a value
 {
@@ -260,28 +266,78 @@ void Database::Search(string SearchField, string Query,char Order)//Searchs fiel
 	
 }
 
+void Database::SearchActorName(string Find)
+{
+	for (vector<Actor>::iterator i = ActorStorage.begin(); i != ActorStorage.end(); i++)
+	{
+
+		if (ToLower(i->Name).find(ToLower(Find)) != string::npos)
+		{
+			ActorResults.push_back(&*i);
+		}
+	}
+
+	PrintActorVector();
+
+	cout << "\n\nHere are the search results for: " << Find << endl;
+}
+
+void Database::SearchActorFilms(int No)
+{
+	for (vector<Actor>::iterator i = ActorStorage.begin(); i != ActorStorage.end(); i++)
+	{
+		if (i->FilmRole.size() >= No)
+		{
+			ActorResults.push_back(&*i);
+		}
+	}
+
+
+	PrintActorVector();
+
+	cout << "\n\nHere are the search results for actors with more than: " << No << " films" << endl;
+
+}
+
 void Database::PrintResultsVector()
 {
-	const int MaxTitleLength = 35;
-	const int MaxGenreLength = 20;
-	const int MaxMaterialLength = 15;
-	char Border = 179;
-
-	cout << setw(6) << left << "ID" << Border;
-	cout << setw(MaxTitleLength + 3) << left << "Title" << Border;
-	cout << setw(MaxGenreLength + 6) << left << "Genres" << Border;
-	cout << setw(10) << left << "Released" << Border;
-	cout << setw(10) << left << "Runtime" << Border;
-	cout << setw(18) << left << "Box Office Sales" << Border;
-	cout << setw(12) << left << "Status" << Border;
-	cout << setw(MaxMaterialLength + 3) << left << "Avalible Materials" << Border << endl;
-
-	PrintTable();
+	PrintTableHeader("FILM");
 
 	for (vector<Film*>::iterator i = Results.begin(); i != Results.end(); i++)
 	{
 		(*i)->Details();
 	}
+}
+
+vector<string> Database::GetFilms(string ActorID)
+{
+	vector<string> FilmNames;
+	vector<string> FilmIds = Find(ActorID, &ActorStorage)->ReturnFilmIDs();
+	
+	for (vector<string>::iterator i = FilmIds.begin(); i != FilmIds.end(); i++)
+	{
+		FilmNames.push_back(GetFilmName(*i));
+	}
+	return FilmNames;
+}
+
+void Database::PrintActorVector()
+{
+	PrintTableHeader("Actor");
+	char Border = 179;
+	for (vector<Actor*>::iterator i = ActorResults.begin(); i != ActorResults.end(); i++)
+	{
+		(*i)->Details();
+		
+		cout << setw(40 + 3) << left << SetLength(VectorAsString(GetFilms((*i)->ID)),40) << Border<<endl;
+
+		PrintTable("ACTOR");
+	}
+}
+
+string Database::GetFilmName(string FilmID)
+{
+	return Find(FilmID, &Storage)->Title;
 }
 
 vector<string> Database::AddActors(string FilmID,string Input)
@@ -314,6 +370,7 @@ vector<string> Database::AddActors(string FilmID,string Input)
 				else
 				{
 					ActorPointer->AddFilm(FilmID, ActorInfo[0]);
+					ActorIDs.push_back(ActorInfo[2]);
 				}
 
 			}
@@ -369,9 +426,9 @@ bool Database::SaveData()
 {
 	bool Saved = false;
 	
-	ofstream outFile("Databasetest.txt");
-	ofstream MaterialoutFile("Materialstest.txt");
-	ofstream CastCrewoutFile("ccTesttest.txt");
+	ofstream outFile("1.txt");
+	ofstream MaterialoutFile("2.txt");
+	ofstream CastCrewoutFile("3.txt");
 
 	for (vector<Film>::const_iterator i = Storage.begin(); i != Storage.end(); i++)
 	{

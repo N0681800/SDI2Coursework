@@ -21,26 +21,18 @@ Actor::Actor(string FilmID,vector<string> Info)
 	cout << "Loaded Actor: " + ID <<endl;
 }
 
-void Actor::PrintDetails() {
-		for (map<string, vector<string> >::iterator i = FilmRole.begin(); i != FilmRole.end(); ++i) {
-			cout << (*i).first << ": ";
-			vector <string> PrintRole = (*i).second;
-			for (unsigned j = 0; j<PrintRole.size(); j++) {
-				cout << PrintRole[j] << " ";
-			}
-			cout << endl;
-		}
-	cout << Gender << endl;
-	cout << ID << endl;
-	cout << Name << endl;
-	cout << endl;
+void Actor::Details() {
+	const int MaxNameLength = 25;
+	const int MaxFilmLength = 40;
+	char Border = 179;
 
-
+	cout << setw(7) << left << ID << Border;
+	cout << setw(MaxNameLength + 3) << left << Name << Border;
+	cout << setw(10) << left << GetGender(Gender) << Border;
 }
 
 string Actor::GetRole(string filmID)
 {
-	string role = FilmRole.
 	return VectorAsString(FilmRole[filmID]);
 }
 
@@ -53,3 +45,12 @@ void Actor::AddFilm(string FilmID,string Character) {
 	FilmRole[FilmID].push_back(Character);
 }
 
+vector<string> Actor::ReturnFilmIDs()
+{
+	vector<string> Films;
+	for (map<string, vector<string>>::iterator i = FilmRole.begin(); i != FilmRole.end(); i++)
+	{
+		Films.push_back(i->first);
+	}
+	return Films;
+}

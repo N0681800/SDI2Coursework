@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include <sstream>
+#include <iomanip>
 
 #include "Library.h"
 
@@ -68,31 +69,45 @@ string SetLength(string Input, int Max)
 	return Word;
 }
 
-void PrintTable()
+void PrintTable(string Type)
 {
 	char Cross = 197;
 	char Edge = 196;
 	char Last = 180;
-	const int MaxTitleLength = 35;
-	const int MaxGenreLength = 20;
-	const int MaxMaterialLength = 15;
 	char Border = 179;
+	if (Type == "FILM")
+	{
+		const int MaxTitleLength = 35;
+		const int MaxGenreLength = 20;
+		const int MaxMaterialLength = 15;
 
-	for (int i = 0; i < 6; i++) { cout << Edge; } cout << Cross;
-	for (int i = 0; i < MaxTitleLength + 3; i++) { cout << Edge; } cout << Cross;
-	for (int i = 0; i < MaxGenreLength + 6; i++) { cout << Edge; } cout << Cross;
-	for (int i = 0; i < 10; i++) { cout << Edge; } cout << Cross;
-	for (int i = 0; i < 10; i++) { cout << Edge; } cout << Cross;
-	for (int i = 0; i < 18; i++) { cout << Edge; } cout << Cross;
-	for (int i = 0; i < 12; i++) { cout << Edge; } cout << Cross;
-	for (int i = 0; i < MaxMaterialLength + 3; i++) { cout << Edge; } cout << Last << endl;
+
+		for (int i = 0; i < 6; i++) { cout << Edge; } cout << Cross;
+		for (int i = 0; i < MaxTitleLength + 3; i++) { cout << Edge; } cout << Cross;
+		for (int i = 0; i < MaxGenreLength + 6; i++) { cout << Edge; } cout << Cross;
+		for (int i = 0; i < 10; i++) { cout << Edge; } cout << Cross;
+		for (int i = 0; i < 10; i++) { cout << Edge; } cout << Cross;
+		for (int i = 0; i < 18; i++) { cout << Edge; } cout << Cross;
+		for (int i = 0; i < 12; i++) { cout << Edge; } cout << Cross;
+		for (int i = 0; i < MaxMaterialLength + 3; i++) { cout << Edge; } cout << Last << endl;
+	}
+	else
+	{
+		const int MaxNameLength = 25;
+		const int MaxFilmLength = 40;
+
+		for (int i = 0; i < 7; i++) { cout << Edge; } cout << Cross;
+		for (int i = 0; i < MaxNameLength + 3; i++) { cout << Edge; } cout << Cross;
+		for (int i = 0; i < 10; i++) { cout << Edge; } cout << Cross;
+		for (int i = 0; i < MaxFilmLength + 3; i++) { cout << Edge; } cout << Last << endl;
+	}
 }
 
-string GetGender(string number)
+string GetGender(int number)
 {
 	string Gender;
-	if (number == ("1")) Gender = "Female";
-	else if (number == ("2")) Gender = "Male";
+	if (number == (1)) Gender = "Female";
+	else if (number == (2)) Gender = "Male";
 	else Gender = "Unknown";
 	return Gender;
 }
@@ -116,6 +131,40 @@ bool InputChecker(string Choice, vector<string> legalChoices)
 		return false;
 	}
 
+}
+
+void PrintTableHeader(string Type)
+{
+	char Border = 179;
+	if (Type == "FILM")
+	{
+		const int MaxTitleLength = 35;
+		const int MaxGenreLength = 20;
+		const int MaxMaterialLength = 15;
+		
+		cout << setw(6) << left << "ID" << Border;
+		cout << setw(MaxTitleLength + 3) << left << "Title" << Border;
+		cout << setw(MaxGenreLength + 6) << left << "Genres" << Border;
+		cout << setw(10) << left << "Released" << Border;
+		cout << setw(10) << left << "Runtime" << Border;
+		cout << setw(18) << left << "Box Office Sales" << Border;
+		cout << setw(12) << left << "Status" << Border;
+		cout << setw(MaxMaterialLength + 3) << left << "Avalible Materials" << Border << endl;
+
+		
+	}
+	else
+	{
+		const int MaxNameLength = 25;
+		const int MaxFilmLength = 40;
+		//ID,Gender,Name,FIlms
+		cout << setw(7) << left << "ID" << Border;
+		cout << setw(MaxNameLength + 3) << left << "Name" << Border;
+		cout << setw(10) << left << "Gender" << Border;
+		cout << setw(MaxFilmLength + 3) << left << "Films" << Border<<endl;
+	}
+
+	PrintTable(Type);
 }
 
 template <typename T>

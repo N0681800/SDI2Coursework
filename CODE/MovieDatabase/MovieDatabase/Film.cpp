@@ -63,7 +63,7 @@ void Film::Details()
 	cout << setw(12) << left << getStatus() << Border;
 	cout << setw(18) << left << SetLength(printMaterials(),MaxMaterialLength) << Border << endl;
 
-	PrintTable();
+	PrintTable("FILM");
 }
 
 string Film::getStatus()
@@ -245,9 +245,9 @@ string Film::CrewMember::Save()
 {
 	string toSave;
 
-	for (vector<string>::iterator i = (Roles.begin()+1); i != Roles.end(); i++)
+	for (vector<string>::iterator i = (Roles.begin()); i != Roles.end(); i++)
 	{
-		toSave += ID + "," + to_string(Gender) + "," + Roles[0] + "," + Name;
+		toSave += to_string(Gender)  + "," +  ID + "," + Roles[0] + "," + Name;
 		if (i != Roles.end() - 1)
 		{
 			toSave += "/";
