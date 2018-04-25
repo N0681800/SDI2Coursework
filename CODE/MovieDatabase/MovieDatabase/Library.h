@@ -16,9 +16,7 @@ vector<string> AddTokens(string Line,char Delim);
 
 void PrintVector(vector<string> Vector);
 
-string GetDate(string Date);
-
-string PrintDate(string Date);
+string PrintDate(int Date);
 
 string ToLower(string Word);
 

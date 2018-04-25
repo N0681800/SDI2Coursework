@@ -12,7 +12,10 @@ T* Database::Find(string ID, vector<T> *Vec)
 	int start = 0, end = Vec->size() - 1;
 	while (start <= end)
 	{
-		int M = floor(((end - start) / 2));
+		int M = floor(((end + start) / 2));
+
+		//cout << M;
+		//cout << Vec->at(M).ID;
 
 		if (Vec->at(M).ID == ID)
 		{
@@ -29,6 +32,8 @@ T* Database::Find(string ID, vector<T> *Vec)
 	}
 	return NULL;
 }
+
+
 /*
 template <class T>
 void Database::Printvector(vector<T> Vec)

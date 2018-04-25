@@ -7,20 +7,9 @@
 #include "Library.h"
 
 
-string GetDate(string Date)
+string PrintDate(int Date)
 {
-	string yr = Date.substr(6, 4);
-	string month = Date.substr(3, 2);
-	string day = Date.substr(0, 2);
-	return (yr + month + day);
-}
-
-string PrintDate(string Date)
-{
-	string yr = Date.substr(0, 4);
-	string month = Date.substr(4, 2);
-	string day = Date.substr(6, 2);
-	return (day + "/" + month + "/" + yr);
+	return ((to_string(Date).substr(6, 2)) + "/" + (to_string(Date).substr(4, 2)) + "/" + (to_string(Date).substr(0, 4)));
 }
 
 vector<string> AddTokens(string Line, char Delim)
@@ -30,14 +19,15 @@ vector<string> AddTokens(string Line, char Delim)
 	stringstream LineOfData(Line);
 	while (getline(LineOfData, TokenizedData, Delim)) //getting data
 	{
-		//temp.push_back(TokenizedData);
-		
+		if(TokenizedData == "") temp.push_back("N/A");
+		else temp.push_back(TokenizedData);
+		/*
 		try {
 			if (TokenizedData.substr(1, 1) == ",") { continue; }
 			else temp.push_back(TokenizedData);
 		}
 		catch (exception e) {}
-		
+		*/
 	}
 	return temp;
 }

@@ -20,13 +20,13 @@ public:
 
 	//vector<CastCrew> ccStorage;
 
-	Database(string filmPath, string ccPath, int Max);
+	Database(string filmPath, string ccPath, string matPath, int Max);
 
 	~Database();
 
 	void PrintResults(string Order);//Prints out details of a number of films
 
-	void Search(string SearchField, string Query);//Searchs field for a value
+	void Search(string SearchField, string Query, char Order);//Searchs field for a value
 
 	bool SaveData();//Saves the database
 
@@ -54,7 +54,7 @@ private:
 
 		void printTree(string Order);
 
-		void SearchFilm(string toSearch, string Find);
+		void SearchFilm(string toSearch, string Find,char Order);
 
 		int getSize();
 
@@ -70,7 +70,7 @@ private:
 
 		TreeNode * Root; // = new TreeNode;
 
-		void SearchTree(TreeNode* Node, string toSearch, string toFind);
+		void SearchTree(TreeNode* Node, string toSearch, int toFind,char Parameter);
 
 		void insertInt(TreeNode *Node, Film *toAdd, string toSort);
 
@@ -90,7 +90,11 @@ private:
 
 	string ccPath; //Path to cast crew database
 
+	string matPath; //Path to material database
+
 	void FilmSetup(int MAX);//Setups Database,input of #of films to be loaded
+
+	void MaterialSetup(int MAX);
 
 	//void CastCrewSetup(int MAX);
 

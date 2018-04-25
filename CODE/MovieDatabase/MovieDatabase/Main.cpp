@@ -27,11 +27,12 @@ int main()
 
 	getchar();
 
-	Database Database("CompleteDatabase.txt", "CastCrew.txt.", 200);
+	Database Database("DatabaseMain.txt", "CastCrew.txt.","MaterialsMain.txt", 200);
 
 
 
 	cout << "\n\nPress Enter to continue." << endl; getchar();
+
 
 	/*
 
@@ -57,26 +58,22 @@ int main()
 
 	Film* Pointer = (Database.Find("12", &Database.Storage));
 
-	if (Pointer) cout << Pointer->ID;
+	if (Pointer) cout << Pointer->ID << endl;
 	else
 	{
-		cout << "Null";
+		cout << "Null"<<endl;
 	}
 
-	//Database.createNewTree("TITLE");
-	//ID,TITLE,ReleaseDate,Revenue,Runtime,Status
 
 	//getchar();
+
+
 	//Database.PrintResults("ASC");
 
+	Database.Storage;
+	int a = 1;
 
-	//Database.SaveData();
-	//SearchFields["GENRE"] = VectorAsString(i->Genres); SearchFields["PRODCOMP"] = VectorAsString(i->ProdComps);
-	//SearchFields["LOCATIONS"] = VectorAsString(i->Locations); SearchFields["LANGUAGES"] = VectorAsString(i->Languages);
-
-
-
-	Database.Search("PRODCOMP","Paramount");
+	Database.Search("STATUS","100000",'<');
 	
 	getchar();
 	 
