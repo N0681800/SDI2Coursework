@@ -116,15 +116,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CastCrewClass.h" />
-    <ClInclude Include="Database.h" />
     <ClInclude Include="Library.h" />
-    <ClInclude Include="Film.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Database.cpp" />
-    <ClCompile Include="Film.cpp" />
+    <ClCompile Include="CastCrewClass.cpp" />
     <ClCompile Include="Library.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="testingcast.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

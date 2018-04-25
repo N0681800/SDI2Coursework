@@ -23,18 +23,13 @@ string PrintDate(string Date)
 	return (day + "/" + month + "/" + yr);
 }
 
-vector<string> AddTokens(string Line)
+vector<string> AddTokens(string Line, char DelIm)
 {
 	vector<string> temp;
 	string TokenizedData;
 	stringstream LineOfData(Line);
-	while (getline(LineOfData, TokenizedData, ',')) //getting data
-	{
-		try {
-			if (TokenizedData.substr(1, 1) == ",") { continue; }
-			else temp.push_back(TokenizedData);
-		}
-		catch (exception e) {}
+	while (getline(LineOfData, TokenizedData, DelIm)) //getting data
+	{temp.push_back(TokenizedData);
 	}
 	return temp;
 }

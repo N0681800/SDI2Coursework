@@ -1,9 +1,9 @@
-﻿  Library.cpp
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(71): warning C4018: '>': signed/unsigned mismatch
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(80): warning C4309: 'initializing': truncation of constant value
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(81): warning C4309: 'initializing': truncation of constant value
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(82): warning C4309: 'initializing': truncation of constant value
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(86): warning C4309: 'initializing': truncation of constant value
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(120): warning C4101: 'a': unreferenced local variable
-  MovieDatabase.vcxproj -> C:\Users\n0695309\Documents\GitHub\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe
-  MovieDatabase.vcxproj -> C:\Users\n0695309\Documents\GitHub\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.pdb (Partial PDB)
+﻿  testingcast.cpp
+c:\users\calve\desktop\sdi2coursework\code\moviedatabase\moviedatabase\testingcast.cpp(24): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  c:\users\calve\desktop\sdi2coursework\code\moviedatabase\moviedatabase\testingcast.cpp(62): note: see reference to function template instantiation 'T *Find<Crew>(std::string,std::vector<Crew,std::allocator<_Ty>> *)' being compiled
+          with
+          [
+              T=Crew,
+              _Ty=Crew
+          ]
+  MovieDatabase.vcxproj -> C:\Users\calve\Desktop\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe

@@ -6,7 +6,6 @@
 #include <vector>
 #include <map>
 #include <sstream>
-
 #include "Library.h"
 
 Database::Database(string filmPath_, string ccPath_, int Max)

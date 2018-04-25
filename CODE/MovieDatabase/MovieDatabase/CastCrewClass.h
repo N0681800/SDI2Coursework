@@ -1,22 +1,18 @@
-#pragma once
+#include "Library.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <map>
-#include "Film.h"
-#include "Library.h"
-#include "Database.h"
-using namespace std;
+#include <string>
+#include <iomanip>
+#include <sstream>
 
-/*
-class CastCrew
+class Cast
 {
 public:
-	CastCrew(string ID_, string Name_, string Gender_, bool isCast_);
+	Cast(string FilmID, string Info);
 
-	//~CastCrew();
-
-	bool isCast;
+	string Character;
 
 	string ID;
 
@@ -24,44 +20,34 @@ public:
 
 	string Name;
 
-	std::map<string, string> FilmRole;
-
-	void AddFilm(string FilmID, string Role);
-
-	//void PrintRole(string FilmID);
+	std::map<string, vector<string>> FilmRole;
 
 	void PrintDetails();
-
+	void AddFilm(string ID, string Character);
 private:
 
 
 };
 
-CastCrew::CastCrew(string ID_,string Name_,string Gender_,bool isCast_)
+class Crew
 {
-	ID = ID_;
-	Name = Name_;
-	Gender = Gender_;
-	isCast = isCast_;
-}
+public:
+	Crew(string FilmID, string Info);
 
-void CastCrew::PrintDetails()
-{
-	cout << "ID: " << ID;
-	cout << "Name: " << Name;
-	cout << "Gender: " << Gender;
-	cout << "Films: " << FilmRole[0] << endl;
-}
-/*
-void CastCrew::PrintRole(string FilmID)
-{
-	cout << "Film: " << /GetFilmTitle(FilmID) << endl;
-	cout << "Role: " << FilmRole[FilmID] << endl;
-}
+	string Role;
 
-void CastCrew::AddFilm(string FilmID, string Role)
-{
-	FilmRole[FilmID] = Role;
-}
+	string ID;
 
-*/
+	string Gender;
+
+	string Name;
+
+	void PrintDetails();
+	void AddFilm(string ID, string Role);
+
+	std::map<string, vector<string>> FilmRole;
+
+private:
+
+
+};
