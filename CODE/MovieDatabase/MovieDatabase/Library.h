@@ -12,13 +12,11 @@ using namespace std;
 
 
 //When tokenized strings contain more CSV this will get each indivudual one
-vector<string> AddTokens(string Line,char DelIm);
+vector<string> AddTokens(string Line,char Delim);
 
 void PrintVector(vector<string> Vector);
 
-string GetDate(string Date);
-
-string PrintDate(string Date);
+string PrintDate(int Date);
 
 string ToLower(string Word);
 
@@ -31,3 +29,6 @@ void PrintTable();
 string GetGender(string number);
 
 bool InputChecker(string Choice, vector<string> legalChoices);
+
+template <typename T>
+bool VectorCheck(vector<T> v);

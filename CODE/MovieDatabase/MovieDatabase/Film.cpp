@@ -5,65 +5,34 @@
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
+#include "Library.h"
+#include "Templates.cpp"
 
-
-Film::Film(string Input_)
+Film::Film(string Input)
 {
-	Input = Input_;
+	vector<string> TempData = AddTokens(Input, '|');
+
+	ID = TempData[0];
+	Title = TempData[1];
+	Genres = AddTokens(TempData[2], ',');
+	Summary = TempData[3];
+	ProdComps = AddTokens(TempData[4], ',');
+	Locations = AddTokens(TempData[5], ',');
+	ReleaseDate = stoi(TempData[6]);
+	if (TempData[7] == "0") { Revenue = 0; }
+	else Revenue = stoi(TempData[7]) / 22;
+	Runtime = stoi(TempData[8]);
+	if (TempData[9] == "") Languages.push_back("English"); //Remove in future
+	else Languages = AddTokens(TempData[9], ',');
+
+	Status = 0;
+
+	cout << "Loaded: " << ID << endl;
 }
 
 Film::~Film()
 {
 
-}
-
-
-void Film::Setup()
-{
-	string TokenizedData, TempData[11]; int i = 0;
-	stringstream LineOfData(Input);
-	while (getline(LineOfData, TokenizedData, '|')) //getting data
-	{
-		//cout << TokenizedData<<endl;
-		TempData[i] = TokenizedData; //Store data in temp array
-		i++;
-	}
-	int a = rand();
-	
-
-	ID = TempData[0];
-	Title = TempData[1];
-	Genres = AddTokens(TempData[2]);
-	Summary = TempData[3];
-	ProdComps = AddTokens(TempData[4]);
-	Locations = AddTokens(TempData[5]);
-	ReleaseDate = GetDate(TempData[6]);
-	if (TempData[7] == "0") { Revenue = 0; }
-	else Revenue = stoi(TempData[7])/22;
-	Runtime = stoi(TempData[8]);
-	Languages = AddTokens(TempData[9]);
-
-
-	Status = 0;
-	//if (rand() % 3 == 0) Status = 0;
-	//else if (rand() % 3 == 1) Status = 1;
-	//else Status = 2;
-
-
-	//Set Material Info
-	if (Status == 0)
-	{
-		if (GetDate(ReleaseDate) < "20040101")
-		{
-			//VHS
-			string VHS = "0/VHS" + ID + "/" + Title + "/Mono/9.99/16:9/" + Languages[0];
-			Material Temp(VHS);
-			Materials.push_back(Temp);
-		}	
-	}
-
-
-	cout << "Loaded film ID number:" << ID << endl;
 }
 
 void Film::Overview()//Prints out all info of a chosen film
@@ -97,11 +66,6 @@ void Film::Details()
 	PrintTable();
 }
 
-void Film::Save()
-{
-
-}
-
 string Film::getStatus()
 {
 	switch (Status)
@@ -114,31 +78,6 @@ string Film::getStatus()
 		return "Unreleased";
 
 	}
-}
-
-string Film::Material::FrameAspect::Disp()
-{
-	return w + ":" + h;
-}
-
-void Film::Material::FrameAspect::SetFA(string Input)
-{
-	string Data;
-	stringstream LineOfData(Input);
-	getline(LineOfData, Data, '/'); //getting data
-	w = stoi(Data);
-	getline(LineOfData, Data, '/');
-	h = stoi(Data);
-}
-
-void Film::Material::Price::setPrice(string Input)
-{
-	string Data;
-	stringstream LineOfData(Input);
-	getline(LineOfData, Data, '.'); //getting data
-	Dollars = stoi(Data);
-	getline(LineOfData, Data, '.');
-	Cent = stoi(Data);
 }
 
 string Film::Material::getFormat()
@@ -158,39 +97,35 @@ string Film::Material::getFormat()
 	}
 }
 
-
 Film::Material::Material(string Info)
 {
-	string TokenizedMaterial; int i = 0;
-	vector<string> TempMaterialData;
-	stringstream LineOfData(Info);
-	while (getline(LineOfData, TokenizedMaterial, '/')) //getting data
-	{
-		TempMaterialData.push_back(TokenizedMaterial); //Store data in temp vector
-	}
-	Format = stoi(TempMaterialData[0]);
-	ID = TempMaterialData[1];
-	Title = TempMaterialData[2];
-	AudioFormat = TempMaterialData[3];
-	Cost = TempMaterialData[4];
+	vector<string> TempMaterialData = AddTokens(Info, '/');
 
-	//Cost.setPrice(TempMaterialData[3]);
+	Format = stoi(TempMaterialData[0]);
+
+	ID = TempMaterialData[1];
+
+	Title = TempMaterialData[2];
+
+	AudioFormat = TempMaterialData[3];
+
+	Cost = TempMaterialData[4];
 
 	FA = TempMaterialData[5];
 
-	//FA.SetFA(TempMaterialData[4]);
-
-	AudioLanguages = AddTokens(TempMaterialData[6]);
+	AudioLanguages = AddTokens(TempMaterialData[6],',');
 
 	if (Format != 0)
 	{
-		SubtitleLanguages = AddTokens(TempMaterialData[6]);
+		SubtitleLanguages = AddTokens(TempMaterialData[6],',');
 	}
 	if (Format == 2)
 	{
 		SideOneInfo = TempMaterialData[7];
 		SideTwoInfo = TempMaterialData[8];
 	}
+
+	cout << "Loaded :" + ID << endl;
 
 }
 
@@ -202,14 +137,13 @@ string Film::printMaterials()
 		{
 			throw 99;
 		}
+		string MaterialList;
 		for (vector<Material>::iterator i = Materials.begin(); i != Materials.end(); i++)
 		{
-			string MaterialList;
 			MaterialList += i->getFormat();
 			if (i != (Materials.end() - 1)) MaterialList += ',';
-
-			return MaterialList;
 		}
+		return MaterialList;
 	}
 	catch (int a)
 	{
@@ -217,16 +151,122 @@ string Film::printMaterials()
 	}
 }
 
-/*
+string Film::Save()
+{
+	return ID + "|" + Title + "|" + VectorAsString(Genres) + "|" + Summary + "|" + VectorAsString(ProdComps) + "|" + VectorAsString(Locations) + "|" + to_string(ReleaseDate) + "|" + to_string(Revenue) + "|" + to_string(Runtime) + "|" + VectorAsString(Languages) + "|" + to_string(Status);
+}
+
+string Film::SaveMaterials()
+{
+	string MaterialOut = ID;
+
+	for (vector<Film::Material>::const_iterator j = Materials.begin(); j != Materials.end(); j++)
+	{
+		Material Temp = *j;
+		MaterialOut += Temp.SaveInfo();
+
+	}
+	return MaterialOut;
+}
+
 string Film::Material::SaveInfo()
 {
-	string Info = Format + "/" + ID + "/" + Title + "/" + AudioFormat + "/" + Cost.AsString() + "/" + FA.Disp() + "/" + VectorAsString(AudioLanguages);
+	string Info = ("|" + to_string(Format) + "/" + ID + "/" + Title + "/" + AudioFormat + "/" + Cost + "/" + FA + "/" + VectorAsString(AudioLanguages));
+
 	if (Format != 0) Info += "/" + VectorAsString(SubtitleLanguages);
 
-	if (Format = 2)
-	{
-		Info += "/" + SideOneInfo + "/" + SideTwoInfo;
-	}
+	if (Format == 2) Info += "/" + SideOneInfo + "/" + SideTwoInfo;
+
 	return Info;
 }
-*/
+
+Film::CrewMember::CrewMember(vector<string> Details)
+{
+	ID = Details[1];
+	Name = Details[3];
+	Roles.push_back(Details[2]);
+	try {
+		if (Details[0].length() != 1)
+		{
+			Gender = 0;
+		}
+		else
+		{
+			Gender = stoi(Details[0]);
+		}
+	}
+	catch(int a)
+	{
+		//gender bit stored as 1 number
+	}
+}
+
+int Film::AddCrew(string input)
+{
+	vector<string> FilmCrew = AddTokens(input, '/'); //vector of crew
+	int No = 0;
+	for (vector<string>::iterator i = FilmCrew.begin(); i != FilmCrew.end(); i++)
+	{
+		vector<string> CrewDetails = AddTokens(*i, ',');
+
+		while (CrewDetails[1].length() < 7)
+		{
+			CrewDetails[1] = "0" + CrewDetails[1];
+		}
+		try
+		{
+			if (CrewDetails.size() != 4)
+			{
+				throw 40;
+			}
+			else {
+				CrewMember* Pointer;
+				if (!(Pointer = (Find(CrewDetails[1], &Crew))))
+				{
+					Crew.push_back(CrewMember(CrewDetails));
+					No++;
+				}
+				else
+				{
+					Pointer->Roles.push_back(CrewDetails[2]);
+				}
+				cout << "Loaded crew :" + CrewDetails[1] << endl;
+			}
+		}
+		catch (int a)
+		{
+		
+		}
+	}
+	return No;
+}
+
+string Film::CrewMember::Save()
+{
+	string toSave;
+
+	for (vector<string>::iterator i = (Roles.begin()+1); i != Roles.end(); i++)
+	{
+		toSave += ID + "," + to_string(Gender) + "," + Roles[0] + "," + Name;
+		if (i != Roles.end() - 1)
+		{
+			toSave += "/";
+		}
+	}
+	
+	return toSave;
+}
+
+string Film::SaveCrew()
+{
+	string CrewSave;
+	for (vector<CrewMember>::iterator i = Crew.begin(); i != Crew.end(); i++)
+	{
+		CrewSave += i->Save();
+		if (i != Crew.end() - 1)
+		{
+			CrewSave += "/";
+		}
+	}
+	return CrewSave;
+}

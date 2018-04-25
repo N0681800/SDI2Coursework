@@ -7,13 +7,12 @@
 #include <string>
 #include <iomanip>
 #include <sstream>
-#include "CastCrewClass.h"
+#include "ActorClass.h"
 
 using namespace std;
 
-vector<Cast> CheckCast;
+vector<Actor> CheckCast;
 
-vector<Crew> CheckCrew;
 
 template <class T>
 T* Find(string ID, vector<T> *Vec)
@@ -77,8 +76,8 @@ int q = 0;
 		
 		for (vector<string>::iterator i = ReadCast.begin(); i != ReadCast.end(); i++)
 		{
-			Cast Temp(TempData[0], *i);
-			CheckCast.push_back(Temp);
+			//Actor Temp(TempData[0], *i);
+			//CheckCast.push_back(Temp);
 		}
 		j++;
 		if (j == 10) {
@@ -87,6 +86,7 @@ int q = 0;
 	}
 }
 
+/*
 
 	int main() {
 		SetUp();
@@ -109,3 +109,5 @@ int q = 0;
 		return 0;
 
 	}
+
+	*/

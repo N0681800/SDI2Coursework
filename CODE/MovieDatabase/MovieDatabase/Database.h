@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Film.h"
-//#include "CastCrewClass.h"
+#include "ActorClass.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -16,23 +16,26 @@ public:
 
 	vector<Film> Storage; //Contains all films from database
 
-	vector<Film> Results; //A temp vector for search results
+	vector<Actor> ActorStorage;
+
+	vector<Film*> Results; //A temp vector for search results
 
 	//vector<CastCrew> ccStorage;
 
-	Database(string filmPath, string ccPath, int Max);
+	Database(string filmPath, string ccPath, string matPath, int Max);
 
 	~Database();
 
 	void PrintResults(string Order);//Prints out details of a number of films
 
-	void Search(string SearchField, string Query);//Searchs field for a value
+	void Search(string SearchField, string Query, char Order);//Searchs field for a value
 
 	bool SaveData();//Saves the database
 
 	void createNewTree(string SortBy);
 
-	//string GetFilmTitle(string FilmID);
+	void PrintResultsVector();
+
 private:
 
 	string Username = "Admin", Password = "root";
@@ -50,7 +53,7 @@ private:
 
 		void printTree(string Order);
 
-		void SearchFilm(string toSearch, string Find);
+		void SearchFilm(string toSearch, string Find,char Order);
 
 		int getSize();
 
@@ -66,7 +69,7 @@ private:
 
 		TreeNode * Root; // = new TreeNode;
 
-		void SearchTree(TreeNode* Node, string toSearch, string toFind);
+		void SearchTree(TreeNode* Node, string toSearch, int toFind,char Parameter);
 
 		void insertInt(TreeNode *Node, Film *toAdd, string toSort);
 
@@ -86,7 +89,17 @@ private:
 
 	string ccPath; //Path to cast crew database
 
+	string matPath; //Path to material database
+
+	vector<string> AddActors(string FilmID, string Input);
+
 	void FilmSetup(int MAX);//Setups Database,input of #of films to be loaded
+
+	void MaterialSetup(int MAX);
+
+	void CastCrewSetup(int MAX);
+
+	string SaveActors(Film f);
 
 	//void CastCrewSetup(int MAX);
 

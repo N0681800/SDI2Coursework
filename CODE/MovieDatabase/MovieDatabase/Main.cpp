@@ -1,6 +1,7 @@
 #include "Database.h"
 #include "Library.h"
 #include "Film.h"
+#include "Templates.cpp"
 
 #include <iostream>
 #include <string>
@@ -11,9 +12,10 @@
 using namespace std;
 
 
-
+/*
 int main()
 {
+	
 	string Choice;
 	char Box = 178;
 	cout << "\n\n" << endl;
@@ -25,9 +27,14 @@ int main()
 
 	getchar();
 
-	Database Database("CompleteDatabase.txt", "CastCrew.txt.", 10);
+	Database Database("DatabaseMain.txt", "CastCrew.txt.","MaterialsMain.txt", 10);
+
+
 
 	cout << "\n\nPress Enter to continue." << endl; getchar();
+
+
+	/*
 
 	while (Choice != "QUIT")
 	{
@@ -45,17 +52,28 @@ int main()
 		}
 	}
 
+	
 
 
-	//Database.createNewTree("TITLE");
-	//ID,TITLE,ReleaseDate,Revenue,Runtime,Status
+
+	Film* Pointer = (Find("12", &Database.Storage));
+
+	if (Pointer) cout << Pointer->ID << endl;
+	else
+	{
+		cout << "Null"<<endl;
+	}
+
 
 	//getchar();
+
+
 	//Database.PrintResults("ASC");
 
+	Database.Storage;
+	int a = 1;
 
-	//Database.SaveData();
-	//Database.Search("TITLE","the");
+	Database.Search("STATUS","100000",'<');
 	
 	getchar();
 	 
@@ -63,3 +81,92 @@ int main()
 	return 0;
 }
 
+*/
+
+template <class T>
+int InsertInOrder(string ID, vector<T> *Vec)
+{
+	int start = 0, end = Vec->size() - 1;
+	while (start <= end)
+	{
+		int M = floor(((end + start) / 2));
+
+		if (Vec->at(M).ID < ID)
+		{
+			start = M + 1;
+		}
+		else
+		{
+			end = M - 1;
+		}
+	}
+	return M;
+}
+
+int InOrder(int ID, vector<int> Vec)
+{
+	int start = 0, end = Vec.size() - 1;
+	int M = 0;
+	while (start <= end)
+	{
+		M = floor(((end + start) / 2));
+
+		int num = Vec[M];
+		cout << ID << " vs " << num << endl;
+		if (num < ID)
+		{
+			cout << "ID greater" << endl;
+			start = M + 1;
+		}
+		else if (num > ID)
+		{
+			cout << "num greater" << endl;
+			end = M - 1;
+		}
+		else
+		{
+			break;
+		}
+	}
+	cout << "M " << M << "\n\n" << endl;
+	return M;
+}
+
+
+int main()
+{
+	srand(time(NULL));
+
+	vector<int> Numbers;
+
+	
+	for (int i = 0;i < 10;i++)
+	{
+		int a = rand();
+		vector<int>::iterator test = Numbers.begin();
+		vector<int>::iterator index = (Numbers.begin() + InOrder(a, Numbers));
+		Numbers.insert(index, a);
+
+		for (vector<int>::iterator i = Numbers.begin(); i != Numbers.end(); i++)
+		{
+			cout << *i << ", ";
+		}
+		cout << "\n\n" << endl;
+
+	//	if (Numbers.size() > 0) Numbers.insert(index, a);
+		//else Numbers.push_back(a);
+
+	}
+	//Numbers.insert(InOrder(a, Numbers), a);
+	
+
+
+
+	for (vector<int>::iterator i = Numbers.begin(); i != Numbers.end(); i++)
+	{
+		cout << *i << endl;
+	}
+
+	getchar();
+	return 0;
+}
