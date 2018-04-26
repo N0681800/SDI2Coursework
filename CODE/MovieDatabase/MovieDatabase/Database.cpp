@@ -167,26 +167,20 @@ void Database::CastCrewSetup(int MAX)
 
 void Database::PrintResults(string Order)//Prints out details of a number of films
 {
-	const int MaxTitleLength = 35;
-	const int MaxGenreLength = 20;
-	const int MaxMaterialLength = 15;
-	char Border = 179;
-
-	cout << setw(6) << left << "ID" << Border;
-	cout << setw(MaxTitleLength + 3) << left << "Title" << Border;
-	cout << setw(MaxGenreLength + 6) << left << "Genres" << Border;
-	cout << setw(10) << left << "Released" << Border;
-	cout << setw(10) << left << "Runtime" << Border;
-	cout << setw(18) << left << "Box Office Sales" << Border;
-	cout << setw(12) << left << "Status" << Border;
-	cout << setw(MaxMaterialLength + 3) << left << "Avalible Materials" << Border << endl;
+	cout << setw(6) << left << "ID" << BORDER;
+	cout << setw(MAX_TITLE_LENGTH + 3) << left << "Title" << BORDER;
+	cout << setw(MAX_GENRE_LENGTH + 6) << left << "Genres" << BORDER;
+	cout << setw(10) << left << "Released" << BORDER;
+	cout << setw(10) << left << "Runtime" << BORDER;
+	cout << setw(18) << left << "Box Office Sales" << BORDER;
+	cout << setw(12) << left << "Status" << BORDER;
+	cout << setw(MAX_MATERIAL_LENGTH + 3) << left << "Avalible Materials" << BORDER << endl;
 
 	PrintTable("FILM");
 
 	CURRENT_SORT_TYPE = Order;
 	Tree.printTree(Order);
 }
-
 
 void Database::Search(string SearchField, string Query,char Order)//Searchs field for a value
 {
@@ -282,11 +276,11 @@ void Database::SearchActorName(string Find)
 	cout << "\n\nHere are the search results for: " << Find << endl;
 }
 
-void Database::SearchActorFilms(int No)
+void Database::SearchActor(string Value,string Type)
 {
 	for (vector<Actor>::iterator i = ActorStorage.begin(); i != ActorStorage.end(); i++)
 	{
-		if (i->FilmRole.size() >= No)
+		if (to_string(i->FilmRole.size()) >= Value)
 		{
 			ActorResults.push_back(&*i);
 		}
@@ -295,7 +289,7 @@ void Database::SearchActorFilms(int No)
 
 	PrintActorVector();
 
-	cout << "\n\nHere are the search results for actors with more than: " << No << " films" << endl;
+	cout << "\n\nHere are the search results for actors with more than: " << Value << " films" << endl;
 
 }
 
@@ -324,14 +318,13 @@ vector<string> Database::GetFilms(string ActorID)
 void Database::PrintActorVector()
 {
 	PrintTableHeader("Actor");
-	char Border = 179;
 	for (vector<Actor*>::iterator i = ActorResults.begin(); i != ActorResults.end(); i++)
 	{
 		(*i)->Details();
 		
-		cout << setw(40 + 3) << left << SetLength(VectorAsString(GetFilms((*i)->ID)),40) << Border<<endl;
+		cout << setw(40 + 3) << left << SetLength(VectorAsString(GetFilms((*i)->ID)),40) << BORDER<<endl;
 
-		PrintTable("ACTOR");
+		PrintTableFromVector(ACTOR_TABLE);
 	}
 }
 

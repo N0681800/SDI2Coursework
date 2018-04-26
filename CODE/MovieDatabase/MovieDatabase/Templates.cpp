@@ -62,13 +62,29 @@ int InOrder(T Value, vector<T> Vec)
 	return M;
 }
 
-/*
+
 template <class T>
-void Database::Printvector(vector<T> Vec)
+void SearchasdasActor(T Find,string Type)
 {
-	for (vector<T> iterator i = Vec.begin(); i != Vec.end(); i++)
+	for (vector<Actor>::iterator i = ActorStorage.begin(); i != ActorStorage.end(); i++)
 	{
-		i->Details();
+		if (Type == "NAME")
+		{
+			if (ToLower(i->Name).find(ToLower(Find)) != string::npos)
+			{
+				ActorResults.push_back(&*i);
+			}
+		}
+		else
+		{
+			if (to_string(i->FilmRole.size()) >= No)
+			{
+				ActorResults.push_back(&*i);
+			}
+		}
 	}
+
+	PrintActorVector();
+
+	cout << "\n\nHere are the search results for: " << Find << endl;
 }
-*/

@@ -34,6 +34,8 @@ public:
 
 	void Search(string SearchField, string Query, char Order);//Searchs field for a value
 
+	void SearchActor(string Find, string type);
+
 	void SearchActorName(string Find);
 
 	void SearchActorFilms(int Find);

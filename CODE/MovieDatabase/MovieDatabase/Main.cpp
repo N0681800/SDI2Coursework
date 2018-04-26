@@ -55,7 +55,7 @@ int main()
 	
 	*/
 
-	Database.SearchActorFilms(2);
+	Database.SearchActor("2","FILMS");
 	//Database.SearchActorName("Mark");
 
 	Film* Pointer = (Find("12", &Database.Storage));

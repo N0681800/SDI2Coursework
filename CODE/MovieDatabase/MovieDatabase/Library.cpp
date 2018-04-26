@@ -20,7 +20,7 @@ vector<string> AddTokens(string Line, char Delim)
 	stringstream LineOfData(Line);
 	while (getline(LineOfData, TokenizedData, Delim)) //getting data
 	{
-		if(TokenizedData == "") temp.push_back("N/A");
+		if (TokenizedData == "") temp.push_back("N/A");
 		else temp.push_back(TokenizedData);
 		/*
 		try {
@@ -71,36 +71,38 @@ string SetLength(string Input, int Max)
 
 void PrintTable(string Type)
 {
-	char Cross = 197;
-	char Edge = 196;
-	char Last = 180;
-	char Border = 179;
 	if (Type == "FILM")
 	{
-		const int MaxTitleLength = 35;
-		const int MaxGenreLength = 20;
-		const int MaxMaterialLength = 15;
-
-
-		for (int i = 0; i < 6; i++) { cout << Edge; } cout << Cross;
-		for (int i = 0; i < MaxTitleLength + 3; i++) { cout << Edge; } cout << Cross;
-		for (int i = 0; i < MaxGenreLength + 6; i++) { cout << Edge; } cout << Cross;
-		for (int i = 0; i < 10; i++) { cout << Edge; } cout << Cross;
-		for (int i = 0; i < 10; i++) { cout << Edge; } cout << Cross;
-		for (int i = 0; i < 18; i++) { cout << Edge; } cout << Cross;
-		for (int i = 0; i < 12; i++) { cout << Edge; } cout << Cross;
-		for (int i = 0; i < MaxMaterialLength + 3; i++) { cout << Edge; } cout << Last << endl;
+		for (int i = 0; i < 6; i++) { cout << EDGE; } cout << CROSS;
+		for (int i = 0; i < MAX_TITLE_LENGTH + 3; i++) { cout << EDGE; } cout << CROSS;
+		for (int i = 0; i < MAX_GENRE_LENGTH + 6; i++) { cout << EDGE; } cout << CROSS;
+		for (int i = 0; i < 10; i++) { cout << EDGE; } cout << CROSS;
+		for (int i = 0; i < 10; i++) { cout << EDGE; } cout << CROSS;
+		for (int i = 0; i < 18; i++) { cout << EDGE; } cout << CROSS;
+		for (int i = 0; i < 12; i++) { cout << EDGE; } cout << CROSS;
+		for (int i = 0; i < MAX_MATERIAL_LENGTH + 3; i++) { cout << EDGE; } cout << LAST << endl;
 	}
 	else
 	{
-		const int MaxNameLength = 25;
-		const int MaxFilmLength = 40;
-
-		for (int i = 0; i < 7; i++) { cout << Edge; } cout << Cross;
-		for (int i = 0; i < MaxNameLength + 3; i++) { cout << Edge; } cout << Cross;
-		for (int i = 0; i < 10; i++) { cout << Edge; } cout << Cross;
-		for (int i = 0; i < MaxFilmLength + 3; i++) { cout << Edge; } cout << Last << endl;
+		for (int i = 0; i < 7; i++) { cout << EDGE; } cout << CROSS;
+		for (int i = 0; i < MAX_NAME_LENGTH + 3; i++) { cout << EDGE; } cout << CROSS;
+		for (int i = 0; i < 10; i++) { cout << EDGE; } cout << CROSS;
+		for (int i = 0; i < MAX_FILM_LENGTH + 3; i++) { cout << EDGE; } cout << LAST << endl;
 	}
+}
+
+void PrintTableFromVector(vector<int> Columns)
+{
+	for (int i : Columns)
+	{
+		for (int j = 0; j < i; j++)
+		{
+			cout << EDGE;
+		}
+		if (i != Columns.size() - 1) cout << CROSS;
+		else cout << LAST;
+	}
+	cout << endl;
 }
 
 string GetGender(int number)

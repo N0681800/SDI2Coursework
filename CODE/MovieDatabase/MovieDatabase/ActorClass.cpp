@@ -22,13 +22,10 @@ Actor::Actor(string FilmID,vector<string> Info)
 }
 
 void Actor::Details() {
-	const int MaxNameLength = 25;
-	const int MaxFilmLength = 40;
-	char Border = 179;
 
-	cout << setw(7) << left << ID << Border;
-	cout << setw(MaxNameLength + 3) << left << Name << Border;
-	cout << setw(10) << left << GetGender(Gender) << Border;
+	cout << setw(7) << left << ID << BORDER;
+	cout << setw(MAX_NAME_LENGTH + 3) << left << Name << BORDER;
+	cout << setw(10) << left << GetGender(Gender) << BORDER;
 }
 
 string Actor::GetRole(string filmID)
