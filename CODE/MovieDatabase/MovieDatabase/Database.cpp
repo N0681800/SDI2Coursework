@@ -28,7 +28,17 @@ Database::Database(string filmPath_, string ccPath_,string matPath_, int Max)
 
 Database::~Database()
 {
-	SaveData();
+	if (SaveData())
+	{
+		cout << "Save Successful" << endl;
+	}
+	else
+	{
+		cout << "Save failed." << endl;
+	}
+
+	cout << "Press Enter to quit." << endl;
+	getchar();
 }
 
 void Database::FilmSetup(int MAX)
@@ -167,17 +177,7 @@ void Database::CastCrewSetup(int MAX)
 
 void Database::PrintResults(string Order)//Prints out details of a number of films
 {
-	cout << setw(6) << left << "ID" << BORDER;
-	cout << setw(MAX_TITLE_LENGTH + 3) << left << "Title" << BORDER;
-	cout << setw(MAX_GENRE_LENGTH + 6) << left << "Genres" << BORDER;
-	cout << setw(10) << left << "Released" << BORDER;
-	cout << setw(10) << left << "Runtime" << BORDER;
-	cout << setw(18) << left << "Box Office Sales" << BORDER;
-	cout << setw(12) << left << "Status" << BORDER;
-	cout << setw(MAX_MATERIAL_LENGTH + 3) << left << "Avalible Materials" << BORDER << endl;
-
-	PrintTable("FILM");
-
+	PrintTableHeader(FILM_TABLE);
 	CURRENT_SORT_TYPE = Order;
 	Tree.printTree(Order);
 }
@@ -202,8 +202,10 @@ void Database::Search(string SearchField, string Query,char Order)//Searchs fiel
 			}
 		}
 		
-
-		PrintResultsVector();
+		if (Results.size() > 0)
+		{
+			PrintResultsVector();
+		}
 
 		cout << "\n\nHere are the search results for: " << Query << "in" << SearchField << endl;
 	}
@@ -231,9 +233,10 @@ void Database::Search(string SearchField, string Query,char Order)//Searchs fiel
 			}
 		}
 		
-
-		PrintResultsVector();
-
+		if (Results.size() > 0)
+		{
+			PrintResultsVector();
+		}
 		cout << "\n\nHere are the search results for: " << SearchField << " " << Order << " " << Query << endl;
 
 	}
@@ -247,9 +250,10 @@ void Database::Search(string SearchField, string Query,char Order)//Searchs fiel
 				Results.push_back(&*i);
 			}
 		}
-
-		PrintResultsVector();
-
+		if (Results.size() > 0)
+		{
+			PrintResultsVector();
+		}
 		if  (Query == "0") cout << "\n\nHere are the search results for status: Released"<< endl;
 		else if (Query == "1")	cout << "\n\nHere are the search results for status: Now Playing" << endl;
 		else cout << "\n\nHere are the search results for status: Unreleased" << endl;
@@ -295,7 +299,7 @@ void Database::SearchActor(string Value,string Type)
 
 void Database::PrintResultsVector()
 {
-	PrintTableHeader("FILM");
+	PrintTableHeader(FILM_TABLE);
 
 	for (vector<Film*>::iterator i = Results.begin(); i != Results.end(); i++)
 	{
@@ -317,14 +321,14 @@ vector<string> Database::GetFilms(string ActorID)
 
 void Database::PrintActorVector()
 {
-	PrintTableHeader("Actor");
+	PrintTableHeader(ACTOR_TABLE);
 	for (vector<Actor*>::iterator i = ActorResults.begin(); i != ActorResults.end(); i++)
 	{
 		(*i)->Details();
 		
-		cout << setw(40 + 3) << left << SetLength(VectorAsString(GetFilms((*i)->ID)),40) << BORDER<<endl;
+		cout << setw(MAX_FILM_LENGTH) << left << SetLength(VectorAsString(GetFilms((*i)->ID)), MAX_FILM_LENGTH) << BORDER<<endl;
 
-		PrintTableFromVector(ACTOR_TABLE);
+		PrintTable(ACTOR_TABLE);
 	}
 }
 
@@ -419,9 +423,9 @@ bool Database::SaveData()
 {
 	bool Saved = false;
 	
-	ofstream outFile("1.txt");
-	ofstream MaterialoutFile("2.txt");
-	ofstream CastCrewoutFile("3.txt");
+	ofstream outFile(filmPath);
+	ofstream MaterialoutFile(matPath);
+	ofstream CastCrewoutFile(ccPath);
 
 	for (vector<Film>::const_iterator i = Storage.begin(); i != Storage.end(); i++)
 	{
@@ -433,11 +437,13 @@ bool Database::SaveData()
 
 	outFile.flush();
 	MaterialoutFile.flush();
-	
+	CastCrewoutFile.flush();
+
 	Saved = true;
 
-	MaterialoutFile.close();
 	outFile.close();
+	MaterialoutFile.close();
+	CastCrewoutFile.close();
 	return Saved;
 }
 
@@ -639,94 +645,6 @@ void Database::BinaryTree::insertString(TreeNode *Node, Film *toAdd, string toSo
 	
 }
 
-/*
-void Database::BinaryTree::SearchFilm(string toSearch, string Find)
-{
-	//SearchTree(Root, toSearch, Find);
-}
-
-
-void Database::BinaryTree::SearchTree(TreeNode* Node, string toSearch, int toFind, char Parameter)
-{
-
-	if (!Node)
-	{
-		return;
-	}
-	if (Parameter == '<')//LEss than
-	{
-		if (toFind < Node->FilmInfo->Revenue)
-		{
-			//add to results
-			SearchTree(Node->Left, toSearch, toFind, Parameter);
-		}
-
-	}
-	else //Greater than
-	{
-
-
-
-
-
-	}
-
-	//Search["ID"] = { &Node->FilmInfo->ID };
-	//Search["TITLE"] = { &Node->FilmInfo->Title };
-	//Search["GENRE"] = { &Node->FilmInfo->Genres };
-	//Search["PRODCOMP"] = { &Node->FilmInfo->ProdComps };
-	//Search["LANGUAGES"] = { &Node->FilmInfo->Languages };
-	//Search["STATUS"] = { &Node->FilmInfo->Status };
-
-	//string hello = (Node->FilmInfo->ReleaseDate);
-	//int hi = stoi(Node->FilmInfo->ReleaseDate);
-	//int* hey = &int(stoi(Node->FilmInfo->ReleaseDate));
-
-
-	//Search["RELEASED"] = { stoi(Node->FilmInfo->ReleaseDate) };
-	struct intPtr
-	{
-		int* value;
-		int* Left;
-		int* Right;
-	};
-
-	map<string, intPtr*> Search;
-	Film Tempy = **&Node->FilmInfo;
-
-	intPtr Rev;
-	Rev.value = &Node->FilmInfo->Revenue;
-	Rev.Left = &Node->Left->FilmInfo->Revenue;
-	Search["REVENUE"] = { &Node->FilmInfo->Revenue,&Node->Left->FilmInfo->Revenue,&Node->Right->FilmInfo->Revenue };
-	Search["RUNTIME"] = { &Node->FilmInfo->Runtime };
-
-	//Search["REVENUE"] = { &Tempy.Revenue };
-	//Search["RUNTIME"] = { &Tempy.Runtime };
-
-	if (Search[toSearch] > &toFind)
-	{
-		Results.push_back((Node->FilmInfo));
-	}
-
-
-
-	if (Search[toSearch] >= toFind))
-	{
-		if (Node->Left)
-		{
-			SearchTree(Node->Left, toSearch, toFind);
-		}
-	}
-	else
-	{
-		if (Node->Right)
-		{
-			SearchTree(Node->Right, toSearch, toFind);
-		}
-	}
-}
-*/
-
 void Database::BinaryTree::printTree(string Order)
 {
 	Print(Root,Order);
@@ -791,59 +709,3 @@ void Database::BinaryTree::DeleteNode(TreeNode *Node)
 		}
 	}
 }
-
-
-
-
-/*
-void Database::CastCrewSetup(int MAX)
-{
-	string Line;
-	ifstream CastFile(ccPath);
-	getline(CastFile, Line);
-	cout << Line << endl;
-
-	string TokenizedData, TempData[3]; int i = 0;
-	stringstream LineOfData(Line);
-	while (getline(LineOfData, TokenizedData, '|')) //getting data
-	{
-		cout << TokenizedData << endl;
-		TempData[i] = TokenizedData; //Store data in temp array
-		i++;
-	}
-
-	bool isCast = true;
-	stringstream Actors(TempData[1]); string Actor, ActorInfo[5];
-	while (getline(Actors, Actor, '/')) //getting data
-	{
-		stringstream ActorInfoStream(Actor);
-		int j = 0;
-		while (getline(ActorInfoStream, ActorInfo[j], '\,'))
-		{
-			cout << ActorInfo[j] << endl;
-			j++;
-		}
-		//Check info
-		if (!ccExists(ActorInfo[2], isCast)) CastCrew Temp(ActorInfo[2], ActorInfo[3], GetGender(ActorInfo[1]), isCast);
-
-
-	}
-
-	//role,gender,id,name
-}
-
-string Database::GetFilmTitle(string FilmID)
-{
-	string Title;
-	for (vector<Film>::const_iterator i = Storage.begin(); i != Storage.end(); i++)
-	{
-		Film Temp = *i;
-		if (Temp.ID == FilmID)
-		{
-			Title = Temp.Title; break;
-		}
-	}
-
-	return Title;
-}
-*/

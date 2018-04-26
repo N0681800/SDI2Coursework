@@ -83,12 +83,17 @@ public:
 
 	~Film();
 
-	void Overview();//Prints out all info of a chosen film
+	void Overview();//Prints out all info of a chosen film. (Details,Actors,Crew,Materials)
+
+	void PrintMaterialInfo();
+
+	void PrintCrewInfo();
 
 	void Details();//Prints out basic data for database
 
 	int AddCrew(string input);
 
+	//Return String for Database to write to file
 	string Save();
 
 	string SaveMaterials();
@@ -98,7 +103,6 @@ public:
 	string getStatus();
 
 	string printMaterials();
-
 };
 
 

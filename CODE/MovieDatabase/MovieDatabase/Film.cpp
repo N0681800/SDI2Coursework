@@ -20,7 +20,7 @@ Film::Film(string Input)
 	Locations = AddTokens(TempData[5], ',');
 	ReleaseDate = stoi(TempData[6]);
 	if (TempData[7] == "0") { Revenue = 0; }
-	else Revenue = stoi(TempData[7]) / 22;
+	else Revenue = stoi(TempData[7]);
 	Runtime = stoi(TempData[8]);
 	if (TempData[9] == "") Languages.push_back("English"); //Remove in future
 	else Languages = AddTokens(TempData[9], ',');
@@ -51,15 +51,15 @@ void Film::Details()
 {
 
 	cout << setw(6) << left << ID << BORDER;
-	cout << setw(MAX_TITLE_LENGTH + 3) << left << SetLength(Title, MAX_TITLE_LENGTH) << BORDER;
-	cout << setw(MAX_GENRE_LENGTH + 6) << left << SetLength(VectorAsString(Genres), MAX_GENRE_LENGTH) << BORDER;
+	cout << setw(MAX_TITLE_LENGTH) << left << SetLength(Title, MAX_TITLE_LENGTH) << BORDER;
+	cout << setw(MAX_GENRE_LENGTH) << left << SetLength(VectorAsString(Genres), MAX_GENRE_LENGTH) << BORDER;
 	cout << setw(10) << left << PrintDate(ReleaseDate) << BORDER;
 	cout << setw(5) << left << Runtime << setw(5) << right << "mins" << BORDER;
 	cout << setw(2) << left << "$ " << setw(12) << Revenue <<setw(4)<<"/wk"<< BORDER;
 	cout << setw(12) << left << getStatus() << BORDER;
-	cout << setw(18) << left << SetLength(printMaterials(), MAX_MATERIAL_LENGTH) << BORDER << endl;
+	cout << setw(MAX_MATERIAL_LENGTH) << left << SetLength(printMaterials(), MAX_MATERIAL_LENGTH) << BORDER << endl;
 
-	PrintTable("FILM");
+	PrintTable(FILM_TABLE);
 }
 
 string Film::getStatus()
@@ -265,4 +265,15 @@ string Film::SaveCrew()
 		}
 	}
 	return CrewSave;
+}
+
+void Film::PrintCrewInfo()
+{
+
+
+}
+void Film::PrintMaterialInfo()
+{
+
+
 }

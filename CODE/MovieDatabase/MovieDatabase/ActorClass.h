@@ -20,8 +20,6 @@ public:
 
 	std::map<string, vector<string>> FilmRole;
 
-	void PrintDetails();
-
 	void AddFilm(string ID, string Character);
 
 	string Save(string ID);

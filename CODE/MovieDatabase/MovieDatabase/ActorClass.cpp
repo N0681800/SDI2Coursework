@@ -22,9 +22,8 @@ Actor::Actor(string FilmID,vector<string> Info)
 }
 
 void Actor::Details() {
-
 	cout << setw(7) << left << ID << BORDER;
-	cout << setw(MAX_NAME_LENGTH + 3) << left << Name << BORDER;
+	cout << setw(MAX_NAME_LENGTH) << left << Name << BORDER;
 	cout << setw(10) << left << GetGender(Gender) << BORDER;
 }
 
