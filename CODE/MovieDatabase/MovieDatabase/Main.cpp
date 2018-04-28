@@ -8,7 +8,6 @@
 #include <map>
 #include <vector>
 
-//s#include "CastCrewClass.h"
 using namespace std;
 
 
@@ -17,11 +16,10 @@ int main()
 {
 	
 	string Choice;
-	char Box = 178;
 	cout << "\n\n" << endl;
-	for (int i = 0; i <= 50; i++) { cout << Box; }
+	for (int i = 0; i <= 50; i++) { cout << BOX; }
 	cout <<"\n\n  Welcome to the TrekStar Pictures Movie Database\n" << endl;
-	for (int i = 0; i <= 50; i++) { cout << Box; }
+	for (int i = 0; i <= 50; i++) { cout << BOX; }
 
 	cout << "\n\n Please press enter to load the Database." << endl;
 
