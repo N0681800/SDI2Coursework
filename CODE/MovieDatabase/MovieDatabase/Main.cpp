@@ -14,60 +14,67 @@ using namespace std;
 
 int main()
 {
-	
+
+	string Hi = VectorAsString(GetVectorInputs());
+
 	string Choice;
 	cout << "\n\n" << endl;
 	for (int i = 0; i <= 50; i++) { cout << BOX; }
-	cout <<"\n\n  Welcome to the TrekStar Pictures Movie Database\n" << endl;
+	cout << "\n\n  Welcome to the TrekStar Pictures Movie Database\n" << endl;
 	for (int i = 0; i <= 50; i++) { cout << BOX; }
 
 	cout << "\n\n Please press enter to load the Database." << endl;
 
 	getchar();
 
-	Database Database("DATABASEFINAL.txt", "CASTCREWFINAL.txt.","MATERIALSFINAL.txt", 200);
+	Database DB("DATABASEFINAL.txt", "CASTCREWFINAL.txt.", "MATERIALFINAL.txt", 10);
 
+	cout << "\n\nPress Enter to continue." << endl;
+	getchar();
 
-
-	cout << "\n\nPress Enter to continue." << endl; getchar();
-
-
-	/*
-
-	while (Choice != "QUIT")
+	cout << "\nMain Menu" << endl;
+	while ((Choice = PrintMenu({ "View Film Database","View Actor Database","Admin Login","Quit" })) != "4")
 	{
-		cout << "What would you like to do?" << endl;
-		cout << "\nView Film Database - 1\n\nSearch Film Database - 2\n\nView Film Details - 3";
-		cout << "\n\nQuit - QUIT\n\nChoice : ";
-		cin >> Choice;
-		
-
 		if (Choice == "1")
 		{
-			Database.PrintResults("ASC");
-			cout << "\nSorted By : " << Database.CURRENT_SORT << endl;
-			cout << "Order : " << Database.CURRENT_SORT_TYPE << endl;
+			cout << "Film Menu" << endl;
+			while ((Choice = PrintMenu({ "View Database","Search Database","View Film Information","Add Film","Edit Film Info","Delete Film","Return" })) != "7")
+			{
+				if (Choice == "1")
+				{
+					DB.ViewDatabase();
+				}
+				else if (Choice == "2")
+				{
+					DB.SearchDatabase();
+				}
+				else if (Choice == "3")
+				{
+					DB.FilmInfo();
+				}
+				else if (Choice == "4")
+				{
+					DB.AddFilm();
+				}
+				else if (Choice == "5")
+				{
+
+				}
+				else if (Choice == "6")
+				{
+
+				}
+			}
+		}
+		else if (Choice == "2")
+		{
+			//ACtor menu
+		}
+		else if (Choice == "3")
+		{
+			DB.LogIn();
 		}
 	}
 
-	
-	*/
-
-	//Database.SearchActor("1","FILMS");
-
-
-	//getchar();
-
-
-	Database.PrintResults("ASC");
-
-	//Database.Storage;
-	//int a = 1;
-
-	Database.Search("TITLE","Star",'<');
-	
-	getchar();
-	 
-	//Database.~Database();
 	return 0;
 }

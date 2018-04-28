@@ -17,6 +17,7 @@ const int MAX_FILM_LENGTH = 43;
 const int MAX_TITLE_LENGTH = 38;
 const int MAX_GENRE_LENGTH = 26;
 const int MAX_MATERIAL_LENGTH = 15;
+const int MAX_ROLE_LENGTH = 30;
 //COLUMN INFO FOR FILMS AND ACTORS
 struct ColumnStructure{
 	string Name;
@@ -26,10 +27,15 @@ struct ColumnStructure{
 const vector<ColumnStructure> ACTOR_TABLE = { 
 	{"ID",7},{"Name",MAX_NAME_LENGTH},{"Gender",10},{"Films",MAX_FILM_LENGTH} };
 
+const vector<ColumnStructure> ACTOR_FILM_TABLE = {
+	{ "Name",MAX_NAME_LENGTH },{ "Gender",10 },{ "Role",MAX_ROLE_LENGTH } };
+
 const vector<ColumnStructure> FILM_TABLE = { 
 	{"ID", 6}, { "Title",MAX_TITLE_LENGTH }, { "Genre",MAX_GENRE_LENGTH }, { "Date",10 }, { "Runtime",10 }, 
 { "Box Office Gross",18 }, { "Stats",12 }, { "Materials",MAX_MATERIAL_LENGTH }};
 
+const vector<ColumnStructure> CREW_TABLE = {
+	{ "Name",MAX_NAME_LENGTH },{ "Gender",10 },{ "Roles",40 } };
 
 //Splits Line into mutliple strings by chosen Deliminator
 vector<string> AddTokens(string Line,char Delim);
@@ -49,3 +55,11 @@ string GetGender(int number);
 bool InputChecker(string Choice, vector<string> legalChoices);
 
 void PrintTableHeader(vector<ColumnStructure> Vector);
+
+string PrintMenu(vector<string> Choices);
+
+int GetIntInput();
+
+string GetStrInput();
+
+vector<string> GetVectorInputs();

@@ -80,7 +80,6 @@ void PrintTableHeader(vector<ColumnStructure> vector)
 	PrintTable(vector);
 }
 
-
 string GetGender(int number)
 {
 	string Gender;
@@ -109,4 +108,71 @@ bool InputChecker(string Choice, vector<string> legalChoices)
 		return false;
 	}
 
+}
+
+string PrintMenu(vector<string> Choices)
+{
+	int i = 1;
+	vector<string> Inputs;
+	for (vector<string>:: iterator Choice = Choices.begin(); Choice != Choices.end(); Choice++)
+	{
+		cout << "\n" << i << " - " << *Choice << endl;
+		Inputs.push_back(to_string(i));
+		i++;
+	}
+	string Input;
+	cin >> Input;
+	while (!(find(Inputs.begin(), Inputs.end(), Input) != Inputs.end()))
+	{
+		int i = 1;
+		cout << "\nSorry that is not a valid choice " << endl;
+		cin >> Input;
+
+		for (vector<string>::iterator Choice = Choices.begin(); Choice != Choices.end(); Choice++)
+		{
+			cout <<"\n"<< i << " - " << *Choice << endl;
+			i++;
+		}
+	}
+	return Input;
+}
+
+int GetIntInput()
+{
+	while (true)
+	{
+		string input; int number;
+		getline(cin, input);
+		stringstream Stream(input);
+		if (Stream >> number)
+		{
+			return number;
+		}
+		cout << "Sorry that was not a valid input. \nPlease try again." << endl;
+	}
+}
+
+string GetStrInput()
+{
+	string input;
+	cin >> input;
+	while (input.empty())
+	{
+		cout << "Cannot be blank." << endl;
+		getline(cin, input);
+	}
+	return input;
+}
+
+vector<string> GetVectorInputs()
+{
+	vector<string> Inputs;
+	string Input;
+	while ((Input != "Return") || (Inputs.size() == 0))
+	{
+		cout << "Enter a item or type 'Return' to quit" << endl;
+		Input = GetStrInput();
+		Inputs.push_back(Input);
+	}
+	return Inputs;
 }

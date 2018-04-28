@@ -40,7 +40,6 @@ public:
 		Material(string Info);
 
 		string SaveInfo();
-
 	};
 
 	struct CrewMember
@@ -56,7 +55,6 @@ public:
 		CrewMember(vector<string> Details);
 
 		string Save();
-
 	};
 
 	string ID;

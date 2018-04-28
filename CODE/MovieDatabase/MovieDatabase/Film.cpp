@@ -25,7 +25,7 @@ Film::Film(string Input)
 	if (TempData[9] == "") Languages.push_back("English"); //Remove in future
 	else Languages = AddTokens(TempData[9], ',');
 
-	Status = 0;
+	Status = (rand() % 3);
 
 	cout << "Loaded: " << ID << endl;
 }
@@ -41,8 +41,8 @@ void Film::Overview()//Prints out all info of a chosen film
 	cout << "\n\nStatus: " << getStatus() << "\n\nReleased: " << PrintDate(ReleaseDate) << "\n\nRuntime: " << Runtime << " mins";
 	cout << "\n\nLanguages avalible in:" << VectorAsString(Languages);
 	cout << "\n\nSummary:\n" << Summary << "\n\nGENRES:" << VectorAsString(Genres);;
-	cout << "\n\nProduction Companies:"; VectorAsString(ProdComps);
-	cout << "\n\nLocations:"; VectorAsString(Locations);
+	cout << "\n\nProduction Companies:" << VectorAsString(ProdComps);
+	cout << "\n\nLocations:" << VectorAsString(Locations);
 	cout << "\n\nRevenue:" << Revenue;
 
 }
@@ -269,11 +269,42 @@ string Film::SaveCrew()
 
 void Film::PrintCrewInfo()
 {
-
-
+	cout << "\t\tCrew Info" << endl;
+	PrintTableHeader(CREW_TABLE);
+	for (vector<CrewMember>::iterator i = Crew.begin(); i != Crew.end(); i++)
+	{
+		cout << setw(MAX_NAME_LENGTH) << left << i->Name << BORDER;
+		cout << setw(10) << left << GetGender(i->Gender) << BORDER;
+		cout << setw(40) << left << SetLength(VectorAsString(i->Roles),40) << BORDER<<endl;
+		PrintTable(CREW_TABLE);
+	}
 }
+
 void Film::PrintMaterialInfo()
 {
+	cout << "\t\tMATERIAL INFO" << endl;
+	for (vector<Material>::iterator i = Materials.begin(); i != Materials.end(); i++)
+	{
+		for (int j = 0; j < 50; j++)
+		{
+			cout << EDGE;
+		}
+		cout << "\nFormat : " << setw(15) << left << i->getFormat() << "\tID : " << setw(10) << left << i->ID << endl;
+		cout << "\nTitle : " << i->Title << endl;
+		cout << "\nFrameAspect : " << i->FA << "\tPrice : $" << i->Cost << endl;
+		cout << "\nAudioformats : " << i->AudioFormat << endl;
+		cout << "\nAudio Languages : " << VectorAsString(i->AudioLanguages) << endl;
+		if (i->Format != 0) cout << "\nSubtitle Languages : " << VectorAsString(i->SubtitleLanguages) << endl;
 
-
+		if (i->Format == 2)
+		{
+			cout << "Side One Info : \t" << i->SideOneInfo << endl;
+			cout << "Side Two Info : \t" << i->SideTwoInfo << endl;
+		}
+		for (int j = 0; j < 50; j++)
+		{
+			cout << EDGE;
+		}
+		cout << endl;
+	}
 }

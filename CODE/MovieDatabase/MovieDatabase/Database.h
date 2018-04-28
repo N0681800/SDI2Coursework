@@ -5,7 +5,6 @@
 #include <string>
 using namespace std;
 
-
 class Database
 {
 public:
@@ -48,11 +47,30 @@ public:
 
 	void PrintActorVector();
 
+	void AddFilm();
+
+	void EditFilm();
+
+	void DeleteFilm();
+
 	vector<string> GetFilms(string ActorID);
 
 	string GetFilmName(string FilmID);
 
+	void FilmInfo();
+
+	//MENU FUNCTIONS
+	void ViewDatabase();
+
+	void SearchDatabase();
+
+	void PrintFilmActors(vector<string> IDs,string FilmID);
+
+	void LogIn();
+
 private:
+
+	string NEXT_ID;
 
 	string Username = "Admin", Password = "root";
 

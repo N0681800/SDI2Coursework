@@ -23,7 +23,7 @@ Database::Database(string filmPath_, string ccPath_,string matPath_, int Max)
 	getchar();
 
 	CastCrewSetup(Max);
-	createNewTree("TITLE");
+	createNewTree("2");
 }
 
 Database::~Database()
@@ -118,49 +118,6 @@ void Database::CastCrewSetup(int MAX)
 			}
 			else
 			{
-				/*
-				//getting Cast Info
-				vector<string> AllCast = AddTokens(CastCrewLine[1], '/');
-				vector<string> ActorIDs;
-				for (vector<string>::iterator i = AllCast.begin(); i != AllCast.end(); i++)
-				{
-					vector<string> ActorInfo = AddTokens(*i, ',');
-					try {
-						if (ActorInfo.size() != 4)
-						{
-							throw 50;
-						}
-						else
-						{
-							while (ActorInfo[2].length() < 7)
-							{
-								ActorInfo[2] = "0" + ActorInfo[2];
-							}
-
-							//Role,Gender,ID,Name
-							Actor* ActorPointer;
-							if (!(ActorPointer = Find(ActorInfo[2], &ActorStorage)))
-							{
-								//Make new
-								ActorStorage.push_back(Actor(CastCrewLine[0],ActorInfo));
-								ActorIDs.push_back(ActorInfo[2]);
-								CastN++;
-							}
-							else
-							{
-								ActorPointer->AddFilm(CastCrewLine[0], ActorInfo[0]);
-							}
-
-						}
-					}
-					catch(int a)
-					{
-						
-					}
-				}
-				*/
-
-				//Getting Crew Info
 				CrewN += Pointer->AddCrew(CastCrewLine[2]);
 				Pointer->CastIDs = AddActors(CastCrewLine[0],CastCrewLine[1]);
 			}
@@ -184,17 +141,17 @@ void Database::PrintResults(string Order)//Prints out details of a number of fil
 
 void Database::Search(string SearchField, string Query,char Order)//Searchs field for a value
 {
-
-	if (SearchField == "TITLE" || SearchField == "GENRE" || SearchField == "PRODCOMP" || SearchField == "LANGUAGES" || SearchField == "LOCATIONS")
+	
+	if (SearchField == "1" || SearchField == "2" || SearchField == "3" || SearchField == "4" || SearchField == "5")
 	{
 		map<string, string> SearchFields;
 
 		for (vector<Film>::iterator i = Storage.begin(); i != Storage.end(); i++)
 		{
 
-			SearchFields["TITLE"] = i->Title;
-			SearchFields["GENRE"] = VectorAsString(i->Genres); SearchFields["PRODCOMP"] = VectorAsString(i->ProdComps);
-			SearchFields["LOCATIONS"] = VectorAsString(i->Locations); SearchFields["LANGUAGES"] = VectorAsString(i->Languages);
+			SearchFields["1"] = i->Title;
+			SearchFields["2"] = VectorAsString(i->Genres); SearchFields["3"] = VectorAsString(i->ProdComps);
+			SearchFields["5"] = VectorAsString(i->Locations); SearchFields["4"] = VectorAsString(i->Languages);
 
 			if ((ToLower(SearchFields[SearchField])).find(ToLower(Query)) != string::npos)
 			{
@@ -207,16 +164,14 @@ void Database::Search(string SearchField, string Query,char Order)//Searchs fiel
 			PrintResultsVector();
 		}
 
-		cout << "\n\nHere are the search results for: " << Query << "in" << SearchField << endl;
 	}
-	
-	else if (SearchField == "REVENUE" || SearchField == "RUNTIME" || SearchField == "RELEASED")
+	else if (SearchField == "6" || SearchField == "7" || SearchField == "8")
 	{
 		map<string, int> SearchFields;
 		for (vector<Film>::iterator i = Storage.begin(); i != Storage.end(); i++)
 		{
 			 
-			SearchFields["REVENUE"] = i->Revenue; SearchFields["RUNTIME"] = i->Runtime; SearchFields["RELEASED"] = i->ReleaseDate;
+			SearchFields["6"] = i->Revenue; SearchFields["7"] = i->Runtime; SearchFields["8"] = i->ReleaseDate;
 			if (Order == '>')
 			{
 				if (SearchFields[SearchField] >= stoi(Query))
@@ -237,10 +192,7 @@ void Database::Search(string SearchField, string Query,char Order)//Searchs fiel
 		{
 			PrintResultsVector();
 		}
-		cout << "\n\nHere are the search results for: " << SearchField << " " << Order << " " << Query << endl;
-
 	}
-
 	else //Sort by status
 	{
 		for (vector<Film>::iterator i = Storage.begin(); i != Storage.end(); i++)
@@ -254,14 +206,7 @@ void Database::Search(string SearchField, string Query,char Order)//Searchs fiel
 		{
 			PrintResultsVector();
 		}
-		if  (Query == "0") cout << "\n\nHere are the search results for status: Released"<< endl;
-		else if (Query == "1")	cout << "\n\nHere are the search results for status: Now Playing" << endl;
-		else cout << "\n\nHere are the search results for status: Unreleased" << endl;
-
-		
 	}
-
-	
 }
 
 void Database::SearchActorName(string Find)
@@ -304,6 +249,22 @@ void Database::PrintResultsVector()
 	for (vector<Film*>::iterator i = Results.begin(); i != Results.end(); i++)
 	{
 		(*i)->Details();
+	}
+}
+
+void Database::PrintFilmActors(vector<string> CastID,string Film)
+{
+	cout << "Actor Overview" << endl;
+
+	PrintTableHeader(ACTOR_FILM_TABLE);
+	for (string i : CastID)
+	{
+		Actor* Pointer = Find(i, &ActorStorage);
+		cout << setw(MAX_NAME_LENGTH) << left << Pointer->Name << BORDER;
+		cout << setw(10) << left << GetGender(Pointer->Gender) << BORDER;
+		cout << setw(MAX_ROLE_LENGTH) << left << Pointer->GetRole(Film) << BORDER << endl;
+
+		PrintTable(ACTOR_FILM_TABLE);
 	}
 }
 
@@ -449,6 +410,7 @@ bool Database::SaveData()
 
 void Database::createNewTree(string SortBy)
 {
+	Tree.Delete();
 	for (vector<Film>::iterator i = Storage.begin(); i != Storage.end(); i++)
 	{
 		CURRENT_SORT = SortBy;
@@ -493,10 +455,10 @@ void Database::BinaryTree::insertInt(TreeNode *Node, Film *toAdd, string toSort)
 		int *Node;
 	};
 	map<string, intPtr> Comparison;
-	Comparison["REVENUE"] = { &toAdd->Revenue,&Node->FilmInfo->Revenue };
-	Comparison["RUNTIME"] = { &toAdd->Runtime,&Node->FilmInfo->Runtime };
-	Comparison["STATUS"] = { &toAdd->Status,&Node->FilmInfo->Status };
-	Comparison["RELEASEDATE"] = { &toAdd->ReleaseDate,&Node->FilmInfo->ReleaseDate };
+	Comparison["3"] = { &toAdd->Revenue,&Node->FilmInfo->Revenue };
+	Comparison["6"] = { &toAdd->Runtime,&Node->FilmInfo->Runtime };
+	Comparison["5"] = { &toAdd->Status,&Node->FilmInfo->Status };
+	Comparison["4"] = { &toAdd->ReleaseDate,&Node->FilmInfo->ReleaseDate };
 
 	if (*Comparison[toSort].Value < *Comparison[toSort].Node)
 	{
@@ -572,8 +534,8 @@ void Database::BinaryTree::insertString(TreeNode *Node, Film *toAdd, string toSo
 		string *Node;
 	};
 	map<string, strPtr> Comparison;
-	Comparison["ID"] = { &toAdd->ID,&Node->FilmInfo->ID };
-	Comparison["TITLE"] = { &toAdd->Title,&Node->FilmInfo->Title };
+	Comparison["1"] = { &toAdd->ID,&Node->FilmInfo->ID };
+	Comparison["2"] = { &toAdd->Title,&Node->FilmInfo->Title };
 
 	//ID,TITLE,ReleaseDate,Revenue,Runtime,Status
 
@@ -656,7 +618,7 @@ void Database::BinaryTree::Print(TreeNode *Node,string Order)
 	{
 		return;
 	}
-	if (Order == "ASC")
+	if (Order == "1")
 	{ 
 		Print(Node->Left,Order);
 		Node->FilmInfo->Details();
@@ -669,7 +631,6 @@ void Database::BinaryTree::Print(TreeNode *Node,string Order)
 		Print(Node->Left, Order);
 	}
 }
-
 
 int Database::BinaryTree::getSize()
 {
@@ -690,6 +651,7 @@ int Database::BinaryTree::Size(TreeNode* Node)
 }
 
 
+
 void Database::BinaryTree::Delete()
 {
 	DeleteNode(Root);
@@ -707,5 +669,154 @@ void Database::BinaryTree::DeleteNode(TreeNode *Node)
 			Root = NULL;
 
 		}
+	}
+}
+
+//UI FUNCTIONS
+void Database::ViewDatabase()
+{
+	cout << "View Database" << endl;
+	cout << "\nHow do you want to sort the database?" << endl;
+	createNewTree(PrintMenu({ "ID","Title","Revenue","Release Date","Status","Runtime" }));
+	PrintResults(PrintMenu({ "Ascending", "Descending" }));
+}
+
+void Database::SearchDatabase()
+{
+	char Order = '<'; string Query;
+	cout << "What field do you want to search: " << endl;
+	string Field = PrintMenu({ "Title","Genre","Production Companies","Languages","Locations","Revenue","Runtime","Released","Status"});
+	if (Field == "6" || Field == "7" || Field == "8")
+	{
+		cout << "Search for greater than or less than?" << endl;
+		if (PrintMenu({ "Greater Than", "Less Than" }) == "1") Order = '>';
+	}
+	cout << "What do you want to search for: " << endl;	
+	cin >> Query;
+	Search(Field, Query, Order);
+}
+
+void Database::FilmInfo()
+{
+	string ID; Film* film;
+	cout << "Enter the ID of the film.";
+	cin >> ID;
+	if (!(film = Find(ID, &Storage)))
+	{
+		cout << "Sorry could not find that film." << endl;
+	}
+	else
+	{
+		cout << "Selected Film : " << film->Title << endl;
+		cout << "What would you like to view?" << endl;
+		string Choice;
+		while ((Choice = PrintMenu({ "Film Overview","Cast Overview","Crew Overview","Material Overview","Return" })) != "5")
+		{
+			if (Choice == "1") film->Overview();
+			else if (Choice == "2") PrintFilmActors(film->CastIDs, film->ID);
+			else if (Choice == "3") film->PrintCrewInfo();
+			else if (Choice == "4")film->PrintMaterialInfo();
+		}
+	}
+}
+
+void Database::AddFilm()
+{
+	if (!LoggedIn)
+	{
+		cout << "You must be logged in to add films" << endl;
+	}
+	else {
+		cout << "Film status" << endl;
+		int LocalStatus;
+		LocalStatus = (stoi(PrintMenu({ "Released", "Now-Playing","Unreleased" })) - 1);
+
+		string input; int IntInput;
+		string FilmLine = NEXT_ID + "|";
+		cout << "\nTitle: " << endl;
+		FilmLine += GetStrInput() + "|";
+
+		cout << "\nFilm Genres: " << endl;
+		FilmLine += VectorAsString(GetVectorInputs()) + "|";
+
+		cout << "\nSummary: " << endl;
+		FilmLine += GetStrInput() + "|";
+
+		cout << "\nProduction Companies: " << endl;
+		FilmLine += VectorAsString(GetVectorInputs()) + "|";
+
+		cout << "\nFilming Locations: " << endl;
+		FilmLine += VectorAsString(GetVectorInputs()) + "|";
+
+		cout << "\nRelease Date (YYYYMMDD)" << endl;
+		IntInput = GetIntInput();
+		while (to_string(IntInput).length() != 8)
+		{
+			IntInput = GetIntInput();
+		}
+		FilmLine += IntInput + "|";
+
+		/*
+		if (LocalStatus == 2)
+		{
+			cout << "\nRevenue: (/wk)" << endl;
+			FilmLine += GetIntInput() + "|";
+		}
+		else
+		{
+			FilmLine += "0|";
+		}
+		*/
+		cout << "\nRuntime: (mins)" << endl;
+		FilmLine += GetIntInput() + "|";
+
+		cout << "\nLanguages" << endl;
+		FilmLine += VectorAsString(GetVectorInputs()) + "|";
+
+		FilmLine += LocalStatus;
+
+		Film Temp(FilmLine);
+		vector<Film>::iterator Index = (Storage.begin() + InOrder(Temp, Storage));
+		Storage.insert(Index, Temp);
+	}
+}
+
+void Database::EditFilm()
+{
+	if (!LoggedIn)
+	{
+		cout << "You must be logged in to Edit films" << endl;
+	}
+	else {
+	}
+}
+
+void Database::DeleteFilm()
+{
+	if (!LoggedIn)
+	{
+		cout << "You must be logged in to Delete films" << endl;
+	}
+	else {
+	}
+
+}
+
+void Database::LogIn()
+{
+	string usr, pw;
+	cout << "Username : ";
+	cin >> usr;
+	cout << "Password : ";
+	cin >> pw;
+
+	if (usr == Username && pw == Password)
+	{
+		LoggedIn = true;
+		cout << "Logged In." << endl;
+	}
+	else
+	{
+		cout << "Incorrect username or password." << endl;
 	}
 }
