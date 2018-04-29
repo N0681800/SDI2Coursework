@@ -62,6 +62,34 @@ int InOrder(T Value, vector<T> Vec)
 	return M;
 }
 
+template <class T>
+int GetIndex(T Value, vector<T> Vec)
+{
+	int start = 0, end = Vec.size() - 1;
+	int M = 0;
+	while (start <= end)
+	{
+		M = floor(((end + start) / 2));
+
+		if (Vec[M].ID == Value.ID)
+		{
+			return M;
+		}
+		if (Vec[M].ID < Value.ID)
+		{
+			start = M + 1;
+		}
+		else if (Vec[M].ID > Value.ID)
+		{
+			end = M - 1;
+		}
+		else
+		{
+			break;
+		}
+	}
+	return M;
+}
 
 template <class T>
 void SearchasdasActor(T Find,string Type)

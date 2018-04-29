@@ -155,7 +155,7 @@ int GetIntInput()
 string GetStrInput()
 {
 	string input;
-	cin >> input;
+	getline(cin, input);
 	while (input.empty())
 	{
 		cout << "Cannot be blank." << endl;
@@ -168,11 +168,18 @@ vector<string> GetVectorInputs()
 {
 	vector<string> Inputs;
 	string Input;
-	while ((Input != "Return") || (Inputs.size() == 0))
+	while (Inputs.size() == 0)
 	{
 		cout << "Enter a item or type 'Return' to quit" << endl;
 		Input = GetStrInput();
-		Inputs.push_back(Input);
+		if (Input == "Return")
+		{
+			return Inputs;
+		}
+		else
+		{
+			Inputs.push_back(Input);
+		}
 	}
 	return Inputs;
 }

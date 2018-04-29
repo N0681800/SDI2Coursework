@@ -8,24 +8,41 @@ using namespace std;
 class Database
 {
 public:
+	Database(string filmPath, string ccPath, string matPath, int Max);
+
+	~Database();
+
+	//MENU FUNCTIONS
+	void ViewDatabase();
+
+	void SearchDatabase();
+
+	void AddFilm();
+
+	void EditFilm();
+
+	void DeleteFilm();
+
+	void FilmInfo();
+
+	void SearchActorDatabase();
+
+	void ViewActorDatabase();
+
+	void LogIn();
+
+private:
+
 
 	string CURRENT_SORT;
+
+	string CURRENT_ACTOR_SORT;
 
 	string CURRENT_SORT_TYPE;
 
 	vector<Film> Storage; //Contains all films from database
 
 	vector<Actor> ActorStorage;
-
-	vector<Film*> Results; //A temp vector for search results
-
-	vector<Actor*> ActorResults;
-
-	//vector<CastCrew> ccStorage;
-
-	Database(string filmPath, string ccPath, string matPath, int Max);
-
-	~Database();
 
 	void PrintResults(string Order);//Prints out details of a number of films
 
@@ -35,42 +52,29 @@ public:
 
 	void SearchActor(string Find, string type);
 
-	void SearchActorName(string Find);
-
-	void SearchActorFilms(int Find);
-
 	bool SaveData();//Saves the database
 
 	void createNewTree(string SortBy);
 
-	void PrintResultsVector();
+	void createActorTree(string SortBy);
+
+	void PrintFilmVector();
 
 	void PrintActorVector();
 
-	void AddFilm();
+	void PrintFilmActors(vector<string> IDs, string FilmID);
 
-	void EditFilm();
+	void MaterialDetails(Film* film);
 
-	void DeleteFilm();
 
 	vector<string> GetFilms(string ActorID);
 
 	string GetFilmName(string FilmID);
 
-	void FilmInfo();
 
-	//MENU FUNCTIONS
-	void ViewDatabase();
 
-	void SearchDatabase();
 
-	void PrintFilmActors(vector<string> IDs,string FilmID);
-
-	void LogIn();
-
-private:
-
-	string NEXT_ID;
+	string NEXT_ID = "000001";
 
 	string Username = "Admin", Password = "root";
 
@@ -79,17 +83,28 @@ private:
 	class BinaryTree
 	{
 	public:
+		vector<Film*> FilmResults;
+
+		vector<Actor*> ActorResults;
+
+
 		BinaryTree();
 
 		vector<Film*> Films;
 
 		void Insert(Film *$Film, string toCompare);
 
-		void printTree(string Order);
+		void InsertActor(Actor *$Actor, string toCompare);
 
 		int getSize();
 
-		void Delete();
+
+		//Good
+		void DeleteTree(string Tree);
+
+		void TraverseActors(string Order);
+
+		void TraverseFilms(string Order);
 
 	private:
 		struct TreeNode
@@ -102,24 +117,31 @@ private:
 		struct ActorTreeNode
 		{
 			Actor *ActorInfo;
-			TreeNode *Left;
-			TreeNode *Right;
+			ActorTreeNode *Left;
+			ActorTreeNode *Right;
 		};
 
-		TreeNode * Root; // = new TreeNode;
+		TreeNode* FilmRoot;
 
-		//void SearchTree(TreeNode* Node, string toSearch, int toFind,char Parameter);
+		ActorTreeNode* ActorRoot;
+
+		void insertActorString(ActorTreeNode *Node, Actor *toAdd, string toSort);
 
 		void insertInt(TreeNode *Node, Film *toAdd, string toSort);
 
 		void insertString(TreeNode *Node, Film *$Film, string toSort);
 
-		void Print(TreeNode *Node, string Order);
-
-		void DeleteNode(TreeNode *Node);
-
 		int Size(TreeNode* Node);
 
+		//Good
+		void DeleteFilmNode(TreeNode *Node);
+
+		void DeleteActorNode(ActorTreeNode *Node);
+
+
+		void TraverseActor(ActorTreeNode * Node, string Order);
+
+		void TraverseFilm(TreeNode *Node, string Order);
 	};
 
 	BinaryTree Tree;
@@ -144,5 +166,5 @@ private:
 
 	//bool ccExists(string ID, bool isActor);
 
-	string GenerateID();//Generates a unique ID when creating a new Film
+	void GenerateID();//Generates a unique ID when creating a new Film
 };

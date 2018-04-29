@@ -15,8 +15,6 @@ using namespace std;
 int main()
 {
 
-	string Hi = VectorAsString(GetVectorInputs());
-
 	string Choice;
 	cout << "\n\n" << endl;
 	for (int i = 0; i <= 50; i++) { cout << BOX; }
@@ -31,6 +29,7 @@ int main()
 
 	cout << "\n\nPress Enter to continue." << endl;
 	getchar();
+	
 
 	cout << "\nMain Menu" << endl;
 	while ((Choice = PrintMenu({ "View Film Database","View Actor Database","Admin Login","Quit" })) != "4")
@@ -58,17 +57,32 @@ int main()
 				}
 				else if (Choice == "5")
 				{
-
+					DB.EditFilm();
 				}
 				else if (Choice == "6")
 				{
-
+					DB.DeleteFilm();
 				}
 			}
 		}
 		else if (Choice == "2")
 		{
-			//ACtor menu
+			cout << "Actor Menu" << endl;
+			while ((Choice = PrintMenu({ "View Actor Database", "Search Actor Database","View Actor Overview","Return" })) != "4")
+			{
+				if (Choice == "1")
+				{
+					DB.ViewActorDatabase();
+				}
+				else if (Choice == "2")
+				{
+					DB.SearchActorDatabase();
+				}
+				else if (Choice == "3")
+				{
+
+				}
+			}
 		}
 		else if (Choice == "3")
 		{

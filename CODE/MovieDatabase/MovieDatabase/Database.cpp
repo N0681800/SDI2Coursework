@@ -10,6 +10,9 @@
 #include "Library.h"
 #include "Templates.cpp"
 
+
+
+//SETUP
 Database::Database(string filmPath_, string ccPath_,string matPath_, int Max)
 {
 	filmPath = filmPath_;
@@ -132,11 +135,22 @@ void Database::CastCrewSetup(int MAX)
 	cout << "\n" << CrewN << " Crew members loaded.\n" << endl;
 }
 
+
+
+
+
 void Database::PrintResults(string Order)//Prints out details of a number of films
 {
 	PrintTableHeader(FILM_TABLE);
-	CURRENT_SORT_TYPE = Order;
-	Tree.printTree(Order);
+	Tree.TraverseFilms(Order);
+	PrintFilmVector();
+}
+
+void Database::PrintActors(string Order)
+{
+	PrintTableHeader(ACTOR_TABLE);
+	Tree.TraverseActors(Order);
+	PrintActorVector();
 }
 
 void Database::Search(string SearchField, string Query,char Order)//Searchs field for a value
@@ -155,13 +169,13 @@ void Database::Search(string SearchField, string Query,char Order)//Searchs fiel
 
 			if ((ToLower(SearchFields[SearchField])).find(ToLower(Query)) != string::npos)
 			{
-				Results.push_back(&*i);
+				Tree.FilmResults.push_back(&*i);
 			}
 		}
 		
-		if (Results.size() > 0)
+		if (Tree.FilmResults.size() > 0)
 		{
-			PrintResultsVector();
+			PrintFilmVector();
 		}
 
 	}
@@ -176,21 +190,21 @@ void Database::Search(string SearchField, string Query,char Order)//Searchs fiel
 			{
 				if (SearchFields[SearchField] >= stoi(Query))
 				{
-					Results.push_back(&*i);
+					Tree.FilmResults.push_back(&*i);
 				}
 			}
 			else
 			{
 				if (SearchFields[SearchField] <= stoi(Query))
 				{
-					Results.push_back(&*i);
+					Tree.FilmResults.push_back(&*i);
 				}
 			}
 		}
 		
-		if (Results.size() > 0)
+		if (Tree.FilmResults.size() > 0)
 		{
-			PrintResultsVector();
+			PrintFilmVector();
 		}
 	}
 	else //Sort by status
@@ -199,58 +213,39 @@ void Database::Search(string SearchField, string Query,char Order)//Searchs fiel
 		{
 			if (i->Status == stoi(Query))
 			{
-				Results.push_back(&*i);
+				Tree.FilmResults.push_back(&*i);
 			}
 		}
-		if (Results.size() > 0)
+		if (Tree.FilmResults.size() > 0)
 		{
-			PrintResultsVector();
+			PrintFilmVector();
 		}
 	}
-}
-
-void Database::SearchActorName(string Find)
-{
-	for (vector<Actor>::iterator i = ActorStorage.begin(); i != ActorStorage.end(); i++)
-	{
-
-		if (ToLower(i->Name).find(ToLower(Find)) != string::npos)
-		{
-			ActorResults.push_back(&*i);
-		}
-	}
-
-	PrintActorVector();
-
-	cout << "\n\nHere are the search results for: " << Find << endl;
 }
 
 void Database::SearchActor(string Value,string Type)
 {
 	for (vector<Actor>::iterator i = ActorStorage.begin(); i != ActorStorage.end(); i++)
 	{
-		if (to_string(i->FilmRole.size()) >= Value)
+		if (Type == "2")
 		{
-			ActorResults.push_back(&*i);
+			if (to_string(i->FilmRole.size()) >= Value)
+			{
+				Tree.ActorResults.push_back(&*i);
+			}
+		}
+		else
+		{
+			if (ToLower(i->Name).find(ToLower(Value)) != string::npos)
+			{
+				Tree.ActorResults.push_back(&*i);
+			}
 		}
 	}
-
-
 	PrintActorVector();
-
-	cout << "\n\nHere are the search results for actors with more than: " << Value << " films" << endl;
-
 }
 
-void Database::PrintResultsVector()
-{
-	PrintTableHeader(FILM_TABLE);
 
-	for (vector<Film*>::iterator i = Results.begin(); i != Results.end(); i++)
-	{
-		(*i)->Details();
-	}
-}
 
 void Database::PrintFilmActors(vector<string> CastID,string Film)
 {
@@ -278,19 +273,6 @@ vector<string> Database::GetFilms(string ActorID)
 		FilmNames.push_back(GetFilmName(*i));
 	}
 	return FilmNames;
-}
-
-void Database::PrintActorVector()
-{
-	PrintTableHeader(ACTOR_TABLE);
-	for (vector<Actor*>::iterator i = ActorResults.begin(); i != ActorResults.end(); i++)
-	{
-		(*i)->Details();
-		
-		cout << setw(MAX_FILM_LENGTH) << left << SetLength(VectorAsString(GetFilms((*i)->ID)), MAX_FILM_LENGTH) << BORDER<<endl;
-
-		PrintTable(ACTOR_TABLE);
-	}
 }
 
 string Database::GetFilmName(string FilmID)
@@ -341,25 +323,21 @@ vector<string> Database::AddActors(string FilmID,string Input)
 	return ActorIDs;
 }
 
-string Database::GenerateID()
+void Database::GenerateID()
 {
-	string ID, Line, CurrentID;
-	ifstream File; File.open("Database.txt");
-
-	bool IDFound = false;
-	int i = 2;
-	while (!IDFound)
+	int INT = 1;
+	for (Film i : Storage)
 	{
-		ID = to_string(i);
-		while (ID.length() < 6) { ID = "0" + ID; }
-
-		getline(File, Line); stringstream IDToken(Line); getline(IDToken, CurrentID, '|');
-
-		if (CurrentID == ID) i++;
-
-		else IDFound = true;
+		if (NEXT_ID == i.ID)
+		{
+			INT++;
+		}
 	}
-	return ID;
+	NEXT_ID = to_string(INT);
+	while (NEXT_ID.length() < 6)
+	{
+		NEXT_ID = "0" + NEXT_ID;
+	}
 }
 
 string Database::SaveActors(Film f)
@@ -410,38 +388,56 @@ bool Database::SaveData()
 
 void Database::createNewTree(string SortBy)
 {
-	Tree.Delete();
-	for (vector<Film>::iterator i = Storage.begin(); i != Storage.end(); i++)
+	if (CURRENT_SORT != SortBy)
 	{
+		Tree.DeleteTree("FILM");
 		CURRENT_SORT = SortBy;
-		//CURRENT_SORT_TYPE
-		Tree.Insert(&*i, SortBy);
+		for (vector<Film>::iterator i = Storage.begin(); i != Storage.end(); i++)
+		{
+				Tree.Insert(&*i, SortBy);
+		}
 	}
+}
+
+void Database::createActorTree(string SortBy)
+{
+	if (CURRENT_ACTOR_SORT != SortBy)
+	{
+		Tree.DeleteTree("ACTOR");
+		CURRENT_ACTOR_SORT = SortBy;
+
+		for (vector<Actor>::iterator i = ActorStorage.begin(); i != ActorStorage.end(); i++)
+		{
+			Tree.InsertActor(&*i, SortBy);
+		}
+	}
+
 }
 
 Database::BinaryTree::BinaryTree()
 {
-Root = NULL;
+	FilmRoot = NULL;
+	ActorRoot = NULL;
 }
 
 void Database::BinaryTree::Insert(Film *toAdd, string toSort)
 {
-	if (!Root)
+	if (!FilmRoot)
 	{
-		Root = new TreeNode;
-		Root->Left = NULL;
-		Root->Right = NULL;
-		Root->FilmInfo = toAdd;
+		FilmRoot = new TreeNode;
+		FilmRoot->Left = NULL;
+		FilmRoot->Right = NULL;
+		FilmRoot->FilmInfo = toAdd;
 	}
 	else
 	{
 		if (toSort == "REVENUE" || toSort == "RUNTIME" || toSort == "STATUS" || toSort == "RELEASEDATE")
 		{
-			insertInt(Root, toAdd, toSort);
+			insertInt(FilmRoot, toAdd, toSort);
 		}
 		else
 		{
-			insertString(Root, toAdd, toSort);
+			insertString(FilmRoot, toAdd, toSort);
 		}
 	}
 }
@@ -607,34 +603,105 @@ void Database::BinaryTree::insertString(TreeNode *Node, Film *toAdd, string toSo
 	
 }
 
-void Database::BinaryTree::printTree(string Order)
+void Database::BinaryTree::InsertActor(Actor *$Actor, string toCompare)
 {
-	Print(Root,Order);
+	if (!ActorRoot)
+	{
+		ActorRoot = new ActorTreeNode;
+		ActorRoot->Left = NULL;
+		ActorRoot->Right = NULL;
+		ActorRoot->ActorInfo = $Actor;
+	}
+	else
+	{
+		insertActorString(ActorRoot, $Actor, toCompare);
+	}
+
+
 }
 
-void Database::BinaryTree::Print(TreeNode *Node,string Order)
+void Database::BinaryTree::insertActorString(ActorTreeNode *ActorNode, Actor *toAdd, string toSort)
 {
-	if (!Node)
+	struct strPtr
 	{
-		return;
-	}
-	if (Order == "1")
-	{ 
-		Print(Node->Left,Order);
-		Node->FilmInfo->Details();
-		Print(Node->Right,Order);
-	}
-	else 
+		string *Value;
+		string *Node;
+	};
+	string* size = &to_string(toAdd->FilmRole.size());
+
+	map<string, strPtr> Comparison;
+	Comparison["1"] = { &toAdd->ID,&ActorNode->ActorInfo->ID };
+	Comparison["2"] = { &toAdd->Name,&ActorNode->ActorInfo->Name };
+	Comparison["3"] = { &to_string(toAdd->FilmRole.size()),&to_string(ActorNode->ActorInfo->FilmRole.size()) };
+
+	if (ToLower(*Comparison[toSort].Value) < ToLower(*Comparison[toSort].Node))
 	{
-		Print(Node->Right, Order);
-		Node->FilmInfo->Details();
-		Print(Node->Left, Order);
+		if (!(ActorNode->Left))
+		{
+			ActorNode->Left = new ActorTreeNode;
+			ActorNode->Left->Left = NULL;
+			ActorNode->Left->Right = NULL;
+			ActorNode->ActorInfo = toAdd;
+		}
+		else
+		{	
+			insertActorString(ActorNode->Right, toAdd, toSort);
+		}
+	}
+	else if (ToLower(*Comparison[toSort].Value) > ToLower(*Comparison[toSort].Node))
+	{
+		if (!(ActorNode->Right))
+		{
+			ActorNode->Right = new ActorTreeNode;
+			ActorNode->Right->Left = NULL;
+			ActorNode->Right->Right = NULL;
+			ActorNode->Right->ActorInfo = toAdd;
+		}
+		else
+		{
+			insertActorString(ActorNode->Right, toAdd, toSort);
+		}
+	}
+
+	else //Values Same, Defualt to Alphabeitcal Sort
+	{
+		//insertString(Node, toAdd, "TITLE");
+
+		if (ToLower(*&toAdd->Name) < ToLower(*&ActorNode->ActorInfo->Name))
+		{
+			if (!(ActorNode->Left))
+			{
+				ActorNode->Left = new ActorTreeNode;
+				ActorNode->Left->Left = NULL;
+				ActorNode->Left->Right = NULL;
+				ActorNode->Left->ActorInfo = toAdd;
+			}
+			else
+			{
+				insertActorString(ActorNode->Left, toAdd, toSort);
+			}
+		}
+		else if (ToLower(*&toAdd->Name) > ToLower(*&ActorNode->ActorInfo->Name))
+		{
+			if (!(ActorNode->Right))
+			{
+				ActorNode->Right = new ActorTreeNode;
+				ActorNode->Right->Left = NULL;
+				ActorNode->Right->Right = NULL;
+				ActorNode->Right->ActorInfo = toAdd;
+			}
+			else
+			{
+				insertActorString(ActorNode->Right, toAdd, toSort);
+			}
+		}
+
 	}
 }
 
 int Database::BinaryTree::getSize()
 {
-	return Size(Root);
+	return Size(FilmRoot);
 }
 
 int Database::BinaryTree::Size(TreeNode* Node)
@@ -651,26 +718,116 @@ int Database::BinaryTree::Size(TreeNode* Node)
 }
 
 
-
-void Database::BinaryTree::Delete()
+//SORTING AND PRINTING
+//These traverse in order and add to results vector
+void Database::BinaryTree::TraverseActors(string Order)
 {
-	DeleteNode(Root);
+	TraverseActor(ActorRoot, Order);
 }
 
-void Database::BinaryTree::DeleteNode(TreeNode *Node)
+void Database::BinaryTree::TraverseFilms(string Order)
+{
+	TraverseFilm(FilmRoot, Order);
+}
+
+void Database::BinaryTree::TraverseActor(ActorTreeNode *Node, string Order)
+{
+	if (!Node)
+	{
+		return;
+	}
+	if (Order == "1")
+	{
+		TraverseActor(Node->Left, Order);
+		ActorResults.push_back(Node->ActorInfo);
+		TraverseActor(Node->Right, Order);
+	}
+	else
+	{
+		TraverseActor(Node->Right, Order);
+		ActorResults.push_back(Node->ActorInfo);
+		TraverseActor(Node->Left, Order);
+	}
+}
+
+void Database::BinaryTree::TraverseFilm(TreeNode *Node, string Order)
+{
+	if (!Node)
+	{
+		return;
+	}
+	if (Order == "1")
+	{
+		TraverseFilm(Node->Left, Order);
+		FilmResults.push_back(Node->FilmInfo);
+		TraverseFilm(Node->Right, Order);
+	}
+	else
+	{
+		TraverseFilm(Node->Right, Order);
+		FilmResults.push_back(Node->FilmInfo);
+		TraverseFilm(Node->Left, Order);
+	}
+}
+
+void Database::PrintFilmVector()
+{
+	PrintTableHeader(FILM_TABLE);
+
+	for (vector<Film*>::iterator i = Tree.FilmResults.begin(); i != Tree.FilmResults.end(); i++)
+	{
+		(*i)->Details();
+	}
+}
+
+void Database::PrintActorVector()
+{
+	PrintTableHeader(ACTOR_TABLE);
+	for (vector<Actor*>::iterator i = Tree.ActorResults.begin(); i != Tree.ActorResults.end(); i++)
+	{
+		(*i)->Details();
+
+		cout << setw(MAX_FILM_LENGTH) << left << SetLength(VectorAsString(GetFilms((*i)->ID)), MAX_FILM_LENGTH) << BORDER << endl;
+
+		PrintTable(ACTOR_TABLE);
+	}
+}
+
+//Deletion
+void Database::BinaryTree::DeleteTree(string Tree)
+{
+	if (Tree == "ACTOR") DeleteActorNode(ActorRoot);
+	else DeleteFilmNode(FilmRoot);
+}
+
+void Database::BinaryTree::DeleteActorNode(ActorTreeNode *Node)
 {
 	if (Node)
 	{
-		DeleteNode(Node->Left);
-		DeleteNode(Node->Right);
-		if (Node != Root) delete Node;
+		DeleteActorNode(Node->Left);
+		DeleteActorNode(Node->Right);
+		if (Node != ActorRoot) delete Node;
 		else
 		{
-			Root = NULL;
-
+			ActorRoot = NULL;
 		}
 	}
 }
+
+void Database::BinaryTree::DeleteFilmNode(TreeNode *Node)
+{
+	if (Node)
+	{
+		DeleteFilmNode(Node->Left);
+		DeleteFilmNode(Node->Right);
+		if (Node != FilmRoot) delete Node;
+		else
+		{
+			FilmRoot = NULL;
+		}
+	}
+}
+
 
 //UI FUNCTIONS
 void Database::ViewDatabase()
@@ -732,6 +889,7 @@ void Database::AddFilm()
 		LocalStatus = (stoi(PrintMenu({ "Released", "Now-Playing","Unreleased" })) - 1);
 
 		string input; int IntInput;
+		GenerateID();
 		string FilmLine = NEXT_ID + "|";
 		cout << "\nTitle: " << endl;
 		FilmLine += GetStrInput() + "|";
@@ -754,28 +912,30 @@ void Database::AddFilm()
 		{
 			IntInput = GetIntInput();
 		}
-		FilmLine += IntInput + "|";
+		FilmLine += to_string(IntInput) + "|";
 
-		/*
-		if (LocalStatus == 2)
+		
+		if (LocalStatus != 2)
 		{
 			cout << "\nRevenue: (/wk)" << endl;
-			FilmLine += GetIntInput() + "|";
+			FilmLine += to_string(GetIntInput()) + "|";
 		}
 		else
 		{
 			FilmLine += "0|";
 		}
-		*/
+		
+
 		cout << "\nRuntime: (mins)" << endl;
-		FilmLine += GetIntInput() + "|";
+		FilmLine += to_string(GetIntInput()) + "|";
 
 		cout << "\nLanguages" << endl;
 		FilmLine += VectorAsString(GetVectorInputs()) + "|";
 
-		FilmLine += LocalStatus;
+		FilmLine += to_string(LocalStatus);
 
 		Film Temp(FilmLine);
+
 		vector<Film>::iterator Index = (Storage.begin() + InOrder(Temp, Storage));
 		Storage.insert(Index, Temp);
 	}
@@ -788,6 +948,204 @@ void Database::EditFilm()
 		cout << "You must be logged in to Edit films" << endl;
 	}
 	else {
+		cout << "Enter ID of film to edit" << endl;
+		string ID; cin >> ID; Film* Pointer;
+		if (!(Pointer = Find(ID, &Storage)))
+		{
+			cout << "Sorry, that film could not be found" << endl;
+		}
+		else
+		{
+			cout << "What would you like to edit?" << endl;
+			string Choice;
+			while ((Choice = PrintMenu({ "Title","Summary","Genres","Locations","Langauges","Runtime","Release Date","Revenue","Status","Material Information","Return" })) != "11")
+			{
+				if (Choice == "10")
+				{
+					if (Pointer->Status != 0)
+					{
+						cout << "Cannot enter material information for a unreleased film" << endl;
+					}
+					else
+					{
+						MaterialDetails(Pointer);
+					}
+				}
+				else if (Choice == "8")
+				{
+					if (Pointer->Status == 3)
+					{
+						cout << "You cannot enter revenue information for a coming soon film." << endl;
+					}
+					else
+					{
+						cout << "Please enter the revenue: ($/wk)" << endl;
+						Pointer->Revenue = GetIntInput();
+					}
+				}
+				else 
+				{
+					if (Choice == "1") Pointer->Title = GetStrInput();
+					else if (Choice == "2") Pointer->Summary = GetStrInput();
+					else if (Choice == "3") Pointer->Genres = GetVectorInputs();
+					else if (Choice == "4") Pointer->Locations = GetVectorInputs();
+					else if (Choice == "5") Pointer->Runtime = GetIntInput();
+					else if (Choice == "6")
+					{
+						int IntInput = GetIntInput();
+						while (to_string(IntInput).length() != 8)
+						{
+							IntInput = GetIntInput();
+						}
+						Pointer->ReleaseDate = IntInput;
+					}	
+					else if (Choice == "7") Pointer->Revenue = GetIntInput();
+					else if (Choice == "8")
+					{
+						int IntInput = GetIntInput();
+						while (IntInput != 0 || IntInput != 1||IntInput != 2)
+						{
+							IntInput = GetIntInput();
+						}
+						Pointer->Status = IntInput;
+					}
+				}
+			}
+		}
+	}
+}
+
+void Database::MaterialDetails(Film* film)
+{
+
+	cout << "Material Info" << endl;
+	vector<string> CurrentMaterials;
+	for (vector<Film::Material>::iterator i = film->Materials.begin(); i != film->Materials.end(); i++)
+	{
+		CurrentMaterials.push_back(i->ID);
+	}
+
+	string Choice;
+	while ((Choice = PrintMenu({ "Add Materials","Edit Materials","Delete Materials","Return" })) != "4")
+	{
+		if (Choice == "1")
+		{
+			string input; int IntInput;
+			cout << "Format" << endl;
+			int Format = (stoi(PrintMenu({ "VHS", "DVD","DS_DVD","Combo Box Set","Blu-Ray" })) - 1);
+			string MaterialLine = to_string(Format) + "/" + to_string(Format) + film->ID + "/";
+
+			cout << "\nTitle: " << endl;
+			MaterialLine += GetStrInput() + "/";
+
+			if (Format == 0) MaterialLine += "Mono/";
+			else
+			{
+				cout << "\nAudio Formats: " << endl;
+				MaterialLine += VectorAsString(GetVectorInputs()) + "/";
+			}
+
+			cout << "\nPrice: $$.cc" << endl;
+			MaterialLine += GetStrInput() + "/";
+
+			cout << "\nFrame Aspect	 W:H" << endl;
+			MaterialLine += GetStrInput() + "/";
+
+			cout << "\nAudio Languages: " << endl;
+			if (Format == 0) MaterialLine += GetStrInput() + "/";
+			else
+			{
+				MaterialLine += VectorAsString(GetVectorInputs()) + "/";
+			}
+
+			if (Format != 0)
+			{
+				cout << "\nSubtitle Languages: " << endl;
+				MaterialLine += VectorAsString(GetVectorInputs()) + "/";
+			}
+
+			if (Format == 2)
+			{
+				cout << "\nSide One Info: " << endl;
+				MaterialLine += GetStrInput();
+				cout << "\nSide Two Info: " << endl;
+				MaterialLine += GetStrInput();
+			}
+			
+			film->Materials.push_back(Film::Material(MaterialLine));
+		}
+		else if (Choice == "2")
+		{
+			cout << "What Material do you want to edit?" << endl;
+			Film::Material* Pointer = &film->Materials[(stoi(PrintMenu(CurrentMaterials)) - 1)];
+			cout << "What detail do you want to edit?" << endl;
+			string ToChange;
+			while ((ToChange = PrintMenu({ "Title","Audio Format","Price","Frame Aspect","Audio Languages","Subtitle Languages","Side One Info","Side Two Info","Return" })) != "9")
+			{
+				if (ToChange == "1") Pointer->Title = GetStrInput();
+				else if (ToChange == "2")
+				{
+					if (Pointer->Format == 0) Pointer->AudioFormat = GetStrInput();
+					else Pointer->AudioFormat = VectorAsString(GetVectorInputs());
+				}
+				else if (ToChange == "3") Pointer->Cost = GetStrInput();
+				else if (ToChange == "4") Pointer->FA = GetStrInput();
+				else if (ToChange == "5")
+				{
+					if (Pointer->Format == 0) Pointer->AudioLanguages = vector<string>({ GetStrInput() });
+					else Pointer->AudioLanguages = GetVectorInputs();
+				}
+				else if (ToChange == "6")
+				{
+					if (Pointer->Format == 0)
+					{
+						cout << "VHS cannot have subtitles" << endl;
+					}
+					else
+					{
+						Pointer->SubtitleLanguages = GetVectorInputs();
+					}
+				}
+				else if (ToChange == "7")
+				{
+					if (Pointer->Format != 2)
+					{
+						cout << "Only DS-DVD can have side info" << endl;
+					}
+					else
+					{
+						Pointer->SideOneInfo = GetStrInput();
+					}
+				}
+				else if (ToChange == "8")
+				{
+					if (Pointer->Format != 2)
+					{
+						cout << "Only DS-DVD can have side info" << endl;
+					}
+					else
+					{
+						Pointer->SideTwoInfo = GetStrInput();
+					}
+				}
+			}
+		}
+		else if (Choice == "3")
+		{
+			cout << "What Material do you want to Delete?" << endl;
+			int Index = stoi(PrintMenu(CurrentMaterials)) - 1;
+			cout << "Are you sure you want to delete this Material?  Y/N" << endl;
+			string Input; cin >> Input;			
+			if (Input == "Y")
+			{
+				film->Materials.erase(film->Materials.begin() + Index);
+			}
+			else
+			{
+				cout << "Cancelled Deletion." << endl;
+			}
+		}
+
 	}
 }
 
@@ -798,6 +1156,26 @@ void Database::DeleteFilm()
 		cout << "You must be logged in to Delete films" << endl;
 	}
 	else {
+		cout << "Enter ID of film to delete" << endl;
+		string Input; cin >> Input; Film* Pointer;
+		if (!(Pointer = Find(Input, &Storage)))
+		{
+			cout << "Sorry, that film could not be found" << endl;
+		}
+		else
+		{
+			cout << "Are you sure you want to delete " << Pointer->Title << " ?  Y/N" << endl;
+			cin >> Input;
+			if (Input == "Y")
+			{
+				cout << "Deleted : " << Pointer->Title << endl;
+				Storage.erase(Storage.begin() + GetIndex(*Pointer, Storage));
+			}
+			else
+			{
+				cout << "Cancelled Deletion." << endl;
+			}
+		}
 	}
 
 }
@@ -819,4 +1197,20 @@ void Database::LogIn()
 	{
 		cout << "Incorrect username or password." << endl;
 	}
+}
+
+void Database::ViewActorDatabase()
+{
+	cout << "How would you like to sort?" << endl;
+	cout << "\nHow do you want to sort the database?" << endl;
+	createActorTree(PrintMenu({ "ID","Name","# Of Films"}));
+	PrintActors(PrintMenu({ "Ascending", "Descending" }));
+}
+
+void Database::SearchActorDatabase()
+{
+	cout << "What do you want to search by?" << endl;
+	string Choice = PrintMenu({ "Name", "Number of Films" });
+	string Input = GetStrInput();
+	SearchActor(Input,Choice);
 }
