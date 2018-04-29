@@ -99,12 +99,12 @@ bool InputChecker(string Choice, vector<string> legalChoices)
 		}
 		else
 		{
-			throw 10;
+			throw 1;
 		}
 	}
 	catch (int a)
 	{
-		cout << "Sorry that is an invalid input" << endl;
+		cout << Exceptions.find(a)->second << endl;
 		return false;
 	}
 

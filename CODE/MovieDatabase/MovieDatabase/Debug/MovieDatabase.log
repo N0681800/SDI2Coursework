@@ -1,7 +1,9 @@
-﻿  ActorClass.cpp
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(9): warning C4309: 'initializing': truncation of constant value
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(10): warning C4309: 'initializing': truncation of constant value
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(11): warning C4309: 'initializing': truncation of constant value
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(12): warning C4309: 'initializing': truncation of constant value
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(13): warning C4309: 'initializing': truncation of constant value
+﻿  Film.cpp
+c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\film.cpp(225): note: see reference to function template instantiation 'T *Find<Film::CrewMember>(std::string,std::vector<Film::CrewMember,std::allocator<_Ty>> *)' being compiled
+          with
+          [
+              T=Film::CrewMember,
+              _Ty=Film::CrewMember
+          ]
   MovieDatabase.vcxproj -> C:\Users\Josh\Desktop\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe

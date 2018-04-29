@@ -2,15 +2,19 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <map>
 using namespace std;
 
 
+
+const map<int, string> Exceptions = { {1,"Invalid Input"},{ 2,"Line not read" },{ 3,"Film could not be found" },
+{4,"Insuffcient Info"} };
 //CHARACTERS FOR DRAWINGTABLES
-const char BOX = 178;
-const char BORDER = 179;
-const char LAST = 180;
-const char EDGE = 196;
-const char CROSS = 197;
+const unsigned char BOX = 178;
+const unsigned char BORDER = 179;
+const unsigned char LAST = 180;
+const unsigned char EDGE = 196;
+const unsigned char CROSS = 197;
 //MAX COLUMN WIDTHS FOR CERTAIN VALUES
 const int MAX_NAME_LENGTH = 28;
 const int MAX_FILM_LENGTH = 43;

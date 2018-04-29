@@ -67,30 +67,43 @@ void Database::MaterialSetup(int MAX)
 	ifstream MaterialFile(matPath);
 	if (MaterialFile.is_open()) cout << "\Materials sucessfully Loaded!\n" << endl;
 	int n = 0;
-	for (int i = 0; i < MAX; i ++)
-	{ 
-		getline(MaterialFile, Line);
-	
-		vector<string> MaterialLine = AddTokens(Line, '|');
-		
-		try {
-			Film* Pointer;
-			if (!(Pointer = (Find(MaterialLine[0], &Storage))))
+	for (int i = 0; i < MAX; i++)
+	{
+		try
+		{
+			if (!getline(MaterialFile, Line))
 			{
-				throw(50);
+				throw(2);
 			}
 			else
 			{
-				for (vector<string>::iterator i = MaterialLine.begin() + 1; i != MaterialLine.end(); i++)
+				vector<string> MaterialLine = AddTokens(Line, '|');
+
+				try {
+					Film* Pointer;
+					if (!(Pointer = (Find(MaterialLine[0], &Storage))))
+					{
+						throw(3);
+					}
+					else
+					{
+						for (vector<string>::iterator i = MaterialLine.begin() + 1; i != MaterialLine.end(); i++)
+						{
+							Pointer->Materials.push_back(Film::Material(*i));
+							n++;
+						}
+					}
+				}
+				catch (int E)
 				{
-					Pointer->Materials.push_back(Film::Material(*i));
-					n++;
+					continue;//Film does not exist skip over it
+					cout << Exceptions.find(E)->second << endl;
 				}
 			}
 		}
-		catch (int a) 
+		catch (int E)
 		{
-			continue;//Film does not exist skip over it
+			cout << Exceptions.find(E)->second << endl;
 		}
 	}
 	cout << "\n" << n << " Materials Loaded.\n" << endl;
@@ -104,33 +117,44 @@ void Database::CastCrewSetup(int MAX)
 	int CrewN = 0;
 	for (int i = 0; i < MAX; i++)
 	{
-		getline(CastCrewFile, Line);
-	
-		vector<string> CastCrewLine = AddTokens(Line, '|');
-
-		while (CastCrewLine[0].length() < 6)
+		try
 		{
-			CastCrewLine[0] = "0" + CastCrewLine[0];
-		}
-
-		try {
-			Film* Pointer;
-			if (!(Pointer = (Find(CastCrewLine[0], &Storage))))
+			if (!getline(CastCrewFile, Line))
 			{
-				throw(50);
+				throw(2);
 			}
-			else
+
+			vector<string> CastCrewLine = AddTokens(Line, '|');
+
+			while (CastCrewLine[0].length() < 6)
 			{
-				CrewN += Pointer->AddCrew(CastCrewLine[2]);
-				Pointer->CastIDs = AddActors(CastCrewLine[0],CastCrewLine[1]);
+				CastCrewLine[0] = "0" + CastCrewLine[0];
+			}
+
+			try {
+				Film* Pointer;
+				if (!(Pointer = (Find(CastCrewLine[0], &Storage))))
+				{
+					throw(3);
+				}
+				else
+				{
+					CrewN += Pointer->AddCrew(CastCrewLine[2]);
+					Pointer->CastIDs = AddActors(CastCrewLine[0], CastCrewLine[1]);
+				}
+			}
+			catch (int E)
+			{
+				cout << Exceptions.find(E)->second << endl;
+				continue;//Film does not exist skip over it
 			}
 		}
-		catch (int a)
-
+		catch (int E)
 		{
-			continue;//Film does not exist skip over it
+			cout << Exceptions.find(E)->second<<endl;
 		}
 	}
+	
 	cout << "\n" << ActorStorage.size() << " Actors loaded.\n" << endl;
 	cout << "\n" << CrewN << " Crew members loaded.\n" << endl;
 }
@@ -290,7 +314,7 @@ vector<string> Database::AddActors(string FilmID,string Input)
 		try {
 			if (ActorInfo.size() != 4)
 			{
-				throw 50;
+				throw 4;
 			}
 			else
 			{
@@ -315,9 +339,9 @@ vector<string> Database::AddActors(string FilmID,string Input)
 
 			}
 		}
-		catch (int a)
+		catch (int E)
 		{
-			//Not enough info exception
+			cout << Exceptions.find(E)->second << endl;//Not enough info exception
 		}
 	}
 	return ActorIDs;
@@ -1067,7 +1091,7 @@ void Database::MaterialDetails(Film* film)
 	{
 		if (Choice == "1")
 		{
-			string input; int IntInput;
+			string input;
 			cout << "Format" << endl;
 			int Format = (stoi(PrintMenu({ "VHS", "DVD","DS_DVD","Combo Box Set","Blu-Ray" })) - 1);
 			string MaterialLine = to_string(Format) + "/" + to_string(Format) + film->ID + "/";

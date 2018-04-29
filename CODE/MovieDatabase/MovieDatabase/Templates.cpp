@@ -1,4 +1,4 @@
-# include "Database.h"
+#include "Database.h"
 
 
 template <class T>
@@ -13,9 +13,6 @@ T* Find(string ID, vector<T> *Vec)
 	while (start <= end)
 	{
 		int M = floor(((end + start) / 2));
-
-		//cout << M;
-		//cout << Vec->at(M).ID;
 
 		if (Vec->at(M).ID == ID)
 		{
@@ -89,30 +86,4 @@ int GetIndex(string Value, vector<T> Vec)
 		}
 	}
 	return M;
-}
-
-template <class T>
-void SearchasdasActor(T Find,string Type)
-{
-	for (vector<Actor>::iterator i = ActorStorage.begin(); i != ActorStorage.end(); i++)
-	{
-		if (Type == "NAME")
-		{
-			if (ToLower(i->Name).find(ToLower(Find)) != string::npos)
-			{
-				ActorResults.push_back(&*i);
-			}
-		}
-		else
-		{
-			if (to_string(i->FilmRole.size()) >= No)
-			{
-				ActorResults.push_back(&*i);
-			}
-		}
-	}
-
-	PrintActorVector();
-
-	cout << "\n\nHere are the search results for: " << Find << endl;
 }

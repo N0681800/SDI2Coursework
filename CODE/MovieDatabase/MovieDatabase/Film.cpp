@@ -34,6 +34,7 @@ Film::Film(string Input)
 Film::~Film()
 {
 
+
 }
 
 void Film::Overview()//Prints out all info of a chosen film
@@ -44,13 +45,12 @@ void Film::Overview()//Prints out all info of a chosen film
 	cout << "\n\nSummary:\n" << Summary << "\n\nGENRES:" << VectorAsString(Genres);;
 	cout << "\n\nProduction Companies:" << VectorAsString(ProdComps);
 	cout << "\n\nLocations:" << VectorAsString(Locations);
-	cout << "\n\nRevenue:" << Revenue;
+	cout << "\n\nWeekly box office revenue:" << Revenue;
 
 }
 
-void Film::Details()
+void Film::Details() //Prints out film details in table format
 {
-
 	cout << setw(6) << left << ID << BORDER;
 	cout << setw(MAX_TITLE_LENGTH) << left << SetLength(Title, MAX_TITLE_LENGTH) << BORDER;
 	cout << setw(MAX_GENRE_LENGTH) << left << SetLength(VectorAsString(Genres), MAX_GENRE_LENGTH) << BORDER;
@@ -63,7 +63,7 @@ void Film::Details()
 	PrintTable(FILM_TABLE);
 }
 
-string Film::getStatus()
+string Film::getStatus() 
 {
 	switch (Status)
 	{
@@ -73,7 +73,8 @@ string Film::getStatus()
 		return "Now Playing";
 	case 2:
 		return "Unreleased";
-
+	default:
+		return NULL;
 	}
 }
 
@@ -91,6 +92,8 @@ string Film::Material::getFormat()
 		return "ComboBoxSet";
 	case 4:
 		return "Blu-ray";
+	default:
+		return NULL;
 	}
 }
 
@@ -126,13 +129,13 @@ Film::Material::Material(string Info)
 
 }
 
-string Film::printMaterials()
+string Film::printMaterials() //returns string of avalible material formats
 {
 	try
 	{
 		if (Materials.size() == 0)
 		{
-			throw 99;
+			throw 4;
 		}
 		string MaterialList;
 		for (vector<Material>::iterator i = Materials.begin(); i != Materials.end(); i++)
@@ -142,18 +145,19 @@ string Film::printMaterials()
 		}
 		return MaterialList;
 	}
-	catch (int a)
+	catch (int E)
 	{
+		cout << Exceptions.find(E)->second << endl;
 		return " ";
 	}
 }
 
-string Film::Save()
+string Film::Save() //returns string to write to file
 {
 	return ID + "|" + Title + "|" + VectorAsString(Genres) + "|" + Summary + "|" + VectorAsString(ProdComps) + "|" + VectorAsString(Locations) + "|" + to_string(ReleaseDate) + "|" + to_string(Revenue) + "|" + to_string(Runtime) + "|" + VectorAsString(Languages) + "|" + to_string(Status);
 }
 
-string Film::SaveMaterials()
+string Film::SaveMaterials() //concatinates all material save strings
 {
 	string MaterialOut = ID;
 
@@ -161,12 +165,11 @@ string Film::SaveMaterials()
 	{
 		Material Temp = *j;
 		MaterialOut += Temp.SaveInfo();
-
 	}
 	return MaterialOut;
 }
 
-string Film::Material::SaveInfo()
+string Film::Material::SaveInfo() //Returns string to save material
 {
 	string Info = ("|" + to_string(Format) + "/" + ID + "/" + Title + "/" + AudioFormat + "/" + Cost + "/" + FA + "/" + VectorAsString(AudioLanguages));
 
@@ -185,16 +188,17 @@ Film::CrewMember::CrewMember(vector<string> Details)
 	try {
 		if (Details[0].length() != 1)
 		{
-			Gender = 0;
+			throw(1);
 		}
 		else
 		{
 			Gender = stoi(Details[0]);
 		}
 	}
-	catch(int a)
+	catch(int E)
 	{
-	
+		cout << Exceptions.find(E)->second;
+		Gender = 0;
 	}
 }
 
@@ -214,7 +218,7 @@ int Film::AddCrew(string input)
 		{
 			if (CrewDetails.size() != 4)
 			{
-				throw 40;
+				throw 4;
 			}
 			else {
 				CrewMember* Pointer;
@@ -230,15 +234,15 @@ int Film::AddCrew(string input)
 				cout << "Loaded crew :" + CrewDetails[1] << endl;
 			}
 		}
-		catch (int a)
+		catch (int E)
 		{
-		
+			cout << Exceptions.find(E)->second << endl;
 		}
 	}
 	return No;
 }
 
-string Film::CrewMember::Save()
+string Film::CrewMember::Save() //returns string to save details
 {
 	string toSave;
 
@@ -254,7 +258,7 @@ string Film::CrewMember::Save()
 	return toSave;
 }
 
-string Film::SaveCrew()
+string Film::SaveCrew() //concatinates all crew save strings
 {
 	string CrewSave;
 	for (vector<CrewMember>::iterator i = Crew.begin(); i != Crew.end(); i++)
@@ -268,7 +272,7 @@ string Film::SaveCrew()
 	return CrewSave;
 }
 
-void Film::PrintCrewInfo()
+void Film::PrintCrewInfo() //prints crew info in table format
 {
 	cout << "\t\tCrew Info" << endl;
 	PrintTableHeader(CREW_TABLE);
@@ -281,7 +285,7 @@ void Film::PrintCrewInfo()
 	}
 }
 
-void Film::PrintMaterialInfo()
+void Film::PrintMaterialInfo() //prints all material info for given film
 {
 	cout << "\t\tMATERIAL INFO" << endl;
 	for (vector<Material>::iterator i = Materials.begin(); i != Materials.end(); i++)
