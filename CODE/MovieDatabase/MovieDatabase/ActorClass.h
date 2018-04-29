@@ -28,7 +28,7 @@ public:
 
 	void Details();
 
-	void DeleteFilm(string FilmID);
+	bool DeleteFilm(string FilmID);
 
 	vector<string> ReturnFilmIDs();
 private:

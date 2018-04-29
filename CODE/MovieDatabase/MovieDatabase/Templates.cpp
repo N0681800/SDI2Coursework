@@ -63,7 +63,7 @@ int InOrder(T Value, vector<T> Vec)
 }
 
 template <class T>
-int GetIndex(T Value, vector<T> Vec)
+int GetIndex(string Value, vector<T> Vec)
 {
 	int start = 0, end = Vec.size() - 1;
 	int M = 0;
@@ -71,15 +71,15 @@ int GetIndex(T Value, vector<T> Vec)
 	{
 		M = floor(((end + start) / 2));
 
-		if (Vec[M].ID == Value.ID)
+		if (Vec[M].ID == Value)
 		{
 			return M;
 		}
-		if (Vec[M].ID < Value.ID)
+		if (Vec[M].ID < Value)
 		{
 			start = M + 1;
 		}
-		else if (Vec[M].ID > Value.ID)
+		else if (Vec[M].ID > Value)
 		{
 			end = M - 1;
 		}

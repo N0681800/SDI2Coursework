@@ -1036,9 +1036,12 @@ void Database::DeleteFilm()
 				cout << "Deleted : " << Pointer->Title << endl;
 				for (vector<string>::iterator i = Pointer->CastIDs.begin(); i != Pointer->CastIDs.end(); i++)
 				{
-					Find(*i, &ActorStorage)->DeleteFilm(Pointer->ID);
+					if (Find(*i, &ActorStorage)->DeleteFilm(Pointer->ID))
+					{
+						ActorStorage.erase(ActorStorage.begin() + GetIndex(*i, ActorStorage));
+					}
 				}
-				Storage.erase(Storage.begin() + GetIndex(*Pointer, Storage));
+				Storage.erase(Storage.begin() + GetIndex(Pointer->ID, Storage));
 			}
 			else
 			{

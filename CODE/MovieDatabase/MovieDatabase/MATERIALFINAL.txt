@@ -3,7 +3,6 @@
 000005|0/VHS000005/Four Rooms/Mono/9.99/4:3/English|1/DVD000005/Four Rooms/Stereo,Mono/10.99/16:9/English/English
 000006|0/VHS000006/Judgment Night/Mono/9.99/4:3/English|1/DVD000006/Judgment Night/Stereo/10.99/16:9/English/English
 000011|0/VHS000011/Star Wars/Mono/9.99/4:3/English|1/DVD000011/Star Wars/Stereo,Mono/10.99/16:9,4:3/English/English|2/DSDvD000011/Star Wars/Stereo,Surround Sound/11.99/16:9,4:3/English/English/English/English|3/CBS000011/Star Wars/Stereo,Surround Sound/20/16:9,4:3/English/English
-000012|0/VHS000012/Finding Nemo/Mono/9.99/4:3/English|1/DVD000012/Finding Nemo/Stereo,Surround Sound/10.99/16:9/English/English|2/DSDvD000012/Finding Nemo/Stereo,Mono/11.99/16:9,4:3/English/English/English/English|3/CBS000012/Finding Nemo/Stereo,Mono/20/16:9/English/English
 000013|1/DVD000013/Gump VHS/Stereo/10.99/16:9,4:3/French,English/French,English|0/0000013/Gump VHS/Mono/5.88/16:9/English
 000014|0/VHS000014/American Beauty/Mono/9.99/4:3/English|1/DVD000014/American Beauty/Stereo/10.99/16:9/English/English|2/DSDvD000014/American Beauty/Stereo/11.99/16:9/English/English/English/English
 000015|0/VHS000015/Citizen Kane/Mono/9.99/4:3/English|1/DVD000015/Citizen Kane/Stereo,Mono,Surround Sound/10.99/16:9,4:3/English/English|2/DSDvD000015/Citizen Kane/Stereo,Mono,Surround Sound/11.99/16:9,4:3/English/English/English/English
