@@ -14,6 +14,11 @@ Film::Film(string Input)
 	vector<string> TempData = AddTokens(Input, '|');
 
 	ID = TempData[0];
+	while (ID.length() < 7)
+	{
+		ID = "0" + ID;
+	}
+
 	Title = TempData[1];
 	Genres = AddTokens(TempData[2], ',');
 	Summary = TempData[3];

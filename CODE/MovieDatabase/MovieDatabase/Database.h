@@ -29,52 +29,30 @@ public:
 
 	void ViewActorDatabase();
 
+	void ActorOverview();
+
 	void LogIn();
 
 private:
+	//File Paths
+	string filmPath;
 
-	string CURRENT_SORT;
+	string ccPath;
 
-	string CURRENT_ACTOR_SORT;
-
-	vector<Film> Storage;
-
-	vector<Actor> ActorStorage;
-
-	void PrintFilmResults(string Order);//Prints out details of a number of films
-
-	void PrintActors(string Order);
-
-	void Search(string SearchField, string Query, char Order);//Searchs field for a value
-
-	void SearchActor(string Find, string type);
-
-	bool SaveData();//Saves the database
-
-	void createNewTree(string SortBy);
-
-	void createActorTree(string SortBy);
-
-	void PrintFilmVector();
-
-	void PrintActorVector();
-
-	void PrintFilmActors(vector<string> IDs, string FilmID);
-
-	void MaterialDetails(Film* film);
-
-	vector<string> GetFilms(string ActorID);
-
-	string GetFilmName(string FilmID);
-
-
-
+	string matPath;
 
 	string NEXT_ID = "000001";
 
 	string Username = "Admin", Password = "root";
 
 	bool LoggedIn = false;
+
+	string CURRENT_SORT; string CURRENT_ACTOR_SORT;
+
+	//Main Data Storage
+	vector<Film> Storage;	
+	
+	vector<Actor> ActorStorage;
 
 	class BinaryTree
 	{
@@ -142,11 +120,29 @@ private:
 
 	BinaryTree Tree;
 
-	string filmPath; //Path to database
+	void PrintFilmResults(string Order);//Prints out details of a number of films
 
-	string ccPath; //Path to cast crew database
+	void Search(string SearchField, string Query, char Order);//Searchs field for a value
 
-	string matPath; //Path to material database
+	void SearchActor(string Find, string type);
+
+	bool SaveData();//Saves the database
+
+	void createNewTree(string SortBy);
+
+	void createActorTree(string SortBy);
+
+	void PrintFilmVector();
+
+	void PrintActorVector();
+
+	void PrintFilmActors(vector<string> IDs, string FilmID);
+
+	void MaterialDetails(Film* film);
+
+	vector<string> GetFilms(string ActorID);
+
+	string GetFilmName(string FilmID);
 
 	vector<string> AddActors(string FilmID, string Input);
 

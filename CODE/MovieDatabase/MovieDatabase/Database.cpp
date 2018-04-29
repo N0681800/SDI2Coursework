@@ -166,13 +166,6 @@ void Database::PrintFilmResults(string Order)//Prints out details of a number of
 	PrintFilmVector();
 }
 
-void Database::PrintActors(string Order)
-{
-	PrintTableHeader(ACTOR_TABLE);
-	Tree.TraverseActors(Order);
-	PrintActorVector();
-}
-
 void Database::Search(string SearchField, string Query,char Order)//Searchs field for a value
 {
 	
@@ -377,7 +370,6 @@ string Database::SaveActors(Film f)
 		{
 			toSave += "/";
 		}
-
 	}
 	return toSave;
 }
@@ -1234,7 +1226,10 @@ void Database::ViewActorDatabase()
 	cout << "How would you like to sort?" << endl;
 	cout << "\nHow do you want to sort the database?" << endl;
 	createActorTree(PrintMenu({ "ID","Name","# Of Films"}));
-	PrintActors(PrintMenu({ "Ascending", "Descending" }));
+
+	PrintTableHeader(ACTOR_TABLE);
+	Tree.TraverseActors(PrintMenu({ "Ascending", "Descending" }));
+	PrintActorVector();
 }
 
 void Database::SearchActorDatabase()
@@ -1243,4 +1238,25 @@ void Database::SearchActorDatabase()
 	string Choice = PrintMenu({ "Name", "Number of Films" });
 	string Input = GetStrInput();
 	SearchActor(Input,Choice);
+}
+
+void Database::ActorOverview()
+{
+	string ID; Actor* Actor;
+	cout << "Enter the ID of the Actor : ";
+	cin >> ID;
+	if (!(Actor = Find(ID, &ActorStorage)))
+	{
+		cout << "Sorry could not find that actor." << endl;
+	}
+	else
+	{
+		cout << "\n\nName : " << Actor->Name << endl;
+		cout << "\nID : " << Actor->ID << endl;
+		cout << "\nGender : " << GetGender(Actor->Gender) << endl;
+		for (map<string, vector<string>>::iterator i = Actor->FilmRole.begin(); i != Actor->FilmRole.end(); i++)
+		{
+			cout << "\n\nFilm : " << GetFilmName(i->first) << "\nRole : " << VectorAsString(i->second) << endl;
+		}
+	}
 }

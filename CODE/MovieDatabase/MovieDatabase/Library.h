@@ -56,8 +56,6 @@ void PrintTable(vector<ColumnStructure> Vector);
 
 string GetGender(int number);
 
-bool InputChecker(string Choice, vector<string> legalChoices);
-
 void PrintTableHeader(vector<ColumnStructure> Vector);
 
 string PrintMenu(vector<string> Choices);

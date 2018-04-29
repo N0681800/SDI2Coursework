@@ -13,6 +13,7 @@ string PrintDate(int Date)
 	return ((to_string(Date).substr(6, 2)) + "/" + (to_string(Date).substr(4, 2)) + "/" + (to_string(Date).substr(0, 4)));
 }
 
+//Splits data seperated by a chosen delimintor and returns it as a vector
 vector<string> AddTokens(string Line, char Delim)
 {
 	vector<string> temp;
@@ -26,14 +27,14 @@ vector<string> AddTokens(string Line, char Delim)
 	return temp;
 }
 
-
 string ToLower(string Word)
 {
 	for (int i = 0; Word[i]; i++) Word[i] = tolower(Word[i]);
 	return Word;
 }
 
-string VectorAsString(vector<string> Vector)//Outputs a vector as a string used for searching
+//Outputs a vector as a string used for searching
+string VectorAsString(vector<string> Vector)
 {
 	string temp;
 	for (vector<string>::const_iterator i = Vector.begin(); i != Vector.end(); i++)
@@ -44,6 +45,7 @@ string VectorAsString(vector<string> Vector)//Outputs a vector as a string used 
 	return temp;
 }
 
+//Sets max legnth of a word
 string SetLength(string Input, int Max)
 {
 	if (Input.length() > Max)
@@ -56,6 +58,7 @@ string SetLength(string Input, int Max)
 	}
 }
 
+//Printing tables from custom column structures
 void PrintTable(vector<ColumnStructure> Vector)
 {
 	for (vector<ColumnStructure>::iterator i = Vector.begin();i!=Vector.end();i++)
@@ -89,29 +92,10 @@ string GetGender(int number)
 	return Gender;
 }
 
-bool InputChecker(string Choice, vector<string> legalChoices)
-{
-	try {
-
-		if (find(legalChoices.begin(), legalChoices.end(), Choice) != legalChoices.end())
-		{
-			return true;
-		}
-		else
-		{
-			throw 1;
-		}
-	}
-	catch (int a)
-	{
-		cout << Exceptions.find(a)->second << endl;
-		return false;
-	}
-
-}
 
 string PrintMenu(vector<string> Choices)
 {
+	PrintDivider();
 	int i = 1;
 	vector<string> Inputs;
 	for (vector<string>:: iterator Choice = Choices.begin(); Choice != Choices.end(); Choice++)

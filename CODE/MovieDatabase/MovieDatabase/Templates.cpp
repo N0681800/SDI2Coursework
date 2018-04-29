@@ -4,7 +4,7 @@
 template <class T>
 T* Find(string ID, vector<T> *Vec)
 {
-	while (ID.length() < 6)
+	while (ID.length() < 7)
 	{
 		ID = "0" + ID;
 	}

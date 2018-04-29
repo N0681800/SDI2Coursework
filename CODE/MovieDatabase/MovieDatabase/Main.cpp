@@ -88,6 +88,7 @@ int main()
 				else if (Choice == "3")
 				{
 					PrintDivider();
+					DB.ActorOverview();
 				}
 			}
 		}
