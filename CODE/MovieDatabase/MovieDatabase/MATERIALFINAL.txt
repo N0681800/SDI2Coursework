@@ -1,9 +1,50 @@
-000002|0/VHS000002/Ariel/Mono/9.99/4:3/Japanese|1/DVD000002/Ariel/Stereo,Surround Sound/10.99/16:9,4:3/Japanese/Japanese
-000003|0/VHS000003/Shadows in Paradise/Mono/9.99/4:3/English|1/DVD000003/Shadows in Paradise/Stereo,Mono,Surround Sound/10.99/16:9,4:3/English/English
-000005|0/VHS000005/Four Rooms/Mono/9.99/4:3/English|1/DVD000005/Four Rooms/Stereo,Mono/10.99/16:9/English/English
-000006|0/VHS000006/Judgment Night/Mono/9.99/4:3/English|1/DVD000006/Judgment Night/Stereo/10.99/16:9/English/English
-000011|0/VHS000011/Star Wars/Mono/9.99/4:3/English|1/DVD000011/Star Wars/Stereo,Mono/10.99/16:9,4:3/English/English|2/DSDvD000011/Star Wars/Stereo,Surround Sound/11.99/16:9,4:3/English/English/English/English|3/CBS000011/Star Wars/Stereo,Surround Sound/20/16:9,4:3/English/English
-000013|1/DVD000013/Gump VHS/Stereo/10.99/16:9,4:3/French,English/French,English|0/0000013/Gump VHS/Mono/5.88/16:9/English
-000014|0/VHS000014/American Beauty/Mono/9.99/4:3/English|1/DVD000014/American Beauty/Stereo/10.99/16:9/English/English|2/DSDvD000014/American Beauty/Stereo/11.99/16:9/English/English/English/English
-000015|0/VHS000015/Citizen Kane/Mono/9.99/4:3/English|1/DVD000015/Citizen Kane/Stereo,Mono,Surround Sound/10.99/16:9,4:3/English/English|2/DSDvD000015/Citizen Kane/Stereo,Mono,Surround Sound/11.99/16:9,4:3/English/English/English/English
-000016|0/VHS000016/Dancer in the Dark/Mono/9.99/4:3/English|1/DVD000016/Dancer in the Dark/Stereo,Surround Sound/10.99/16:9,4:3/English/English|2/DSDvD000016/Dancer in the Dark/Stereo,Mono/11.99/16:9/English/English/English/English
+0000002
+0000003
+0000005
+0000006
+0000011
+0000012
+0000013|0/VHS000013/Forrest Gump/Mono/9.99/4:3/French|1/DVD000013/Forrest Gump/Stereo/10.99/16:9,4:3/French,English/French,English|2/DSDvD000013/Forrest Gump/Stereo/11.99/16:9/French,English/French,English/French,English/French,English
+0000014|0/VHS000014/American Beauty/Mono/9.99/4:3/English|1/DVD000014/American Beauty/Stereo/10.99/16:9/English/English|2/DSDvD000014/American Beauty/Stereo/11.99/16:9/English/English/English/English
+0000015
+0000016
+0000017
+0000018
+0000019
+0000020|0/VHS000020/My Life Without Me/Mono/9.99/4:3/English|1/DVD000020/My Life Without Me/Stereo,Mono,Surround Sound/10.99/16:9/English/English
+0000021
+0000022
+0000024
+0000025
+0000026|1/DVD000026/Walk on Water/Stereo,Mono,Surround Sound/10.99/16:9,4:3/English/English
+0000027|1/DVD000027/9 Songs/Stereo,Mono,Surround Sound/10.99/16:9/English/English
+0000028|0/VHS000028/Apocalypse Now/Mono/9.99/4:3/French|1/DVD000028/Apocalypse Now/Stereo,Surround Sound/10.99/16:9/French/French|2/DSDvD000028/Apocalypse Now/Stereo,Mono/11.99/16:9,4:3/French/French/French/French
+0000030|0/VHS000030/Magnetic Rose/Mono/9.99/4:3/English|1/DVD000030/Magnetic Rose/Stereo,Mono/10.99/16:9,4:3/English/English
+0000033
+0000035|1/DVD000035/The Simpsons Movie/Stereo,Surround Sound/10.99/16:9,4:3/English/English|4/BluRay000035/The Simpsons Movie/Stereo,Mono,Surround Sound/14.50/16:9/English/English|2/DSDvD000035/The Simpsons Movie/Stereo,Surround Sound/11.99/16:9/English/English/English/English
+0000038
+0000055
+0000058|1/DVD000058/Pirates of the Caribbean: Dead Man's Chest/Stereo,Mono,Surround Sound/10.99/16:9,4:3/English/English|4/BluRay000058/Pirates of the Caribbean: Dead Man's Chest/Stereo/14.50/16:9,4:3/English/English|2/DSDvD000058/Pirates of the Caribbean: Dead Man's Chest/Stereo/11.99/16:9/English/English/English/English
+0000059
+0000062
+0000063
+0000064
+0000065|0/VHS000065/8 Mile/Mono/9.99/4:3/English|1/DVD000065/8 Mile/Stereo,Mono/10.99/16:9,4:3/English/English|2/DSDvD000065/8 Mile/Stereo,Mono/11.99/16:9/English/English/English/English
+0000066
+0000067|1/DVD000067/Paradise Now/Stereo/10.99/16:9/English/English
+0000068|0/VHS000068/Brazil/Mono/9.99/4:3/English|1/DVD000068/Brazil/Stereo,Surround Sound/10.99/16:9/English/English
+0000069
+0000070
+0000071
+0000073
+0000074|2/DSDvD000074/War of the Worlds/Stereo,Surround Sound/11.99/16:9/English/English/English/English
+0000075
+0000076|0/VHS000076/Before Sunrise/Mono/9.99/4:3/English|1/DVD000076/Before Sunrise/Stereo,Surround Sound/10.99/16:9,4:3/English/English
+0000077
+0000078|0/VHS000078/Blade Runner/Mono/9.99/4:3/English|1/DVD000078/Blade Runner/Stereo,Surround Sound/10.99/16:9,4:3/English/English|2/DSDvD000078/Blade Runner/Stereo,Mono/11.99/16:9/English/English/English/English|3/CBS000078/Blade Runner/Stereo,Mono,Surround Sound/20/16:9,4:3/English/English
+0000079|0/VHS000079/Hero/Mono/9.99/4:3/English|1/DVD000079/Hero/Stereo,Surround Sound/10.99/16:9/English/English|2/DSDvD000079/Hero/Stereo,Mono/11.99/16:9/English/English/English/English
+0000080
+0000081|0/VHS000081/Nausicaä of the Valley of the Wind/Mono/9.99/4:3/Italian|1/DVD000081/Nausicaä of the Valley of the Wind/Stereo,Mono/10.99/16:9/Italian/Italian
+0000082
+0000083
+0000085

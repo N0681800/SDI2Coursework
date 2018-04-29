@@ -87,10 +87,13 @@ void Database::MaterialSetup(int MAX)
 					}
 					else
 					{
-						for (vector<string>::iterator i = MaterialLine.begin() + 1; i != MaterialLine.end(); i++)
+						if (Pointer->Status == 0)
 						{
-							Pointer->Materials.push_back(Film::Material(*i));
-							n++;
+							for (vector<string>::iterator i = MaterialLine.begin() + 1; i != MaterialLine.end(); i++)
+							{
+								Pointer->Materials.push_back(Film::Material(*i));
+								n++;
+							}
 						}
 					}
 				}
@@ -126,7 +129,7 @@ void Database::CastCrewSetup(int MAX)
 
 			vector<string> CastCrewLine = AddTokens(Line, '|');
 
-			while (CastCrewLine[0].length() < 6)
+			while (CastCrewLine[0].length() < 7)
 			{
 				CastCrewLine[0] = "0" + CastCrewLine[0];
 			}
@@ -377,7 +380,6 @@ string Database::SaveActors(Film f)
 bool Database::SaveData()
 {
 	bool Saved = false;
-	
 	ofstream outFile(filmPath, ofstream::out);
 	ofstream MaterialoutFile(matPath, ofstream::out);
 	ofstream CastCrewoutFile(ccPath, ofstream::out);
@@ -1073,10 +1075,6 @@ void Database::MaterialDetails(Film* film)
 
 	cout << "Material Info" << endl;
 	vector<string> CurrentMaterials;
-	for (vector<Film::Material>::iterator i = film->Materials.begin(); i != film->Materials.end(); i++)
-	{
-		CurrentMaterials.push_back(i->ID);
-	}
 
 	string Choice;
 	while ((Choice = PrintMenu({ "Add Materials","Edit Materials","Delete Materials","Return" })) != "4")
@@ -1129,6 +1127,11 @@ void Database::MaterialDetails(Film* film)
 		}
 		else if (Choice == "2")
 		{
+			for (vector<Film::Material>::iterator i = film->Materials.begin(); i != film->Materials.end(); i++)
+			{
+				CurrentMaterials.push_back(i->ID);
+			}
+
 			cout << "What Material do you want to edit?" << endl;
 			Film::Material* Pointer = &film->Materials[(stoi(PrintMenu(CurrentMaterials)) - 1)];
 			cout << "What detail do you want to edit?" << endl;
@@ -1185,6 +1188,11 @@ void Database::MaterialDetails(Film* film)
 		}
 		else if (Choice == "3")
 		{
+			for (vector<Film::Material>::iterator i = film->Materials.begin(); i != film->Materials.end(); i++)
+			{
+				CurrentMaterials.push_back(i->ID);
+			}
+
 			cout << "What Material do you want to Delete?" << endl;
 			int Index = stoi(PrintMenu(CurrentMaterials)) - 1;
 			cout << "Are you sure you want to delete this Material?  Y/N" << endl;
@@ -1198,7 +1206,6 @@ void Database::MaterialDetails(Film* film)
 				cout << "Cancelled Deletion." << endl;
 			}
 		}
-
 	}
 }
 
@@ -1226,8 +1233,7 @@ void Database::ViewActorDatabase()
 	cout << "How would you like to sort?" << endl;
 	cout << "\nHow do you want to sort the database?" << endl;
 	createActorTree(PrintMenu({ "ID","Name","# Of Films"}));
-
-	PrintTableHeader(ACTOR_TABLE);
+	cout << "\nSorting... Please wait... \n" << endl;
 	Tree.TraverseActors(PrintMenu({ "Ascending", "Descending" }));
 	PrintActorVector();
 }
@@ -1237,7 +1243,9 @@ void Database::SearchActorDatabase()
 	cout << "What do you want to search by?" << endl;
 	string Choice = PrintMenu({ "Name", "Number of Films" });
 	string Input = GetStrInput();
+	cout << "\nSearching... Please wait... \n" << endl;
 	SearchActor(Input,Choice);
+
 }
 
 void Database::ActorOverview()

@@ -14,24 +14,18 @@ Film::Film(string Input)
 	vector<string> TempData = AddTokens(Input, '|');
 
 	ID = TempData[0];
-	while (ID.length() < 7)
-	{
-		ID = "0" + ID;
-	}
-
+	Status = stoi(TempData[10]);
 	Title = TempData[1];
 	Genres = AddTokens(TempData[2], ',');
 	Summary = TempData[3];
 	ProdComps = AddTokens(TempData[4], ',');
 	Locations = AddTokens(TempData[5], ',');
 	ReleaseDate = stoi(TempData[6]);
-	if (TempData[7] == "0") { Revenue = 0; }
+	if (TempData[7] == "0"|| Status == 2) { Revenue = 0; }
 	else Revenue = stoi(TempData[7]);
 	Runtime = stoi(TempData[8]);
-	if (TempData[9] == "") Languages.push_back("English"); //Remove in future
-	else Languages = AddTokens(TempData[9], ',');
+	Languages = AddTokens(TempData[9], ',');
 
-	Status = (rand() % 3);
 
 	cout << "Loaded: " << ID << endl;
 }
@@ -140,7 +134,7 @@ string Film::printMaterials() //returns string of avalible material formats
 	{
 		if (Materials.size() == 0)
 		{
-			throw 4;
+			throw 5;
 		}
 		string MaterialList;
 		for (vector<Material>::iterator i = Materials.begin(); i != Materials.end(); i++)
@@ -152,8 +146,8 @@ string Film::printMaterials() //returns string of avalible material formats
 	}
 	catch (int E)
 	{
-		cout << Exceptions.find(E)->second << endl;
-		return " ";
+		//cout << Exceptions.find(E)->second;
+		return Exceptions.find(E)->second;
 	}
 }
 

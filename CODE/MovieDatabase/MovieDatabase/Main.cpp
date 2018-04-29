@@ -23,7 +23,7 @@ int main()
 
 	getchar();
 
-	Database DB("DATABASEFINAL.txt", "CASTCREWFINAL.txt.", "MATERIALFINAL.txt", 10);
+	Database DB("DATABASEFINAL.txt", "CASTCREWFINAL.txt.", "MATERIALFINAL.txt", 50);
 
 	cout << "\n\nPress Enter to continue." << endl;
 	getchar();
