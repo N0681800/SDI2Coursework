@@ -36,56 +36,66 @@ int main()
 	{
 		if (Choice == "1")
 		{
-			cout << "Film Menu" << endl;
+			
+			PrintDivider(); cout << "Film Menu" << endl;
 			while ((Choice = PrintMenu({ "View Database","Search Database","View Film Information","Add Film","Edit Film Info","Delete Film","Return" })) != "7")
 			{
 				if (Choice == "1")
 				{
+					PrintDivider();
 					DB.ViewDatabase();
 				}
 				else if (Choice == "2")
 				{
+					PrintDivider();
 					DB.SearchDatabase();
 				}
 				else if (Choice == "3")
 				{
+					PrintDivider();
 					DB.FilmInfo();
 				}
 				else if (Choice == "4")
 				{
+					PrintDivider();
 					DB.AddFilm();
 				}
 				else if (Choice == "5")
 				{
+					PrintDivider();
 					DB.EditFilm();
 				}
 				else if (Choice == "6")
 				{
+					PrintDivider();
 					DB.DeleteFilm();
 				}
 			}
 		}
 		else if (Choice == "2")
 		{
-			cout << "Actor Menu" << endl;
+			PrintDivider();  cout << "Actor Menu" << endl;
 			while ((Choice = PrintMenu({ "View Actor Database", "Search Actor Database","View Actor Overview","Return" })) != "4")
 			{
 				if (Choice == "1")
 				{
+					PrintDivider();
 					DB.ViewActorDatabase();
 				}
 				else if (Choice == "2")
 				{
+					PrintDivider();
 					DB.SearchActorDatabase();
 				}
 				else if (Choice == "3")
 				{
-
+					PrintDivider();
 				}
 			}
 		}
 		else if (Choice == "3")
 		{
+			PrintDivider();
 			DB.LogIn();
 		}
 	}

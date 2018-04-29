@@ -1,47 +1,7 @@
-﻿  Database.cpp
+﻿  ActorClass.cpp
 c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(9): warning C4309: 'initializing': truncation of constant value
 c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(10): warning C4309: 'initializing': truncation of constant value
 c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(11): warning C4309: 'initializing': truncation of constant value
 c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(12): warning C4309: 'initializing': truncation of constant value
 c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(13): warning C4309: 'initializing': truncation of constant value
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(65): warning C4129: 'M': unrecognized character escape sequence
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(88): warning C4101: 'a': unreferenced local variable
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(100): warning C4129: 'C': unrecognized character escape sequence
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(125): warning C4101: 'a': unreferenced local variable
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(331): warning C4101: 'a': unreferenced local variable
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(1029): warning C4101: 'IntInput': unreferenced local variable
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(75): note: see reference to function template instantiation 'T *Find<Film>(std::string,std::vector<Film,std::allocator<_Ty>> *)' being compiled
-          with
-          [
-              T=Film,
-              _Ty=Film
-          ]
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(44): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(319): note: see reference to function template instantiation 'int InOrder<Actor>(T,std::vector<Actor,std::allocator<_Ty>>)' being compiled
-          with
-          [
-              T=Actor,
-              _Ty=Actor
-          ]
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(123): warning C4101: 'ROOTNODE': unreferenced local variable
-  c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(432): note: see reference to function template instantiation 'void Database::BinaryTree::DeleteNode<Database::BinaryTree::ActorTreeNode*>(T,std::string)' being compiled
-          with
-          [
-              T=Database::BinaryTree::ActorTreeNode *
-          ]
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(72): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(1168): note: see reference to function template instantiation 'int GetIndex<Film>(T,std::vector<Film,std::allocator<_Ty>>)' being compiled
-          with
-          [
-              T=Film,
-              _Ty=Film
-          ]
-  Templates.cpp
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(9): warning C4309: 'initializing': truncation of constant value
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(10): warning C4309: 'initializing': truncation of constant value
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(11): warning C4309: 'initializing': truncation of constant value
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(12): warning C4309: 'initializing': truncation of constant value
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\library.h(13): warning C4309: 'initializing': truncation of constant value
-  Generating Code...
   MovieDatabase.vcxproj -> C:\Users\Josh\Desktop\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe

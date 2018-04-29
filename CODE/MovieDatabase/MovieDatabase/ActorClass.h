@@ -28,6 +28,8 @@ public:
 
 	void Details();
 
+	void DeleteFilm(string FilmID);
+
 	vector<string> ReturnFilmIDs();
 private:
 

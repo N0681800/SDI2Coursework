@@ -26,7 +26,7 @@ Database::Database(string filmPath_, string ccPath_,string matPath_, int Max)
 	getchar();
 
 	CastCrewSetup(Max);
-	createNewTree("2");
+	createNewTree("5");
 }
 
 Database::~Database()
@@ -136,12 +136,8 @@ void Database::CastCrewSetup(int MAX)
 }
 
 
-
-
-
-void Database::PrintResults(string Order)//Prints out details of a number of films
+void Database::PrintFilmResults(string Order)//Prints out details of a number of films
 {
-	PrintTableHeader(FILM_TABLE);
 	Tree.TraverseFilms(Order);
 	PrintFilmVector();
 }
@@ -156,6 +152,8 @@ void Database::PrintActors(string Order)
 void Database::Search(string SearchField, string Query,char Order)//Searchs field for a value
 {
 	
+	Tree.FilmResults.clear();
+
 	if (SearchField == "1" || SearchField == "2" || SearchField == "3" || SearchField == "4" || SearchField == "5")
 	{
 		map<string, string> SearchFields;
@@ -225,6 +223,8 @@ void Database::Search(string SearchField, string Query,char Order)//Searchs fiel
 
 void Database::SearchActor(string Value,string Type)
 {
+	Tree.ActorResults.clear();
+
 	for (vector<Actor>::iterator i = ActorStorage.begin(); i != ActorStorage.end(); i++)
 	{
 		if (Type == "2")
@@ -362,9 +362,9 @@ bool Database::SaveData()
 {
 	bool Saved = false;
 	
-	ofstream outFile(filmPath);
-	ofstream MaterialoutFile(matPath);
-	ofstream CastCrewoutFile(ccPath);
+	ofstream outFile(filmPath, ofstream::out);
+	ofstream MaterialoutFile(matPath, ofstream::out);
+	ofstream CastCrewoutFile(ccPath, ofstream::out);
 
 	for (vector<Film>::const_iterator i = Storage.begin(); i != Storage.end(); i++)
 	{
@@ -411,7 +411,6 @@ void Database::createActorTree(string SortBy)
 			Tree.InsertActor(&*i, SortBy);
 		}
 	}
-
 }
 
 Database::BinaryTree::BinaryTree()
@@ -431,7 +430,7 @@ void Database::BinaryTree::Insert(Film *toAdd, string toSort)
 	}
 	else
 	{
-		if (toSort == "REVENUE" || toSort == "RUNTIME" || toSort == "STATUS" || toSort == "RELEASEDATE")
+		if (toSort == "3" || toSort == "4" || toSort == "5" || toSort == "6")
 		{
 			insertInt(FilmRoot, toAdd, toSort);
 		}
@@ -616,8 +615,6 @@ void Database::BinaryTree::InsertActor(Actor *$Actor, string toCompare)
 	{
 		insertActorString(ActorRoot, $Actor, toCompare);
 	}
-
-
 }
 
 void Database::BinaryTree::insertActorString(ActorTreeNode *ActorNode, Actor *toAdd, string toSort)
@@ -722,11 +719,13 @@ int Database::BinaryTree::Size(TreeNode* Node)
 //These traverse in order and add to results vector
 void Database::BinaryTree::TraverseActors(string Order)
 {
+	ActorResults.clear();
 	TraverseActor(ActorRoot, Order);
 }
 
 void Database::BinaryTree::TraverseFilms(string Order)
 {
+	FilmResults.clear();
 	TraverseFilm(FilmRoot, Order);
 }
 
@@ -835,7 +834,7 @@ void Database::ViewDatabase()
 	cout << "View Database" << endl;
 	cout << "\nHow do you want to sort the database?" << endl;
 	createNewTree(PrintMenu({ "ID","Title","Revenue","Release Date","Status","Runtime" }));
-	PrintResults(PrintMenu({ "Ascending", "Descending" }));
+	PrintFilmResults(PrintMenu({ "Ascending", "Descending" }));
 }
 
 void Database::SearchDatabase()
@@ -1015,6 +1014,41 @@ void Database::EditFilm()
 	}
 }
 
+void Database::DeleteFilm()
+{
+	if (!LoggedIn)
+	{
+		cout << "You must be logged in to Delete films" << endl;
+	}
+	else {
+		cout << "Enter ID of film to delete" << endl;
+		string Input; cin >> Input; Film* Pointer;
+		if (!(Pointer = Find(Input, &Storage)))
+		{
+			cout << "Sorry, that film could not be found" << endl;
+		}
+		else
+		{
+			cout << "Are you sure you want to delete " << Pointer->Title << " ?  Y/N" << endl;
+			cin >> Input;
+			if (Input == "Y")
+			{
+				cout << "Deleted : " << Pointer->Title << endl;
+				for (vector<string>::iterator i = Pointer->CastIDs.begin(); i != Pointer->CastIDs.end(); i++)
+				{
+					Find(*i, &ActorStorage)->DeleteFilm(Pointer->ID);
+				}
+				Storage.erase(Storage.begin() + GetIndex(*Pointer, Storage));
+			}
+			else
+			{
+				cout << "Cancelled Deletion." << endl;
+			}
+		}
+	}
+
+}
+
 void Database::MaterialDetails(Film* film)
 {
 
@@ -1147,37 +1181,6 @@ void Database::MaterialDetails(Film* film)
 		}
 
 	}
-}
-
-void Database::DeleteFilm()
-{
-	if (!LoggedIn)
-	{
-		cout << "You must be logged in to Delete films" << endl;
-	}
-	else {
-		cout << "Enter ID of film to delete" << endl;
-		string Input; cin >> Input; Film* Pointer;
-		if (!(Pointer = Find(Input, &Storage)))
-		{
-			cout << "Sorry, that film could not be found" << endl;
-		}
-		else
-		{
-			cout << "Are you sure you want to delete " << Pointer->Title << " ?  Y/N" << endl;
-			cin >> Input;
-			if (Input == "Y")
-			{
-				cout << "Deleted : " << Pointer->Title << endl;
-				Storage.erase(Storage.begin() + GetIndex(*Pointer, Storage));
-			}
-			else
-			{
-				cout << "Cancelled Deletion." << endl;
-			}
-		}
-	}
-
 }
 
 void Database::LogIn()

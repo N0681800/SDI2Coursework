@@ -183,3 +183,12 @@ vector<string> GetVectorInputs()
 	}
 	return Inputs;
 }
+
+void PrintDivider()
+{
+	for (int i = 0; i < 50; i++)
+	{
+		cout << EDGE;
+	}
+	cout << endl;
+}

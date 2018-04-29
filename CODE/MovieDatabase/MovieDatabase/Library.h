@@ -32,7 +32,7 @@ const vector<ColumnStructure> ACTOR_FILM_TABLE = {
 
 const vector<ColumnStructure> FILM_TABLE = { 
 	{"ID", 6}, { "Title",MAX_TITLE_LENGTH }, { "Genre",MAX_GENRE_LENGTH }, { "Date",10 }, { "Runtime",10 }, 
-{ "Box Office Gross",18 }, { "Stats",12 }, { "Materials",MAX_MATERIAL_LENGTH }};
+{ "Box Office Gross",18 }, { "Status",12 }, { "Materials",MAX_MATERIAL_LENGTH }};
 
 const vector<ColumnStructure> CREW_TABLE = {
 	{ "Name",MAX_NAME_LENGTH },{ "Gender",10 },{ "Roles",40 } };
@@ -63,3 +63,5 @@ int GetIntInput();
 string GetStrInput();
 
 vector<string> GetVectorInputs();
+
+void PrintDivider();

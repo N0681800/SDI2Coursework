@@ -33,18 +33,15 @@ public:
 
 private:
 
-
 	string CURRENT_SORT;
 
 	string CURRENT_ACTOR_SORT;
 
-	string CURRENT_SORT_TYPE;
-
-	vector<Film> Storage; //Contains all films from database
+	vector<Film> Storage;
 
 	vector<Actor> ActorStorage;
 
-	void PrintResults(string Order);//Prints out details of a number of films
+	void PrintFilmResults(string Order);//Prints out details of a number of films
 
 	void PrintActors(string Order);
 
@@ -65,7 +62,6 @@ private:
 	void PrintFilmActors(vector<string> IDs, string FilmID);
 
 	void MaterialDetails(Film* film);
-
 
 	vector<string> GetFilms(string ActorID);
 
@@ -161,10 +157,6 @@ private:
 	void CastCrewSetup(int MAX);
 
 	string SaveActors(Film f);
-
-	//void CastCrewSetup(int MAX);
-
-	//bool ccExists(string ID, bool isActor);
 
 	void GenerateID();//Generates a unique ID when creating a new Film
 };

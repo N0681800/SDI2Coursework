@@ -27,6 +27,21 @@ void Actor::Details() {
 	cout << setw(10) << left << GetGender(Gender) << BORDER;
 }
 
+void Actor::DeleteFilm(string filmID)
+{
+	for (map<string, vector<string>>::iterator i = FilmRole.begin(); i != FilmRole.end(); i++)
+	{
+		if (i->first == filmID)
+		{
+			FilmRole.erase(i);
+			if (FilmRole.size() == 0)
+			{
+				delete this;
+			}
+		}	
+	}
+}
+
 string Actor::GetRole(string filmID)
 {
 	return VectorAsString(FilmRole[filmID]);
