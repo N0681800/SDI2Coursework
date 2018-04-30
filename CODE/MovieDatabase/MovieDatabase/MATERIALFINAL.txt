@@ -12,6 +12,6 @@
 0000068|0/VHS000068/Brazil/Mono/9.99/4:3/English|1/DVD000068/Brazil/Stereo,Surround Sound/10.99/16:9/English/English
 0000074|2/DSDvD000074/War of the Worlds/Stereo,Surround Sound/11.99/16:9/English/English/English/English
 0000076|0/VHS000076/Before Sunrise/Mono/9.99/4:3/English|1/DVD000076/Before Sunrise/Stereo,Surround Sound/10.99/16:9,4:3/English/English
-0000078|0/VHS000078/Blade Runner/Mono/9.99/4:3/English|1/DVD000078/Blade Runner/Stereo,Surround Sound/10.99/16:9,4:3/English/English|2/DSDvD000078/Blade Runner/Stereo,Mono/11.99/16:9/English/English/English/English|3/CBS000078/Blade Runner/Stereo,Mono,Surround Sound/20/16:9,4:3/English/English
+0000078|1/DVD000078/Dvd one/Stereo,Surround Sound/100/16:9,4:3/English/English|2/DSDvD000078/Blade Runner/Stereo,Mono/11.99/16:9/English/English/English/English|3/CBS000078/Blade Runner/Stereo,Mono,Surround Sound/20/16:9,4:3/English/English|4/BluRay0000078/Blur ray/Dolby surround Sound/5.99/16:9/English/English
 0000079|0/VHS000079/Hero/Mono/9.99/4:3/English|1/DVD000079/Hero/Stereo,Surround Sound/10.99/16:9/English/English|2/DSDvD000079/Hero/Stereo,Mono/11.99/16:9/English/English/English/English
 0000081|0/VHS000081/Nausicaä of the Valley of the Wind/Mono/9.99/4:3/Italian|1/DVD000081/Nausicaä of the Valley of the Wind/Stereo,Mono/10.99/16:9/Italian/Italian

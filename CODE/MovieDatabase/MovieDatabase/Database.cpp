@@ -1159,7 +1159,9 @@ void Database::MaterialDetails(Film* film)
 			string input;
 			cout << "Format" << endl;
 			int Format = (stoi(PrintMenu({ "VHS", "DVD","DS_DVD","Combo Box Set","Blu-Ray" })) - 1);
-			string MaterialLine = to_string(Format) + "/" + to_string(Format) + film->ID + "/";
+
+
+			string MaterialLine = to_string(Format) + "/" + GetFormatCode(Format) + film->ID + "/";
 
 			cout << "\nTitle: " << endl;
 			MaterialLine += GetStrInput() + "/";

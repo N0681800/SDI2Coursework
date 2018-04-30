@@ -180,3 +180,23 @@ void PrintDivider()
 	}
 	cout << endl;
 }
+
+
+string GetFormatCode(int Format)
+{
+	switch (Format)
+	{
+	case 0:
+		return "VHS";
+	case 1:
+		return "DVD";
+	case 2:
+		return "DSDvD";
+	case 3:
+		return "CBS";
+	case 4:
+		return "BluRay";
+	default:
+		return NULL;
+	}
+}

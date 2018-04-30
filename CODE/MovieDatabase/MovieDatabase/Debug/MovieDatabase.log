@@ -1,4 +1,16 @@
-﻿  Database.cpp
+﻿  Templates.cpp
+  Main.cpp
+  Library.cpp
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\library.cpp(50): warning C4018: '>': signed/unsigned mismatch
+  Film.cpp
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(27): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\film.cpp(223): note: see reference to function template instantiation 'T *Find<Film::CrewMember>(std::string,std::vector<Film::CrewMember,std::allocator<_Ty>> *)' being compiled
+          with
+          [
+              T=Film::CrewMember,
+              _Ty=Film::CrewMember
+          ]
+  Database.cpp
 c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(67): warning C4129: 'M': unrecognized character escape sequence
 c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(118): warning C4129: 'C': unrecognized character escape sequence
 c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(27): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
@@ -21,5 +33,7 @@ c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedataba
           [
               _Ty=Actor
           ]
+  ActorClass.cpp
+  Generating Code...
   MovieDatabase.vcxproj -> C:\Users\n0695309\Documents\GitHub\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe
   MovieDatabase.vcxproj -> C:\Users\n0695309\Documents\GitHub\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.pdb (Partial PDB)

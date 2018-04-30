@@ -68,3 +68,5 @@ string GetStrInput();
 vector<string> GetVectorInputs();
 
 void PrintDivider();
+
+string GetFormatCode(int Format);

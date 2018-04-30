@@ -26,7 +26,6 @@ public:
 	bool DeleteFilm(string FilmID);
 
 	vector<string> ReturnFilmIDs();
-private:
 
 	int Gender;
 
