@@ -9,14 +9,14 @@ c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedataba
               _Ty=Film
           ]
 c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(53): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(372): note: see reference to function template instantiation 'int InOrder<Actor>(T,std::vector<Actor,std::allocator<_Ty>>)' being compiled
+  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(390): note: see reference to function template instantiation 'int InOrder<Actor>(T,std::vector<Actor,std::allocator<_Ty>>)' being compiled
           with
           [
               T=Actor,
               _Ty=Actor
           ]
 c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(81): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(1094): note: see reference to function template instantiation 'int GetIndex<Actor>(std::string,std::vector<Actor,std::allocator<_Ty>>)' being compiled
+  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(1112): note: see reference to function template instantiation 'int GetIndex<Actor>(std::string,std::vector<Actor,std::allocator<_Ty>>)' being compiled
           with
           [
               _Ty=Actor

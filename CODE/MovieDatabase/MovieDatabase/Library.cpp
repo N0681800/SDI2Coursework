@@ -107,7 +107,7 @@ string PrintMenu(vector<string> Choices)
 	while (!(find(Inputs.begin(), Inputs.end(), Input) != Inputs.end()))
 	{
 		int i = 1;
-		cout << "\nSorry that is not a valid choice " << endl;
+		cout << "\nSorry that is not a valid choice\nPlease Try again : \n " << endl;
 		getline(cin, Input);
 
 		for (vector<string>::iterator Choice = Choices.begin(); Choice != Choices.end(); Choice++)
@@ -140,7 +140,7 @@ string GetStrInput()
 	getline(cin, input);
 	while (input.empty())
 	{
-		cout << "Cannot be blank." << endl;
+		cout << "Cannot be blank.\nPlease Try again : \n " << endl;
 		getline(cin, input);
 	}
 	return input;
@@ -162,7 +162,7 @@ vector<string> GetVectorInputs()
 			}
 			else
 			{
-				cout << "Cannot be empty" << endl;
+				cout << "Cannot be empty\nPlease Try again : \n " << endl;
 			}
 		}
 		else

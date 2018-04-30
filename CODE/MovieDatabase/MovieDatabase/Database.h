@@ -124,7 +124,7 @@ private:
 
 	void Search(vector<Film> ToSearch);//Searchs field for a value
 
-	void SearchActor(string Find, string type);
+	void SearchActor(vector<Actor> Vector);
 
 	bool SaveData();//Saves the database
 
