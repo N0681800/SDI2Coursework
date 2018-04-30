@@ -41,7 +41,7 @@ private:
 
 	string matPath;
 
-	string NEXT_ID = "000001";
+	string NEXT_ID = "0000001";
 
 	string Username = "Admin", Password = "root";
 
@@ -122,7 +122,7 @@ private:
 
 	void PrintFilmResults(string Order);//Prints out details of a number of films
 
-	void Search(string SearchField, string Query, char Order);//Searchs field for a value
+	void Search(string SearchField, string Query, char Order,vector<Film*> ToSearch,int Level);//Searchs field for a value
 
 	void SearchActor(string Find, string type);
 

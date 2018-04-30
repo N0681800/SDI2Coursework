@@ -1,9 +1,28 @@
-﻿  Film.cpp
-c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  c:\users\josh\desktop\sdi2coursework\code\moviedatabase\moviedatabase\film.cpp(224): note: see reference to function template instantiation 'T *Find<Film::CrewMember>(std::string,std::vector<Film::CrewMember,std::allocator<_Ty>> *)' being compiled
+﻿  Templates.cpp
+  Main.cpp
+  Database.cpp
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(68): warning C4129: 'M': unrecognized character escape sequence
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(119): warning C4129: 'C': unrecognized character escape sequence
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(84): note: see reference to function template instantiation 'T *Find<Film>(std::string,std::vector<Film,std::allocator<_Ty>> *)' being compiled
           with
           [
-              T=Film::CrewMember,
-              _Ty=Film::CrewMember
+              T=Film,
+              _Ty=Film
           ]
-  MovieDatabase.vcxproj -> C:\Users\Josh\Desktop\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(41): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(329): note: see reference to function template instantiation 'int InOrder<Actor>(T,std::vector<Actor,std::allocator<_Ty>>)' being compiled
+          with
+          [
+              T=Actor,
+              _Ty=Actor
+          ]
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(69): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(1069): note: see reference to function template instantiation 'int GetIndex<Actor>(std::string,std::vector<Actor,std::allocator<_Ty>>)' being compiled
+          with
+          [
+              _Ty=Actor
+          ]
+  Generating Code...
+  MovieDatabase.vcxproj -> C:\Users\n0695309\Documents\GitHub\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.exe
+  MovieDatabase.vcxproj -> C:\Users\n0695309\Documents\GitHub\SDI2Coursework\CODE\MovieDatabase\Debug\MovieDatabase.pdb (Partial PDB)

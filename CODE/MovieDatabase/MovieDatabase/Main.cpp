@@ -34,7 +34,6 @@ int main()
 	{
 		if (Choice == "1")
 		{
-			
 			PrintDivider(); cout << "Film Menu" << endl;
 			while ((Choice = PrintMenu({ "View Database","Search Database","View Film Information","Add Film","Edit Film Info","Delete Film","Return" })) != "7")
 			{

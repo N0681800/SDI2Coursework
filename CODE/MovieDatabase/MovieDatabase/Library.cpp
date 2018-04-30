@@ -105,12 +105,12 @@ string PrintMenu(vector<string> Choices)
 		i++;
 	}
 	string Input;
-	cin >> Input;
+	getline(cin, Input);
 	while (!(find(Inputs.begin(), Inputs.end(), Input) != Inputs.end()))
 	{
 		int i = 1;
 		cout << "\nSorry that is not a valid choice " << endl;
-		cin >> Input;
+		getline(cin, Input);
 
 		for (vector<string>::iterator Choice = Choices.begin(); Choice != Choices.end(); Choice++)
 		{
@@ -152,20 +152,26 @@ vector<string> GetVectorInputs()
 {
 	vector<string> Inputs;
 	string Input;
-	while (Inputs.size() == 0)
+	while (true)
 	{
 		cout << "Enter a item or type 'Return' to quit" << endl;
 		Input = GetStrInput();
 		if (Input == "Return")
 		{
-			return Inputs;
+			if (Inputs.size() != 0)
+			{
+				return Inputs;
+			}
+			else
+			{
+				cout << "Cannot be empty" << endl;
+			}
 		}
 		else
 		{
 			Inputs.push_back(Input);
 		}
 	}
-	return Inputs;
 }
 
 void PrintDivider()

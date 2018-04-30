@@ -133,8 +133,11 @@ void Database::CastCrewSetup(int MAX)
 			{
 				CastCrewLine[0] = "0" + CastCrewLine[0];
 			}
-
 			try {
+				if (CastCrewLine.size() != 3)
+				{
+					throw(4);
+				}
 				Film* Pointer;
 				if (!(Pointer = (Find(CastCrewLine[0], &Storage))))
 				{
@@ -169,10 +172,10 @@ void Database::PrintFilmResults(string Order)//Prints out details of a number of
 	PrintFilmVector();
 }
 
-void Database::Search(string SearchField, string Query,char Order)//Searchs field for a value
+void Database::Search(string SearchField, string Query,char Order,vector<Film*> ToSearch,int Level)//Searchs field for a value
 {
-	
-	Tree.FilmResults.clear();
+
+	if (Level == 0) Tree.FilmResults.clear();
 
 	if (SearchField == "1" || SearchField == "2" || SearchField == "3" || SearchField == "4" || SearchField == "5")
 	{
@@ -354,7 +357,7 @@ void Database::GenerateID()
 		}
 	}
 	NEXT_ID = to_string(INT);
-	while (NEXT_ID.length() < 6)
+	while (NEXT_ID.length() < 7)
 	{
 		NEXT_ID = "0" + NEXT_ID;
 	}
@@ -388,7 +391,10 @@ bool Database::SaveData()
 	{
 		Film Temp = *i; 
 		outFile << Temp.Save() << endl;
-		MaterialoutFile << Temp.SaveMaterials() << endl;
+		if (Temp.Materials.size() != 0)
+		{
+			MaterialoutFile << Temp.SaveMaterials() << endl;
+		}
 		CastCrewoutFile << Temp.ID + "|" + SaveActors(Temp) + "|" + Temp.SaveCrew() << endl;
 	}
 
@@ -866,15 +872,17 @@ void Database::SearchDatabase()
 		if (PrintMenu({ "Greater Than", "Less Than" }) == "1") Order = '>';
 	}
 	cout << "What do you want to search for: " << endl;	
-	cin >> Query;
-	Search(Field, Query, Order);
+	getline(cin, Query);
+	Search(Field, Query, Order,Tree.FilmResults,0);
+
+
 }
 
 void Database::FilmInfo()
 {
 	string ID; Film* film;
 	cout << "Enter the ID of the film.";
-	cin >> ID;
+	getline(cin, ID);
 	if (!(film = Find(ID, &Storage)))
 	{
 		cout << "Sorry could not find that film." << endl;
@@ -966,7 +974,8 @@ void Database::EditFilm()
 	}
 	else {
 		cout << "Enter ID of film to edit" << endl;
-		string ID; cin >> ID; Film* Pointer;
+		string ID;  Film* Pointer;
+		getline(cin, ID);
 		if (!(Pointer = Find(ID, &Storage)))
 		{
 			cout << "Sorry, that film could not be found" << endl;
@@ -1040,7 +1049,8 @@ void Database::DeleteFilm()
 	}
 	else {
 		cout << "Enter ID of film to delete" << endl;
-		string Input; cin >> Input; Film* Pointer;
+		string Input; Film* Pointer;
+		getline(cin, Input);
 		if (!(Pointer = Find(Input, &Storage)))
 		{
 			cout << "Sorry, that film could not be found" << endl;
@@ -1048,7 +1058,7 @@ void Database::DeleteFilm()
 		else
 		{
 			cout << "Are you sure you want to delete " << Pointer->Title << " ?  Y/N" << endl;
-			cin >> Input;
+			getline(cin, Input);
 			if (Input == "Y")
 			{
 				cout << "Deleted : " << Pointer->Title << endl;
@@ -1196,7 +1206,8 @@ void Database::MaterialDetails(Film* film)
 			cout << "What Material do you want to Delete?" << endl;
 			int Index = stoi(PrintMenu(CurrentMaterials)) - 1;
 			cout << "Are you sure you want to delete this Material?  Y/N" << endl;
-			string Input; cin >> Input;			
+			string Input; 
+			getline(cin, Input);
 			if (Input == "Y")
 			{
 				film->Materials.erase(film->Materials.begin() + Index);
@@ -1213,9 +1224,9 @@ void Database::LogIn()
 {
 	string usr, pw;
 	cout << "Username : ";
-	cin >> usr;
+	getline(cin, usr);
 	cout << "Password : ";
-	cin >> pw;
+	getline(cin, pw);
 
 	if (usr == Username && pw == Password)
 	{
@@ -1245,14 +1256,13 @@ void Database::SearchActorDatabase()
 	string Input = GetStrInput();
 	cout << "\nSearching... Please wait... \n" << endl;
 	SearchActor(Input,Choice);
-
 }
 
 void Database::ActorOverview()
 {
 	string ID; Actor* Actor;
 	cout << "Enter the ID of the Actor : ";
-	cin >> ID;
+	getline(cin, ID);
 	if (!(Actor = Find(ID, &ActorStorage)))
 	{
 		cout << "Sorry could not find that actor." << endl;
