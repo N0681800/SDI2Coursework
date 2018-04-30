@@ -5,7 +5,6 @@
 #include <map>
 #include <string>
 #include <iomanip>
-#include <sstream>
 
 class Actor
 {
@@ -14,11 +13,7 @@ public:
 
 	string ID;
 
-	int Gender;
-
 	string Name;
-
-	std::map<string, vector<string>> FilmRole;
 
 	void AddFilm(string ID, string Character);
 
@@ -33,5 +28,7 @@ public:
 	vector<string> ReturnFilmIDs();
 private:
 
+	int Gender;
 
+	std::map<string, vector<string>> FilmRole;
 };

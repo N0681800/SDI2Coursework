@@ -5,7 +5,6 @@
 #include <fstream> 
 #include <vector>
 #include <map>
-#include <sstream>
 
 #include "Library.h"
 #include "Templates.cpp"
@@ -232,6 +231,10 @@ void Database::Search(vector<Film> ToSearch)//Searchs field for a value
 					Search(MakeVectorCopy(Tree.FilmResults));
 				}
 			}
+			else
+			{
+				cout << "\nSorry no results found." << endl;
+			}
 
 		}
 		else if (SearchField == "6" || SearchField == "7" || SearchField == "8")
@@ -267,6 +270,10 @@ void Database::Search(vector<Film> ToSearch)//Searchs field for a value
 					Search(MakeVectorCopy(Tree.FilmResults));
 				}
 			}
+			else
+			{
+				cout << "\nSorry no results found." << endl;
+			}
 		}
 		else //Search by status
 		{
@@ -285,6 +292,10 @@ void Database::Search(vector<Film> ToSearch)//Searchs field for a value
 				{
 					Search(MakeVectorCopy(Tree.FilmResults));
 				}
+			}
+			else
+			{
+				cout << "\nSorry no results found." <<endl;
 			}
 		}
 	}
@@ -320,11 +331,19 @@ void Database::SearchActor(vector<Actor> Vector)
 				}
 			}
 		}
-		PrintActorVector();
-		cout << "Would you like to add a second parameter?" << endl;
-		if (PrintMenu({ "Add another search term.","Return" }) == "1")
+
+		if(Tree.ActorResults.size() > 0)
 		{
-			SearchActor(MakeVectorCopy(Tree.ActorResults));
+			PrintActorVector();
+			cout << "Would you like to add a second parameter?" << endl;
+			if (PrintMenu({ "Add another search term.","Return" }) == "1")
+			{
+				SearchActor(MakeVectorCopy(Tree.ActorResults));
+			}
+		}
+		else
+		{
+			cout << "\nSorry no results found." << endl;
 		}
 	}
 }
@@ -1043,7 +1062,7 @@ void Database::EditFilm()
 				}
 				else if (Choice == "8")
 				{
-					if (Pointer->Status == 3)
+					if (Pointer->Status == 2)
 					{
 						cout << "You cannot enter revenue information for a coming soon film." << endl;
 					}
@@ -1183,6 +1202,7 @@ void Database::MaterialDetails(Film* film)
 		}
 		else if (Choice == "2")
 		{
+			CurrentMaterials.clear();
 			for (vector<Film::Material>::iterator i = film->Materials.begin(); i != film->Materials.end(); i++)
 			{
 				CurrentMaterials.push_back(i->ID);
@@ -1244,6 +1264,7 @@ void Database::MaterialDetails(Film* film)
 		}
 		else if (Choice == "3")
 		{
+			CurrentMaterials.clear();
 			for (vector<Film::Material>::iterator i = film->Materials.begin(); i != film->Materials.end(); i++)
 			{
 				CurrentMaterials.push_back(i->ID);

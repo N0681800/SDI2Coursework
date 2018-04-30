@@ -45,7 +45,6 @@ T* Find(string ID, vector<T> *Vec)
 template <class T>
 int InOrder(T Value, vector<T> Vec)
 {
-
 	int start = 0, end = Vec.size() - 1;
 	int M = 0;
 	while (start <= end)

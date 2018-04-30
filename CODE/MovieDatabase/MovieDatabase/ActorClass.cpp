@@ -6,7 +6,6 @@
 #include <map>
 #include <string>
 #include <iomanip>
-#include <sstream>
 #include "ActorClass.h"
 
 using namespace std;

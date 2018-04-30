@@ -1,22 +1,22 @@
 ﻿  Database.cpp
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(68): warning C4129: 'M': unrecognized character escape sequence
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(119): warning C4129: 'C': unrecognized character escape sequence
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(67): warning C4129: 'M': unrecognized character escape sequence
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(118): warning C4129: 'C': unrecognized character escape sequence
 c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(27): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(84): note: see reference to function template instantiation 'T *Find<Film>(std::string,std::vector<Film,std::allocator<_Ty>> *)' being compiled
+  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(83): note: see reference to function template instantiation 'T *Find<Film>(std::string,std::vector<Film,std::allocator<_Ty>> *)' being compiled
           with
           [
               T=Film,
               _Ty=Film
           ]
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(53): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(390): note: see reference to function template instantiation 'int InOrder<Actor>(T,std::vector<Actor,std::allocator<_Ty>>)' being compiled
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(52): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(409): note: see reference to function template instantiation 'int InOrder<Actor>(T,std::vector<Actor,std::allocator<_Ty>>)' being compiled
           with
           [
               T=Actor,
               _Ty=Actor
           ]
-c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(81): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(1112): note: see reference to function template instantiation 'int GetIndex<Actor>(std::string,std::vector<Actor,std::allocator<_Ty>>)' being compiled
+c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\templates.cpp(80): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  c:\users\n0695309\documents\github\sdi2coursework\code\moviedatabase\moviedatabase\database.cpp(1133): note: see reference to function template instantiation 'int GetIndex<Actor>(std::string,std::vector<Actor,std::allocator<_Ty>>)' being compiled
           with
           [
               _Ty=Actor

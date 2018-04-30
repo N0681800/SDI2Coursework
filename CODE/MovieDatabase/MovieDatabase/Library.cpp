@@ -102,12 +102,12 @@ string PrintMenu(vector<string> Choices)
 		Inputs.push_back(to_string(i));
 		i++;
 	}
-	string Input;
+	string Input; cout << "\nChoice : ";
 	getline(cin, Input);
 	while (!(find(Inputs.begin(), Inputs.end(), Input) != Inputs.end()))
 	{
 		int i = 1;
-		cout << "\nSorry that is not a valid choice\nPlease Try again : \n " << endl;
+		cout << "\nSorry that is not a valid choice\nPlease Try again\nChoice :  " << endl;
 		getline(cin, Input);
 
 		for (vector<string>::iterator Choice = Choices.begin(); Choice != Choices.end(); Choice++)

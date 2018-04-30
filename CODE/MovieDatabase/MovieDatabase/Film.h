@@ -35,7 +35,7 @@ public:
 
 		string Cost;
 
-		string FA;
+		string FA;	//Frame Aspect
 
 		Material(string Info);
 

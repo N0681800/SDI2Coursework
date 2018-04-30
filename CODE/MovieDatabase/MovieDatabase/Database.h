@@ -35,11 +35,11 @@ public:
 
 private:
 	//File Paths
-	string filmPath;
+	string filmPath;	
 
-	string ccPath;
+	string ccPath;	//cast Crew
 
-	string matPath;
+	string matPath;	//Materials
 
 	string NEXT_ID = "0000001";
 
@@ -60,7 +60,6 @@ private:
 		vector<Film*> FilmResults;
 
 		vector<Actor*> ActorResults;
-
 
 		BinaryTree();
 
