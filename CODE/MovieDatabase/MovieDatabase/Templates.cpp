@@ -1,6 +1,18 @@
 #include "Database.h"
 
 
+
+template <class T>
+vector<T> MakeVectorCopy(vector<T*> Vector)
+{
+	vector<T> Copy;
+	for (vector<T*>::iterator i = Vector.begin(); i != Vector.end(); i++)
+	{
+		Copy.push_back(**i);
+	}
+	return Copy;
+}
+
 template <class T>
 T* Find(string ID, vector<T> *Vec)
 {

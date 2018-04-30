@@ -100,7 +100,7 @@ void Database::MaterialSetup(int MAX)
 				catch (int E)
 				{
 					continue;//Film does not exist skip over it
-					cout << Exceptions.find(E)->second << endl;
+cout << Exceptions.find(E)->second << endl;
 				}
 			}
 		}
@@ -157,10 +157,10 @@ void Database::CastCrewSetup(int MAX)
 		}
 		catch (int E)
 		{
-			cout << Exceptions.find(E)->second<<endl;
+			cout << Exceptions.find(E)->second << endl;
 		}
 	}
-	
+
 	cout << "\n" << ActorStorage.size() << " Actors loaded.\n" << endl;
 	cout << "\n" << CrewN << " Crew members loaded.\n" << endl;
 }
@@ -172,38 +172,70 @@ void Database::PrintFilmResults(string Order)//Prints out details of a number of
 	PrintFilmVector();
 }
 
-void Database::Search(string SearchField, string Query,char Order,vector<Film*> ToSearch,int Level)//Searchs field for a value
+void Database::Search(vector<Film> ToSearch)//Searchs field for a value
 {
+	char Order = '<'; string Query;
+	cout << "What field do you want to search: " << endl;
+	string SearchField = PrintMenu({ "Title","Genre","Production Companies","Languages","Locations","Revenue","Runtime","Release Date","Status","Avalible Materials" });
+	if (SearchField == "6" || SearchField == "7" || SearchField == "8")
+	{
+		cout << "Search for greater than or less than?" << endl;
+		if (PrintMenu({ "Greater Than", "Less Than" }) == "1") Order = '>';
 
-	if (Level == 0) Tree.FilmResults.clear();
+	}
+	if (SearchField == "9")
+	{
+		cout << "What status do you want to search for: " << endl;
+		Query = PrintMenu({ "Released","Now-Playing","Unreleased" });
+	}
+	else if (SearchField == "10")
+	{
+		vector<string> Materials = { "VHS","DVD","dsDVD","ComboBoxSet","BluRay" };
+		cout << "What materials do you want to search for: " << endl;
+		Query = Materials[stoi(PrintMenu(Materials)) - 1];
+	}
+	else
+	{
+		cout << "What do you want to search for: " << endl;
+		getline(cin, Query);
+	}
 
-	if (SearchField == "1" || SearchField == "2" || SearchField == "3" || SearchField == "4" || SearchField == "5")
+	Tree.FilmResults.clear();
+
+	if (SearchField == "1" || SearchField == "2" || SearchField == "3" || SearchField == "4" || SearchField == "5"|| SearchField == "10")
 	{
 		map<string, string> SearchFields;
 
-		for (vector<Film>::iterator i = Storage.begin(); i != Storage.end(); i++)
+		for (vector<Film>::iterator i = ToSearch.begin(); i != ToSearch.end(); i++)
 		{
 
 			SearchFields["1"] = i->Title;
 			SearchFields["2"] = VectorAsString(i->Genres); SearchFields["3"] = VectorAsString(i->ProdComps);
 			SearchFields["5"] = VectorAsString(i->Locations); SearchFields["4"] = VectorAsString(i->Languages);
+			SearchFields["10"] = i->printMaterials();
+
 
 			if ((ToLower(SearchFields[SearchField])).find(ToLower(Query)) != string::npos)
 			{
 				Tree.FilmResults.push_back(&*i);
 			}
 		}
-		
+
 		if (Tree.FilmResults.size() > 0)
 		{
 			PrintFilmVector();
+			cout << "Would you like to add a second parameter?" << endl;
+			if (PrintMenu({ "Add another search term.","Return" }) == "1")
+			{
+				Search(MakeVectorCopy(Tree.FilmResults));
+			}
 		}
 
 	}
 	else if (SearchField == "6" || SearchField == "7" || SearchField == "8")
 	{
 		map<string, int> SearchFields;
-		for (vector<Film>::iterator i = Storage.begin(); i != Storage.end(); i++)
+		for (vector<Film>::iterator i = ToSearch.begin(); i != ToSearch.end(); i++)
 		{
 			 
 			SearchFields["6"] = i->Revenue; SearchFields["7"] = i->Runtime; SearchFields["8"] = i->ReleaseDate;
@@ -226,13 +258,19 @@ void Database::Search(string SearchField, string Query,char Order,vector<Film*> 
 		if (Tree.FilmResults.size() > 0)
 		{
 			PrintFilmVector();
+
+			cout << "Would you like to add a second parameter?" << endl;
+			if (PrintMenu({ "Add another search term.","Return" }) == "1")
+			{
+				Search(MakeVectorCopy(Tree.FilmResults));
+			}
 		}
 	}
-	else //Sort by status
+	else //Search by status
 	{
-		for (vector<Film>::iterator i = Storage.begin(); i != Storage.end(); i++)
+		for (vector<Film>::iterator i = ToSearch.begin(); i != ToSearch.end(); i++)
 		{
-			if (i->Status == stoi(Query))
+			if (i->Status == stoi(Query)-1)
 			{
 				Tree.FilmResults.push_back(&*i);
 			}
@@ -240,6 +278,11 @@ void Database::Search(string SearchField, string Query,char Order,vector<Film*> 
 		if (Tree.FilmResults.size() > 0)
 		{
 			PrintFilmVector();
+			cout << "Would you like to add a second parameter?" << endl;
+			if (PrintMenu({ "Add another search term.","Return" }) == "1")
+			{
+				Search(MakeVectorCopy(Tree.FilmResults));
+			}
 		}
 	}
 }
@@ -354,12 +397,12 @@ void Database::GenerateID()
 		if (NEXT_ID == i.ID)
 		{
 			INT++;
+			NEXT_ID = to_string(INT);
+			while (NEXT_ID.length() < 7)
+			{
+				NEXT_ID = "0" + NEXT_ID;
+			}
 		}
-	}
-	NEXT_ID = to_string(INT);
-	while (NEXT_ID.length() < 7)
-	{
-		NEXT_ID = "0" + NEXT_ID;
 	}
 }
 
@@ -556,10 +599,6 @@ void Database::BinaryTree::insertString(TreeNode *Node, Film *toAdd, string toSo
 	Comparison["1"] = { &toAdd->ID,&Node->FilmInfo->ID };
 	Comparison["2"] = { &toAdd->Title,&Node->FilmInfo->Title };
 
-	//ID,TITLE,ReleaseDate,Revenue,Runtime,Status
-
-
-
 	if (ToLower(*Comparison[toSort].Value) < ToLower(*Comparison[toSort].Node))
 	{
 		if (!(Node->Left))
@@ -591,7 +630,6 @@ void Database::BinaryTree::insertString(TreeNode *Node, Film *toAdd, string toSo
 	
 	else //Values Same, Defualt to Alphabeitcal Sort
 	{
-		//insertString(Node, toAdd, "TITLE");
 
 		if (ToLower(*&toAdd->Title) < ToLower(*&Node->FilmInfo->Title))
 		{
@@ -686,7 +724,6 @@ void Database::BinaryTree::insertActorString(ActorTreeNode *ActorNode, Actor *to
 
 	else //Values Same, Defualt to Alphabeitcal Sort
 	{
-		//insertString(Node, toAdd, "TITLE");
 
 		if (ToLower(*&toAdd->Name) < ToLower(*&ActorNode->ActorInfo->Name))
 		{
@@ -863,19 +900,7 @@ void Database::ViewDatabase()
 
 void Database::SearchDatabase()
 {
-	char Order = '<'; string Query;
-	cout << "What field do you want to search: " << endl;
-	string Field = PrintMenu({ "Title","Genre","Production Companies","Languages","Locations","Revenue","Runtime","Released","Status"});
-	if (Field == "6" || Field == "7" || Field == "8")
-	{
-		cout << "Search for greater than or less than?" << endl;
-		if (PrintMenu({ "Greater Than", "Less Than" }) == "1") Order = '>';
-	}
-	cout << "What do you want to search for: " << endl;	
-	getline(cin, Query);
-	Search(Field, Query, Order,Tree.FilmResults,0);
-
-
+	Search(Storage);
 }
 
 void Database::FilmInfo()

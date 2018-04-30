@@ -122,7 +122,7 @@ private:
 
 	void PrintFilmResults(string Order);//Prints out details of a number of films
 
-	void Search(string SearchField, string Query, char Order,vector<Film*> ToSearch,int Level);//Searchs field for a value
+	void Search(vector<Film> ToSearch);//Searchs field for a value
 
 	void SearchActor(string Find, string type);
 

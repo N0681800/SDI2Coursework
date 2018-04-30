@@ -1,6 +1,5 @@
 #include <string>
 #include <iostream>
-#include <algorithm>
 #include <vector>
 #include <sstream>
 #include <iomanip>
@@ -91,7 +90,6 @@ string GetGender(int number)
 	else Gender = "Unknown";
 	return Gender;
 }
-
 
 string PrintMenu(vector<string> Choices)
 {
