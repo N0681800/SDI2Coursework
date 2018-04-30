@@ -448,6 +448,8 @@ bool Database::SaveData()
 	ofstream MaterialoutFile(matPath, ofstream::out);
 	ofstream CastCrewoutFile(ccPath, ofstream::out);
 
+	cout << "\nSaving..." << endl;
+
 	for (vector<Film>::const_iterator i = Storage.begin(); i != Storage.end(); i++)
 	{
 		Film Temp = *i; 
@@ -570,9 +572,7 @@ void Database::BinaryTree::insertInt(TreeNode *Node, Film *toAdd, string toSort)
 	}
 	
 	else //Values Same, Defualt to Alphabeitcal Sort
-	{
-		//insertString(Node, toAdd, "TITLE");
-		
+	{		
 		if (ToLower(*&toAdd->Title) < ToLower(*&Node->FilmInfo->Title))
 		{
 			if (!(Node->Left))
@@ -1006,6 +1006,7 @@ void Database::AddFilm()
 
 		vector<Film>::iterator Index = (Storage.begin() + InOrder(Temp, Storage));
 		Storage.insert(Index, Temp);
+		SaveData();
 	}
 }
 
@@ -1079,6 +1080,7 @@ void Database::EditFilm()
 						Pointer->Status = IntInput;
 					}
 				}
+				SaveData();
 			}
 		}
 	}
@@ -1113,6 +1115,7 @@ void Database::DeleteFilm()
 					}
 				}
 				Storage.erase(Storage.begin() + GetIndex(Pointer->ID, Storage));
+				SaveData();
 			}
 			else
 			{
