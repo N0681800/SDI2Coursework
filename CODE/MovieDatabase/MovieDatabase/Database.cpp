@@ -1078,8 +1078,9 @@ void Database::EditFilm()
 					else if (Choice == "2") Pointer->Summary = GetStrInput();
 					else if (Choice == "3") Pointer->Genres = GetVectorInputs();
 					else if (Choice == "4") Pointer->Locations = GetVectorInputs();
-					else if (Choice == "5") Pointer->Runtime = GetIntInput();
-					else if (Choice == "6")
+					else if (Choice == "5") Pointer->Languages = GetVectorInputs();
+					else if (Choice == "6") Pointer->Runtime = GetIntInput();
+					else if (Choice == "7")
 					{
 						int IntInput = GetIntInput();
 						while (to_string(IntInput).length() != 8)
@@ -1088,8 +1089,8 @@ void Database::EditFilm()
 						}
 						Pointer->ReleaseDate = IntInput;
 					}	
-					else if (Choice == "7") Pointer->Revenue = GetIntInput();
-					else if (Choice == "8")
+					else if (Choice == "8") Pointer->Revenue = GetIntInput();
+					else if (Choice == "9")
 					{
 						int IntInput = GetIntInput();
 						while (IntInput != 0 || IntInput != 1||IntInput != 2)

@@ -121,17 +121,23 @@ string PrintMenu(vector<string> Choices)
 
 int GetIntInput()
 {
-	while (true)
+	bool GotInput = false; int number;
+	while (!GotInput)
 	{
-		string input; int number;
+		string input;
+		cout << "Input : " << endl;
 		getline(cin, input);
 		stringstream Stream(input);
 		if (Stream >> number)
 		{
-			return number;
+			GotInput = true;
 		}
-		cout << "Sorry that was not a valid input. \nPlease try again." << endl;
+		else
+		{
+			cout << "Sorry that was not a valid input. \nPlease try again." << endl;
+		}
 	}
+	return number;
 }
 
 string GetStrInput()
